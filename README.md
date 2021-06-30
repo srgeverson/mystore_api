@@ -1,5 +1,47 @@
-# Olho do Gestor
-Este sistema servirá para gerar dados analíticos das vendas.
+# MyStore - Sistema de Controle de Loja
+Este sistema servirá para acompanhar e gerenciar as vendas da empresa.
+
+## 📌 Versão ainda em desenvolvimento
+1.0.0
+
+### Pré-requisitos
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com) e [Node.js](https://nodejs.org/en/) 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+A criação e a execução do projeto foram realizadas seguindo a documentação oficial
+[React Native](https://reactnative.dev/docs/environment-setup).
+
+## 🚀 Como o projeto foi desenvolvido
+
+```bash
+
+### Criando o Projeto
+$ npx react-native init mystore_app
+
+### Executando o Metro Bundle
+$ npx react-native start
+
+### Executando projeto no Android
+$ npx react-native run-android
+
+```
+
+#### 🎲 Rodando a aplicação
+
+```bash
+
+### Baixando o projeto
+$ https://github.com/tcc-mystore/mystore_app.git
+
+### Entrando no diretótio
+$ cd mysrore_app
+
+### Instalando as dependências
+$ npm install
+
+
+```
 
 #### 🧭 Baixando e rodando o projeto
 ```bash
@@ -21,7 +63,7 @@ $ java -jar olhodogestor-api-0.0.1.jar
 ## 🚀 Como o projeto foi iniciado
 
 Este projeto é divido em apenas uma parte:
-1. Backend (olhodogestor-api/arquivos_do_projeto) 
+Backend (mystore_api/arquivos_do_projeto) 
 
 💡Esta aplicação precisa que o Backend esteja sendo executado para funcionar.
 
@@ -35,10 +77,10 @@ Além disto é bom ter um editor para trabalhar com o código como [Spring Tools
 
 ```bash
 # Acesse a pasta do projeto no terminal/cmd
-$ cd olhodogestor-api/arquivos_do_projeto
+$ cd mystore_api/arquivos_do_projeto
 
 # Execute a aplicação em modo de desenvolvimento
-$ java -jar sac-api-0.0.1.jar
+$ java -jar mystore_api-0.0.1.jar
 
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
 
@@ -113,14 +155,8 @@ $ spring-boot-starter-hateoas
 
 ## 👨‍💻 Equipe de Desenvolvimento
 
-* **Darlan Sousa** - [Darlan Sousa](https://linkedin.com.br/)
-* **Geverson Souza** - [Geverson Souza](https://linkedin.com.br/)
-* **Vitor Sousa** - [Vitor Sousa](https://linkedin.com.br/)
+* **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/geverson-souza-033aa193/)
 
-## ✒️ Autores
+## ✒️ Autor
 
-* **Ivitech Tecnologia** - [ivitech](https://ivitech.com.br/)
-
-## 📌 Versão ainda em produção
-
-Nós usamos [Bitbucket](https://bitbucket.org/) para controle de versão.
+* **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/geverson-souza-033aa193/)
