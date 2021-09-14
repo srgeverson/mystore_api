@@ -1,17 +1,17 @@
-# Olho do Gestor
-Este sistema servirá para gerar dados analíticos das vendas.
+# MyStore API
+API para a administracao dos sistemas MyStore APP e MyStore Web.
 
 #### 🧭 Baixando e rodando o projeto
 ```bash
 
 # Clone este repositório
-$ git clone https://sr_geverson@bitbucket.org/colaboradoresivitech/sac-web.git
+$ git clone https://github.com/tcc-mystore/mystore_api.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd olhodogestor-api/arquivos_do_projeto
+$ cd mystore_api/arquivos_do_projeto
 
 # Execute a API
-$ java -jar olhodogestor-api-0.0.1.jar
+$ java -jar mystore_api-0.0.1.jar
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
 
 # O servidor inciará na porta:3000 - acesse http://localhost:3000 
@@ -21,7 +21,7 @@ $ java -jar olhodogestor-api-0.0.1.jar
 ## 🚀 Como o projeto foi iniciado
 
 Este projeto é divido em apenas uma parte:
-1. Backend (olhodogestor-api/arquivos_do_projeto) 
+1. Backend (mystore_api/arquivos_do_projeto) 
 
 💡Esta aplicação precisa que o Backend esteja sendo executado para funcionar.
 
@@ -35,7 +35,7 @@ Além disto é bom ter um editor para trabalhar com o código como [Spring Tools
 
 ```bash
 # Acesse a pasta do projeto no terminal/cmd
-$ cd olhodogestor-api/arquivos_do_projeto
+$ cd mystore_api/arquivos_do_projeto
 
 # Execute a aplicação em modo de desenvolvimento
 $ java -jar sac-api-0.0.1.jar
@@ -108,18 +108,17 @@ $ spring-boot-starter-hateoas
 ## 🛠️ Construído com
 
 * [Spring Tools 4](https://spring.io/tools) - IDE Spring Tools
-* [Oracle 18c XE](https://www.oracle.com/br/database/technologies/appdev/xe.html) - Oracle Database
+* [Workbench](https://www.mysql.com/products/workbench/) - MySQL Workbench
+* [Postman](https://www.postman.com/) - Postman API
 
 
 ## 👨‍💻 Equipe de Desenvolvimento
 
-* **Darlan Sousa** - [Darlan Sousa](https://linkedin.com.br/)
-* **Geverson Souza** - [Geverson Souza](https://linkedin.com.br/)
-* **Vitor Sousa** - [Vitor Sousa](https://linkedin.com.br/)
+* **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)
 
 ## ✒️ Autores
 
-* **Ivitech Tecnologia** - [ivitech](https://ivitech.com.br/)
+* **Geverson Souza** - [Geverson Souza](https://www.linkedin.com/in/srgeverson/)
 
 ## 📌 Versão ainda em produção
 
