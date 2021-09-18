@@ -134,6 +134,7 @@ $ spring-boot-starter-hateoas
 
 * [Spring Tools 4](https://spring.io/tools) - IDE Spring Tools
 * [MySQL Community Server 8.0.26](https://www.mysql.com/) - MySQL Database
+* [JDK 11](https://adoptopenjdk.net/index.html) - Java 11 LST
 
 
 ## 👨‍💻 Equipe de Desenvolvimento
