@@ -1,4 +1,4 @@
-# MyStore - Sistema de Controle de Loja
+# MyStore API
 Este sistema servirá para acompanhar e gerenciar as vendas da empresa.
 
 ## 📌 Versão ainda em desenvolvimento
@@ -6,24 +6,14 @@ Este sistema servirá para acompanhar e gerenciar as vendas da empresa.
 
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com) e [Node.js](https://nodejs.org/en/) 
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
-
-A criação e a execução do projeto foram realizadas seguindo a documentação oficial
-[React Native](https://reactnative.dev/docs/environment-setup).
+[Git](https://git-scm.com), [JDK 11](https://adoptopenjdk.net/index.html) e [Spring Tools 4](https://spring.io/tools)
 
 ## 🚀 Como o projeto foi desenvolvido
 
 ```bash
 
 ### Criando o Projeto
-$ npx react-native init mystore_app
-
-### Executando o Metro Bundle
-$ npx react-native start
-
-### Executando projeto no Android
-$ npx react-native run-android
+$ https://spring.io/quickstart
 
 ```
 
@@ -32,31 +22,24 @@ $ npx react-native run-android
 ```bash
 
 ### Baixando o projeto
-$ https://github.com/tcc-mystore/mystore_app.git
+$ git clone https://github.com/tcc-mystore/mystore_app.git
 
-### Entrando no diretótio
-$ cd mysrore_app
-
-### Instalando as dependências
-$ npm install
-
+### Abra o diretó
+rio baixado com a IDE.
 
 ```
 
 #### 🧭 Baixando e rodando o projeto
 ```bash
+### Baixando o projeto
+$ git clone https://github.com/tcc-mystore/mystore_app.git
 
-# Clone este repositório
-$ git clone https://sr_geverson@bitbucket.org/colaboradoresivitech/sac-web.git
-
-# Acesse a pasta do projeto no terminal/cmd
-$ cd olhodogestor-api/arquivos_do_projeto
+### Abra o diretó
+rio baixado com a IDE.
 
 # Execute a API
-$ java -jar olhodogestor-api-0.0.1.jar
+$ java -jar mystore_api-0.0.1.jar
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
-
-# O servidor inciará na porta:3000 - acesse http://localhost:3000 
 
 ```
 
@@ -150,7 +133,7 @@ $ spring-boot-starter-hateoas
 ## 🛠️ Construído com
 
 * [Spring Tools 4](https://spring.io/tools) - IDE Spring Tools
-* [Oracle 18c XE](https://www.oracle.com/br/database/technologies/appdev/xe.html) - Oracle Database
+* [MySQL Community Server 8.0.26](https://www.mysql.com/) - MySQL Database
 
 
 ## 👨‍💻 Equipe de Desenvolvimento
