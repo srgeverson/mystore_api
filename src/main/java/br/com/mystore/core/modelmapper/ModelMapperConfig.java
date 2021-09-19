@@ -16,15 +16,7 @@ public class ModelMapperConfig {
 	public ModelMapper modelMapper() {
 		var modelMapper = new ModelMapper();
 		
-		return teste(modelMapper);
-	}
-	
-	private ModelMapper teste(ModelMapper modelMapper) {
-		
-//		modelMapper.createTypeMap(Restaurante.class, RestauranteModel.class)
-//		.addMapping(Restaurante::getTaxaFrete, RestauranteModel::setPrecoFrete);
-	
-	modelMapper.createTypeMap(ItemPedidoInput.class, ItemPedido.class)
+		modelMapper.createTypeMap(ItemPedidoInput.class, ItemPedido.class)
 		.addMappings(mapper -> mapper.skip(ItemPedido::setId));
 	
 	var enderecoToEnderecoModelTypeMap = modelMapper.createTypeMap(
