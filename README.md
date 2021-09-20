@@ -49,7 +49,7 @@ $ keytool -genkeypair -alias IDENTIFICACAO_PARA_CHAVES -keyalg RSA -keypass SENH
 $ keytool -export -rfc -alias mystore -keystore NOME_DO_ARQUIVO.jks -file NOME_DO_ARQUIVO_A_SER_GERADO.pem
 
 # Extraindo chave pública do certificado
-$ penssl x509 -pubkey -noout -in NOME_DO_ARQUIVO.pem
+$ penssl x509 -pubkey -noout -in NOME_DO_ARQUIVO_DO_CERTIFICADO.pem > NOME_DO_ARQUIVO_A_SER_GERADO.pem
 ```
 #### 🛠️ Construindo a aplicação
 
