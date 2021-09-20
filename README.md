@@ -45,6 +45,8 @@ $ java -jar sac-api-0.0.1.jar
 # Gerando o arquivo .jks
 $ keytool -genkeypair -alias IDENTIFICACAO_PARA_CHAVES -keyalg RSA -keypass SENHA_PAR_DE_CHAVES -keystore NONE_DO_ARQUIVO.jks -storepass SENHA_DO_ARQUIVO
 
+# Extraindo certificado apartir do arquivo .jks
+$ keytool -export -rfc -alias mystore -keystore NOME_DO_ARQUIVO.jks -file NOME_DO_ARQUIVO_A_SER_GERADO.pem
 ```
 #### 🛠️ Construindo a aplicação
 
