@@ -42,6 +42,9 @@ $ java -jar sac-api-0.0.1.jar
 
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
 
+# Gerando o arquivo .jks
+$ keytool -genkeypair -alias IDENTIFICACAO_PARA_CHAVES -keyalg RSA -keypass SENHA_PAR_DE_CHAVES -keystore NONE_DO_ARQUIVO.jks -storepass SENHA_DO_ARQUIVO
+
 ```
 #### 🛠️ Construindo a aplicação
 
