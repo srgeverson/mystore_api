@@ -155,7 +155,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 	
 	private SecurityScheme securityScheme() {
 		return new OAuthBuilder()
-				.name("AlgaFood")
+				.name("MyStore")
 				.grantTypes(grantTypes())
 				.scopes(scopes())
 				.build();
@@ -163,7 +163,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 	
 	private SecurityContext securityContext() {
 		var securityReference = SecurityReference.builder()
-				.reference("AlgaFood")
+				.reference("MyStore")
 				.scopes(scopes().toArray(new AuthorizationScope[0]))
 				.build();
 		
@@ -237,10 +237,10 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 	
 	private ApiInfo apiInfoV1() {
 		return new ApiInfoBuilder()
-				.title("AlgaFood API")
-				.description("API aberta para clientes e restaurantes.")
-				.version("1")
-				.contact(new Contact("AlgaWorks", "https://www.algaworks.com", "contato@algaworks.com"))
+				.title("MyStore API")
+				.description("API para PDV Mobile.")
+				.version("1.0.0")
+				.contact(new Contact("MyStore", "https://www.mystore.com.br", "contato@mystore.com.br"))
 				.build();
 	}
 	
