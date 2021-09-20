@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags = "Restaurantes")
+@Api(tags = "Empresas")
 public interface RestauranteControllerOpenApi {
 
 	@ApiOperation(value = "Lista restaurantes")

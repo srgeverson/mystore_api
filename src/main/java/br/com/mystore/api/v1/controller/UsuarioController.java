@@ -46,8 +46,8 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
 	@GetMapping
+	@Override
 	public CollectionModel<UsuarioModel> listar() {
 		List<Usuario> todasUsuarios = usuarioRepository.findAll();
 		
@@ -55,17 +55,17 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	}
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
 	@GetMapping("/{usuarioId}")
+	@Override
 	public UsuarioModel buscar(@PathVariable Long usuarioId) {
 		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 		
 		return usuarioModelAssembler.toModel(usuario);
 	}
 	
-	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@Override
 	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 		usuario = cadastroUsuario.salvar(usuario);
@@ -74,8 +74,8 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	}
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
-	@Override
 	@PutMapping("/{usuarioId}")
+	@Override
 	public UsuarioModel atualizar(@PathVariable Long usuarioId,
 			@RequestBody @Valid UsuarioInput usuarioInput) {
 		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -86,9 +86,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	}
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
-	@Override
 	@PutMapping("/{usuarioId}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@Override
 	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
 		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
 	}

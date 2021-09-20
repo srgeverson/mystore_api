@@ -23,7 +23,7 @@ import br.com.mystore.domain.model.Restaurante;
 import br.com.mystore.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/v1/restaurantes/{restauranteId}/formas-pagamento",
+@RequestMapping(path = "/v1/empresas/{restauranteId}/formas-pagamento",
 		produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteFormaPagamentoController implements RestauranteFormaPagamentoControllerOpenApi {
 

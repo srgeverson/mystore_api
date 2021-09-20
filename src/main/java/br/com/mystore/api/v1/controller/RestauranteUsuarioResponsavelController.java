@@ -23,7 +23,7 @@ import br.com.mystore.domain.model.Restaurante;
 import br.com.mystore.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/v1/restaurantes/{restauranteId}/responsaveis",
+@RequestMapping(path = "/v1/empresas/{restauranteId}/responsaveis",
 		produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteUsuarioResponsavelController implements RestauranteUsuarioResponsavelControllerOpenApi {
 
