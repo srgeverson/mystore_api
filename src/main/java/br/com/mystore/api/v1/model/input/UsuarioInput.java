@@ -15,7 +15,7 @@ public class UsuarioInput {
 	@NotBlank
 	private String nome;
 	
-	@ApiModelProperty(example = "joao.ger@algafood.com.br", required = true)
+	@ApiModelProperty(example = "joao.ger@mystore.com.br", required = true)
 	@NotBlank
 	@Email
 	private String email;

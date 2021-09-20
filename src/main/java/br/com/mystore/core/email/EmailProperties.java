@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties("algafood.email")
+@ConfigurationProperties("mystore.email")
 public class EmailProperties {
 
 	private Implementacao impl = Implementacao.FAKE;

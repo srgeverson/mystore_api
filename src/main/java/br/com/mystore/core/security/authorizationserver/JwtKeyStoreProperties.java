@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Validated
 @Component
-@ConfigurationProperties("algafood.jwt.keystore")
+@ConfigurationProperties("mystore.jwt.keystore")
 public class JwtKeyStoreProperties {
 
 	@NotNull
