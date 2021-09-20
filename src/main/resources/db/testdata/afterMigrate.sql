@@ -111,7 +111,7 @@ select 4, id from permissao where nome like '%_RESTAURANTES';
  
 
 insert into usuario (id, nome, email, senha, data_cadastro) values
-(1, 'João da Silva', 'joao.ger@mystore.com.br', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', utc_timestamp),
+(1,'Administrador', 'mystore@gmail.com', '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2', utc_timestamp),
 (2, 'Maria Joaquina', 'maria.vnd@mystore.com.br', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', utc_timestamp),
 (3, 'José Souza', 'jose.aux@mystore.com.br', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', utc_timestamp),
 (4, 'Sebastião Martins', 'sebastiao.cad@mystore.com.br', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', utc_timestamp),
@@ -176,6 +176,16 @@ values (5, '8d774bcf-b238-42f3-aef1-5fb388754d63', 1, 3, 2, 1, '38400-200', 'Rua
 insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 values (6, 5, 3, 1, 87.2, 87.2, null);
 
+insert into oauth_client_details (
+  client_id, resource_ids, client_secret, 
+  scope, authorized_grant_types, web_server_redirect_uri, authorities,
+  access_token_validity, refresh_token_validity, autoapprove
+)
+values (
+  'mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2',
+  'READ,WRITE', 'password', null, null,
+  60 * 60 * 6, 60 * 24 * 60 * 60, null
+);
 
 insert into oauth_client_details (
   client_id, resource_ids, client_secret, 
