@@ -72,11 +72,11 @@ public class MystoreSecurity {
 	}
 	
 	public boolean podeGerenciarCadastroRestaurantes() {
-		return temEscopoEscrita() && hasAuthority("EDITAR_RESTAURANTES");
+		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
 	
 	public boolean podeGerenciarFuncionamentoRestaurantes(Long restauranteId) {
-		return temEscopoEscrita() && (hasAuthority("EDITAR_RESTAURANTES")
+		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
 				|| gerenciaRestaurante(restauranteId));
 	}
 	

@@ -1,21 +1,83 @@
-insert into oauth_client_details (
-  client_id, resource_ids, client_secret, 
-  scope, authorized_grant_types, web_server_redirect_uri, authorities,
-  access_token_validity, refresh_token_validity, autoapprove
-)
-values (
-  'mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2',
-  'READ,WRITE', 'password', null, null,
-  60 * 60 * 6, 60 * 24 * 60 * 60, null
-);
+set foreign_key_checks = 0;
 
-insert into oauth_client_details (
-  client_id, resource_ids, client_secret, 
-  scope, authorized_grant_types, web_server_redirect_uri, authorities,
-  access_token_validity, refresh_token_validity, autoapprove
-)
-values (
-  'mystore-app', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2',
-  'READ,WRITE', 'password', null, null,
-  60 * 60 * 6, 60 * 24 * 60 * 60, null
-);
+delete from cidades;
+delete from empresas;
+delete from empresas_formas_pagamentos;
+delete from empresa_usuarios_responsaveis;
+delete from enderecos;
+delete from estados;
+delete from formas_pagamentos;
+delete from foto_produto;
+delete from grupos;
+delete from grupos_permissoes;
+delete from itens_pedidos;
+delete from oauth_client_details;
+delete from permissoes;
+delete from pedidos;
+delete from produtos;
+delete from usuarios;
+delete from usuarios_grupo;
+
+set foreign_key_checks = 1;
+
+alter table cidades auto_increment = 1;
+alter table empresas auto_increment = 1;
+alter table enderecos auto_increment = 1;
+alter table estados auto_increment = 1;
+alter table formas_pagamentos auto_increment = 1;
+alter table grupos auto_increment = 1;
+alter table oauth_client_details auto_increment = 1;
+alter table permissoes auto_increment = 1;
+alter table pedidos auto_increment = 1;
+alter table produtos auto_increment = 1;
+alter table usuarios auto_increment = 1;
+
+insert into estados (id, nome) values (1, 'Ceará');
+
+insert into cidades (id, nome, estados_id) values (1, 'Fortaleza', 1);
+insert into cidades (id, nome, estados_id) values (2, 'Caucaia', 1);
+insert into cidades (id, nome, estados_id) values (3, 'Eusebio', 1);
+
+insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (1, 'Rua', , 'S/N', NULL, NULL , 1);
+
+insert into empresas (id, nome, cpf_cnpj, telefone, data_cadastro, data_atualizacao, ativo, enderecos_id) values (1, 'PrimeMultimarcas', utc_timestamp, true, 1);
+insert into empresas (id, nome, cpf_cnpj, telefone, data_cadastro, data_atualizacao, ativo, enderecos_id) values (2, 'Nilson Limpeza', utc_timestamp, true, 1);
+insert into empresas (id, nome, cpf_cnpj, telefone, data_cadastro, data_atualizacao, ativo, enderecos_id) values (3, 'Granfinamodas', utc_timestamp, true, 1);
+
+
+insert into formas_pagamentos (id, descricao, data_atualizacao) values (1, 'Cartão de crédito', utc_timestamp);
+insert into formas_pagamentos (id, descricao, data_atualizacao) values (2, 'Cartão de débito', utc_timestamp);
+insert into formas_pagamentos (id, descricao, data_atualizacao) values (3, 'Dinheiro', utc_timestamp);
+insert into formas_pagamentos (id, descricao, data_atualizacao) values (4, 'Fiado', utc_timestamp);
+
+insert into permissoes (id, nome, descricao) values (1, 'GERENCIAR_EMPRESAS', 'Permite gerenciar pedidos');
+insert into permissoes (id, nome, descricao) values (2, 'GERENCIAR_CIDADES', 'Permite criar ou editar cidades');
+insert into permissoes (id, nome, descricao) values (3, 'GERENCIAR_ESTADOS', 'Permite criar ou editar estados');
+insert into permissoes (id, nome, descricao) values (4, 'GERENCIAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões');
+insert into permissoes (id, nome, descricao) values (5, 'GERENCIAR_PEDIDOS', 'Controla os pedidos emitidos');
+
+insert into rempresas_formas_pagamentos (rempresas_id, formas_pagamentos_id) values (1, 1), (1, 2), (1, 3), (1, 4), (2, 1), (2, 2), (2, 3), (3, 4), (4, 1), (4, 2), (4, 3), (4, 4),;
+
+insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono'), (3, 'Vendedor'), (4, 'Auxiliar');
+
+# Adiciona todas as permissoes no grupo de TI
+insert into grupos_permissoes (grupos_id, permissoes_id)
+select 1, id from permissoes;
+
+# Adiciona permissoes no grupo do Dono
+insert into grupos_permissos (grupos_id, permissoes_id)
+select 2, id from permissoes where nome like '%GERENCIAR_PEDIDOS%';
+
+insert into usuarios (id, nome, email, senha, data_cadastro) values
+(1, 'Administrador', 'mystore@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp),
+(2, 'Anderson', 'anderson@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp),
+(3, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp);
+(4, 'Vera', 'vera@icloud.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp);
+
+insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (1, 2), (2, 2);
+
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
+
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('mystore-app', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
