@@ -47,7 +47,7 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
 	private BigDecimal valorTotal;
 
 	@Embedded
-	private Endereco enderecoEntrega;
+	private EnderecoModel enderecoEntrega;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status = StatusPedido.CRIADO;
@@ -65,7 +65,7 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Restaurante restaurante;
+	private EmpresaModel restaurante;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_cliente_id", nullable = false)

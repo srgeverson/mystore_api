@@ -16,26 +16,26 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import br.com.mystore.domain.model.Restaurante;
-import br.com.mystore.domain.repository.RestauranteRepository;
-import br.com.mystore.domain.repository.RestauranteRepositoryQueries;
+import br.com.mystore.domain.model.EmpresaModel;
+import br.com.mystore.domain.repository.EmpresaRepository;
+import br.com.mystore.domain.repository.EmpresaRepositoryQueries;
 
 @Repository
-public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
+public class RestauranteRepositoryImpl implements EmpresaRepositoryQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Autowired @Lazy
-	private RestauranteRepository restauranteRepository;
+	private EmpresaRepository restauranteRepository;
 	
 	@Override
-	public List<Restaurante> find(String nome, 
+	public List<EmpresaModel> find(String nome, 
 			BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 		var builder = manager.getCriteriaBuilder();
 		
-		var criteria = builder.createQuery(Restaurante.class);
-		var root = criteria.from(Restaurante.class);
+		var criteria = builder.createQuery(EmpresaModel.class);
+		var root = criteria.from(EmpresaModel.class);
 
 		var predicates = new ArrayList<Predicate>();
 		
@@ -58,7 +58,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 	}
 
 	@Override
-	public List<Restaurante> findComFreteGratis(String nome) {
+	public List<EmpresaModel> findComFreteGratis(String nome) {
 		return restauranteRepository.findAll(comFreteGratis()
 				.and(comNomeSemelhante(nome)));
 	}

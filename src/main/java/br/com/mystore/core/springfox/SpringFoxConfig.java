@@ -12,48 +12,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Links;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import br.com.mystore.api.exceptionhandler.Problema;
-import br.com.mystore.api.v1.model.CidadeModel;
-import br.com.mystore.api.v1.model.CozinhaModel;
-import br.com.mystore.api.v1.model.EstadoModel;
-import br.com.mystore.api.v1.model.FormaPagamentoModel;
-import br.com.mystore.api.v1.model.GrupoModel;
-import br.com.mystore.api.v1.model.PedidoResumoModel;
-import br.com.mystore.api.v1.model.PermissaoModel;
-import br.com.mystore.api.v1.model.ProdutoModel;
-import br.com.mystore.api.v1.model.RestauranteBasicoModel;
-import br.com.mystore.api.v1.model.UsuarioModel;
-import br.com.mystore.api.v1.openapi.model.CidadesModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.CozinhasModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.EstadosModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.FormasPagamentoModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.GruposModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.LinksModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.PageableModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.PedidosResumoModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.PermissoesModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.ProdutosModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.RestaurantesBasicoModelOpenApi;
-import br.com.mystore.api.v1.openapi.model.UsuariosModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
 
+import br.com.mystore.api.exceptionhandler.Problema;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
-import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
@@ -93,9 +66,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.ignoredParameterTypes(ServletWebRequest.class,
 						URL.class, URI.class, URLStreamHandler.class, Resource.class,
 						File.class, InputStream.class)
-				.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-				.directModelSubstitute(Links.class, LinksModelOpenApi.class)
-				
+				//.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
+				//.directModelSubstitute(Links.class, LinksModelOpenApi.class)
+				/*	
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(PagedModel.class, CozinhaModel.class),
 						CozinhasModelOpenApi.class))
@@ -129,13 +102,13 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 						ProdutosModelOpenApi.class))
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, RestauranteBasicoModel.class),
+						typeResolver.resolve(CollectionModel.class, EmpresaBasicoModel.class),
 						RestaurantesBasicoModelOpenApi.class))
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, UsuarioModel.class),
 						UsuariosModelOpenApi.class))
-				
+				*/
 				.securitySchemes(Arrays.asList(securityScheme()))
 				.securityContexts(Arrays.asList(securityContext()))
 				

@@ -1,9 +1,8 @@
 package br.com.mystore.domain.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,28 +14,29 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-public class Produto {
+@Entity(name = "enderecos")
+public class EnderecoModel {
+
 
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(nullable = false)
-	private String nome;
 	
-	@Column(nullable = false)
-	private String descricao;
+	@Column(name = "cep")
+	private String cep;
 	
-	@Column(nullable = false)
-	private BigDecimal preco;
+	@Column(name = "logradouro")
+	private String logradouro;
 	
-	@Column(nullable = false)
-	private Boolean ativo;
-
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private EmpresaModel restaurante;
+	@Column(name = "numero")
+	private String numero;
+	
+	@Column(name = "bairro")
+	private String bairro;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cidades_id")
+	private Cidade cidade;
 	
 }

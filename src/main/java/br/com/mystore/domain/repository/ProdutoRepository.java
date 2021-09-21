@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.mystore.domain.model.FotoProduto;
 import br.com.mystore.domain.model.Produto;
-import br.com.mystore.domain.model.Restaurante;
+import br.com.mystore.domain.model.EmpresaModel;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>, ProdutoRepositoryQueries {
@@ -19,10 +19,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>, Produto
 	Optional<Produto> findById(@Param("restaurante") Long restauranteId, 
 			@Param("produto") Long produtoId);
 	
-	List<Produto> findTodosByRestaurante(Restaurante restaurante);
+	List<Produto> findTodosByRestaurante(EmpresaModel restaurante);
 	
 	@Query("from Produto p where p.ativo = true and p.restaurante = :restaurante")
-	List<Produto> findAtivosByRestaurante(Restaurante restaurante);
+	List<Produto> findAtivosByRestaurante(EmpresaModel restaurante);
 	
 	@Query("select f from FotoProduto f join f.produto p "
 			+ "where p.restaurante.id = :restauranteId and f.produto.id = :produtoId")

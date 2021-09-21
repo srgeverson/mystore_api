@@ -7,13 +7,13 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import br.com.mystore.domain.repository.PedidoRepository;
-import br.com.mystore.domain.repository.RestauranteRepository;
+import br.com.mystore.domain.repository.EmpresaRepository;
 
 @Component
 public class MystoreSecurity {
 
 	@Autowired
-	private RestauranteRepository restauranteRepository;
+	private EmpresaRepository empresaRepository;
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
@@ -32,15 +32,15 @@ public class MystoreSecurity {
 		return jwt.getClaim("usuario_id");
 	}
 	
-	public boolean gerenciaRestaurante(Long restauranteId) {
-		if (restauranteId == null) {
+	public boolean gerenciaempresa(Long empresaId) {
+		if (empresaId == null) {
 			return false;
 		}
 		
-		return restauranteRepository.existsResponsavel(restauranteId, getUsuarioId());
+		return empresaRepository.existsResponsavel(empresaId, getUsuarioId());
 	}
 	
-	public boolean gerenciaRestauranteDoPedido(String codigoPedido) {
+	public boolean gerenciaempresaDoPedido(String codigoPedido) {
 		return pedidoRepository.isPedidoGerenciadoPor(codigoPedido, getUsuarioId());
 	}
 	
@@ -64,20 +64,20 @@ public class MystoreSecurity {
 	
 	public boolean podeGerenciarPedidos(String codigoPedido) {
 		return temEscopoEscrita() && (hasAuthority("GERENCIAR_PEDIDOS")
-				|| gerenciaRestauranteDoPedido(codigoPedido));
+				|| gerenciaempresaDoPedido(codigoPedido));
 	}
 	
-	public boolean podeConsultarRestaurantes() {
+	public boolean podeConsultarEmpresas() {
 		return temEscopoLeitura() && isAutenticado();
 	}
 	
-	public boolean podeGerenciarCadastroRestaurantes() {
+	public boolean podeGerenciarCadastroEmpresas() {
 		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
 	
-	public boolean podeGerenciarFuncionamentoRestaurantes(Long restauranteId) {
+	public boolean podeGerenciarFuncionamentoempresas(Long empresaId) {
 		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
-				|| gerenciaRestaurante(restauranteId));
+				|| gerenciaempresa(empresaId));
 	}
 	
 	public boolean podeConsultarUsuariosGruposPermissoes() {
@@ -88,9 +88,9 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 	
-	public boolean podePesquisarPedidos(Long clienteId, Long restauranteId) {
+	public boolean podePesquisarPedidos(Long clienteId, Long empresaId) {
 		return temEscopoLeitura() && (hasAuthority("CONSULTAR_PEDIDOS")
-				|| usuarioAutenticadoIgual(clienteId) || gerenciaRestaurante(restauranteId));
+				|| usuarioAutenticadoIgual(clienteId) || gerenciaempresa(empresaId));
 	}
 
 	public boolean podePesquisarPedidos() {
