@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -21,12 +22,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.classmate.TypeResolver;
 
 import br.com.mystore.api.exceptionhandler.Problema;
+import br.com.mystore.api.v1.model.GrupoModel;
+import br.com.mystore.api.v1.model.PermissaoModel;
+import br.com.mystore.api.v1.model.UsuarioModel;
+import br.com.mystore.api.v1.openapi.model.GruposModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.PermissoesModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.UsuariosModelOpenApi;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.AuthorizationScope;
@@ -90,14 +98,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 						FormasPagamentoModelOpenApi.class))
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, GrupoModel.class),
-						GruposModelOpenApi.class))
-				
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, PermissaoModel.class),
-						PermissoesModelOpenApi.class))
-				
-				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, ProdutoModel.class),
 						ProdutosModelOpenApi.class))
 				
@@ -105,24 +105,32 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 						typeResolver.resolve(CollectionModel.class, EmpresaBasicoModel.class),
 						RestaurantesBasicoModelOpenApi.class))
 				
+				*/
+				
+				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, GrupoModel.class),
+						GruposModelOpenApi.class))
+				
+				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, PermissaoModel.class),
+						PermissoesModelOpenApi.class))
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, UsuarioModel.class),
 						UsuariosModelOpenApi.class))
-				*/
 				.securitySchemes(Arrays.asList(securityScheme()))
 				.securityContexts(Arrays.asList(securityContext()))
 				
 				.apiInfo(apiInfoV1())
 				.tags(
-						new Tag("Cidades", "Gerencia as cidades"),
+						//new Tag("Cidades", "Gerencia as cidades"),
 						new Tag("Grupos", "Gerencia os grupos de usuários"),
-						new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
-						new Tag("Pedidos", "Gerencia os pedidos"),
-						new Tag("Empresas", "Gerencia as empresas"),
-						new Tag("Estados", "Gerencia os estados"),
-						new Tag("Produtos", "Gerencia os produtos de restaurantes"),
+						//new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
+						//new Tag("Pedidos", "Gerencia os pedidos"),
+						//new Tag("Empresas", "Gerencia as empresas"),
+						//new Tag("Estados", "Gerencia os estados"),
+						//new Tag("Produtos", "Gerencia os produtos de restaurantes"),
 						new Tag("Usuários", "Gerencia os usuários"),
-						new Tag("Estatísticas", "Estatísticas da MyStore"),
+						//new Tag("Estatísticas", "Estatísticas da MyStore"),
 						new Tag("Permissões", "Gerencia as permissões"));
 	}
 	

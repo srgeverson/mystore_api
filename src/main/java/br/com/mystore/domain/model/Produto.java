@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name = "produtos")
 public class Produto {
 
 	@EqualsAndHashCode.Include
@@ -25,18 +25,18 @@ public class Produto {
 
 	@Column(nullable = false)
 	private String nome;
-	
+
 	@Column(nullable = false)
 	private String descricao;
-	
+
 	@Column(nullable = false)
 	private BigDecimal preco;
-	
+
 	@Column(nullable = false)
 	private Boolean ativo;
 
 	@ManyToOne
-	@JoinColumn(nullable = false)
-	private EmpresaModel restaurante;
-	
+	@JoinColumn(name = "empresas_id", nullable = false)
+	private Empresa empresas;
+
 }

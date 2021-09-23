@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name ="usuarios")
 public class Usuario {
 
 	@EqualsAndHashCode.Include
@@ -42,8 +42,8 @@ public class Usuario {
 	private OffsetDateTime dataCadastro;
 	
 	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "usuario_id"),
-			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	@JoinTable(name = "usuarios_grupos", joinColumns = @JoinColumn(name = "usuarios_id"),
+			inverseJoinColumns = @JoinColumn(name = "grupos_id"))
 	private Set<Grupo> grupos = new HashSet<>();
 	
 	public boolean removerGrupo(Grupo grupo) {

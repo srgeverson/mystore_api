@@ -1,4 +1,4 @@
-package br.com.mystore.domain.model;
+ 	package br.com.mystore.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name = "estados")
 public class Estado {
 
 	@NotNull(groups = Groups.EstadoId.class)

@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "empresas")
-public class EmpresaModel {
+public class Empresa {
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -38,11 +38,9 @@ public class EmpresaModel {
 	
 	@ManyToOne
 	@JoinColumn(name = "enderecos_id", nullable = false)
-	private EnderecoModel endereco;
+	private Endereco endereco;
 	
 	private Boolean ativo = Boolean.TRUE;
-	
-	private Boolean aberto = Boolean.FALSE;
 	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
@@ -59,9 +57,9 @@ public class EmpresaModel {
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 	
 	@ManyToMany
-	@JoinTable(name = "restaurante_usuario_responsavel",
-			joinColumns = @JoinColumn(name = "restaurante_id"),
-			inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+	@JoinTable(name = "restaurantes_usuarios_responsaveis",
+			joinColumns = @JoinColumn(name = "empresas_id"),
+			inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
 	private Set<Usuario> responsaveis = new HashSet<>();
 	
 	@OneToMany(mappedBy = "empresas")
@@ -74,22 +72,6 @@ public class EmpresaModel {
 	public void inativar() {
 		setAtivo(false);
 	}
-	
-	public void abrir() {
-		setAberto(true);
-	}
-	
-	public void fechar() {
-		setAberto(false);
-	}
-	
-	public boolean isAberto() {
-		return this.aberto;
-	}
-
-	public boolean isFechado() {
-		return !isAberto();
-	}
 
 	public boolean isInativo() {
 		return !isAtivo();
@@ -99,20 +81,12 @@ public class EmpresaModel {
 		return this.ativo;
 	}
 	
-	public boolean aberturaPermitida() {
-		return isAtivo() && isFechado();
-	}
-	
 	public boolean ativacaoPermitida() {
 		return isInativo();
 	}
 	
 	public boolean inativacaoPermitida() {
 		return isAtivo();
-	}
-	
-	public boolean fechamentoPermitido() {
-		return isAberto();
 	}
 	
 	public boolean removerFormaPagamento(FormaPagamento formaPagamento) {

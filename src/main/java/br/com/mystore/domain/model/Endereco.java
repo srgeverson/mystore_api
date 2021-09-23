@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "enderecos")
-public class EnderecoModel {
+public class Endereco {
 
 
 	@EqualsAndHashCode.Include
