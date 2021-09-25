@@ -1,5 +1,6 @@
+SET SQL_SAFE_UPDATES = 0;
 set foreign_key_checks = 0;
-#SET SQL_SAFE_UPDATES = 0;
+
 delete from cidades;
 delete from empresas;
 delete from empresas_formas_pagamentos;
@@ -50,19 +51,17 @@ insert into formas_pagamentos (id, descricao) values (2, 'Cartão de débito');
 insert into formas_pagamentos (id, descricao) values (3, 'Dinheiro');
 insert into formas_pagamentos (id, descricao) values (4, 'Fiado');
 
-insert into permissoes (id, nome, descricao) values (1, 'GERENCIAR_EMPRESAS', 'Permite gerenciar pedidos');
-insert into permissoes (id, nome, descricao) values (2, 'GERENCIAR_CIDADES', 'Permite criar ou editar cidades');
-insert into permissoes (id, nome, descricao) values (3, 'GERENCIAR_ESTADOS', 'Permite criar ou editar estados');
-insert into permissoes (id, nome, descricao) values (4, 'GERENCIAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões');
+insert into permissoes (id, nome, descricao) values (1, 'GERENCIAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões');
+insert into permissoes (id, nome, descricao) values (2, 'GERENCIAR_EMPRESAS', 'Permite gerenciar pedidos');
+insert into permissoes (id, nome, descricao) values (3, 'GERENCIAR_CIDADES', 'Permite criar ou editar cidades');
+insert into permissoes (id, nome, descricao) values (4, 'GERENCIAR_ESTADOS', 'Permite criar ou editar estados');
 insert into permissoes (id, nome, descricao) values (5, 'GERENCIAR_PEDIDOS', 'Controla os pedidos emitidos');
 
 insert into empresas_formas_pagamentos (empresas_id, formas_pagamentos_id) values (1, 1);
 
 insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono'), (3, 'Vendedor'), (4, 'Auxiliar');
 
-# Adiciona todas as permissoes no grupo de TI
-insert into grupos_permissoes (grupos_id, permissoes_id)
-select 1, id from permissoes;
+insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (2, 5);
 
 insert into usuarios (id, nome, email, senha, data_cadastro) values
 (1, 'Administrador', 'mystore@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp),
@@ -70,7 +69,7 @@ insert into usuarios (id, nome, email, senha, data_cadastro) values
 (3, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp),
 (4, 'Vera', 'vera@icloud.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', utc_timestamp);
 
-insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (1, 2), (2, 2);
+insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 2);
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);

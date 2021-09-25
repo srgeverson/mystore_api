@@ -19,7 +19,7 @@ public class MystoreSecurity {
 	public Long getUsuarioId() {
 		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 
-		return jwt.getClaim("usuario_id");
+		return jwt.getClaim("usuarios_id");
 	}
 
 	public boolean usuarioAutenticadoIgual(Long usuarioId) {
@@ -68,10 +68,6 @@ public class MystoreSecurity {
 	}
 
 	public boolean podeConsultarEstados() {
-		return isAutenticado() && temEscopoLeitura();
-	}
-
-	public boolean podeConsultarCozinhas() {
 		return isAutenticado() && temEscopoLeitura();
 	}
 

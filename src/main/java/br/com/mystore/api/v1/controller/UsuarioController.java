@@ -34,63 +34,63 @@ import br.com.mystore.domain.service.CadastroUsuarioService;
 public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
 	private CadastroUsuarioService cadastroUsuario;
 	
+	@Autowired
+	private UsuarioInputDisassembler usuarioInputDisassembler;
+
 	@Autowired
 	private UsuarioModelAssembler usuarioModelAssembler;
 	
 	@Autowired
-	private UsuarioInputDisassembler usuarioInputDisassembler;
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
-	@GetMapping
-	public CollectionModel<UsuarioModel> listar() {
-		List<Usuario> todasUsuarios = usuarioRepository.findAll();
-		
-		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
-	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
-	@GetMapping("/{usuarioId}")
-	public UsuarioModel buscar(@PathVariable Long usuarioId) {
-		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
-		
-		return usuarioModelAssembler.toModel(usuario);
-	}
-	
-	@Override
+	private UsuarioRepository usuarioRepository;
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeCadastrar
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@Override
 	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 		usuario = cadastroUsuario.salvar(usuario);
-		
+
 		return usuarioModelAssembler.toModel(usuario);
 	}
-	
+
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
-	@Override
 	@PutMapping("/{usuarioId}")
-	public UsuarioModel atualizar(@PathVariable Long usuarioId,
-			@RequestBody @Valid UsuarioInput usuarioInput) {
+	@Override
+	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
 		Usuario usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
 		usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
 		usuarioAtual = cadastroUsuario.salvar(usuarioAtual);
-		
+
 		return usuarioModelAssembler.toModel(usuarioAtual);
 	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeVisualizar
+	@GetMapping("/{usuarioId}")
 	@Override
+	public UsuarioModel buscar(@PathVariable Long usuarioId) {
+		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
+
+		return usuarioModelAssembler.toModel(usuario);
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
 	@PutMapping("/{usuarioId}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@Override
 	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
 		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
 	}
-	
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@GetMapping
+	@Override
+	public CollectionModel<UsuarioModel> listar() {
+		List<Usuario> todasUsuarios = usuarioRepository.findAll();
+
+		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
+	}
+
 }
