@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name ="usuarios")
+@Entity(name = "usuarios")
 public class Usuario {
 
 	@EqualsAndHashCode.Include
@@ -30,32 +30,33 @@ public class Usuario {
 
 	@Column(nullable = false)
 	private String nome;
-	
+
 	@Column(nullable = false)
 	private String email;
-	
+
 	@Column(nullable = false)
 	private String senha;
-	
+
+	private Boolean ativo;
+
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private OffsetDateTime dataCadastro;
-	
+
 	@ManyToMany
-	@JoinTable(name = "usuarios_grupos", joinColumns = @JoinColumn(name = "usuarios_id"),
-			inverseJoinColumns = @JoinColumn(name = "grupos_id"))
+	@JoinTable(name = "usuarios_grupos", joinColumns = @JoinColumn(name = "usuarios_id"), inverseJoinColumns = @JoinColumn(name = "grupos_id"))
 	private Set<Grupo> grupos = new HashSet<>();
-	
+
 	public boolean removerGrupo(Grupo grupo) {
 		return getGrupos().remove(grupo);
 	}
-	
+
 	public boolean adicionarGrupo(Grupo grupo) {
 		return getGrupos().add(grupo);
 	}
-	
+
 	public boolean isNovo() {
 		return getId() == null;
 	}
-	
+
 }

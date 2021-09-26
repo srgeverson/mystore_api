@@ -19,7 +19,7 @@ public class PermissaoModelAssembler
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private MystoreLinks algaLinks;
+	private MystoreLinks mystoreLinks;
 	
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
@@ -36,7 +36,7 @@ public class PermissaoModelAssembler
 			= RepresentationModelAssembler.super.toCollectionModel(entities);
 
 		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
-			collectionModel.add(algaLinks.linkToPermissoes());
+			collectionModel.add(mystoreLinks.linkToPermissoes());
 		}
 		
 		return collectionModel;

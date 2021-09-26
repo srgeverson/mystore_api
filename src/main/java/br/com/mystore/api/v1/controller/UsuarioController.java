@@ -35,13 +35,13 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
 	private CadastroUsuarioService cadastroUsuario;
-	
+
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 
 	@Autowired
 	private UsuarioModelAssembler usuarioModelAssembler;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -91,6 +91,16 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		List<Usuario> todasUsuarios = usuarioRepository.findAll();
 
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
+	}
+
+	@PutMapping("/{usuarioEmail}/recuperar")
+	public UsuarioModel recuperar(@PathVariable String usuarioEmail) {
+		return usuarioModelAssembler.toModel(cadastroUsuario.recuperarSenha(usuarioEmail));
+	}
+
+	@PutMapping("/{usuarioEmail}/validar")
+	public UsuarioModel validar(@PathVariable String usuarioEmail) {
+		return usuarioModelAssembler.toModel(cadastroUsuario.validarAcesso(usuarioEmail));
 	}
 
 }

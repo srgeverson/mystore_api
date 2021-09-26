@@ -12,6 +12,11 @@ public class MystoreSecurity {
 		return SecurityContextHolder.getContext().getAuthentication();
 	}
 
+	public boolean hasAuthority(String authorityName) {
+		return getAuthentication().getAuthorities().stream()
+				.anyMatch(authority -> authority.getAuthority().equals(authorityName));
+	}
+
 	public boolean isAutenticado() {
 		return getAuthentication().isAuthenticated();
 	}
@@ -22,44 +27,27 @@ public class MystoreSecurity {
 		return jwt.getClaim("usuarios_id");
 	}
 
-	public boolean usuarioAutenticadoIgual(Long usuarioId) {
-		return getUsuarioId() != null && usuarioId != null && getUsuarioId().equals(usuarioId);
-	}
-
-	public boolean hasAuthority(String authorityName) {
-		return getAuthentication().getAuthorities().stream()
-				.anyMatch(authority -> authority.getAuthority().equals(authorityName));
-	}
-
-	public boolean temEscopoEscrita() {
-		return hasAuthority("SCOPE_WRITE");
-	}
-
-	public boolean temEscopoLeitura() {
-		return hasAuthority("SCOPE_READ");
-	}
-
 	public boolean podeConsultarEmpresas() {
 		return temEscopoLeitura() && isAutenticado();
 	}
-
+	
+	public boolean podeConsultarFormasPagamento() {
+		return isAutenticado() && temEscopoLeitura();
+	}
+	
+	public boolean podeConsultarUsuariosGruposPermissoes() {
+		return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+	
+	public boolean podeEditarUsuariosGruposPermissoes() {
+		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+	
 	public boolean podeGerenciarCadastroEmpresas() {
 		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
 
-	public boolean podeConsultarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
-	}
-
-	public boolean podeEditarUsuariosGruposPermissoes() {
-		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
-	}
-
 	public boolean podePesquisarPedidos() {
-		return isAutenticado() && temEscopoLeitura();
-	}
-
-	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
 
@@ -73,6 +61,18 @@ public class MystoreSecurity {
 
 	public boolean podeConsultarEstatisticas() {
 		return temEscopoLeitura() && hasAuthority("GERAR_RELATORIOS");
+	}
+
+	public boolean temEscopoEscrita() {
+		return hasAuthority("SCOPE_WRITE");
+	}
+
+	public boolean temEscopoLeitura() {
+		return hasAuthority("SCOPE_READ");
+	}
+
+	public boolean usuarioAutenticadoIgual(Long usuarioId) {
+		return getUsuarioId() != null && usuarioId != null && getUsuarioId().equals(usuarioId);
 	}
 
 }

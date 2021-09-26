@@ -42,9 +42,11 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 				authorities = Collections.emptyList();
 			}
 			
+			//Escopoes 
 			var scopesAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 			Collection<GrantedAuthority> grantedAuthorities = scopesAuthoritiesConverter.convert(jwt);
 			
+			//Permissoes cadastradas no banco de daods
 			grantedAuthorities.addAll(authorities.stream()
 					.map(SimpleGrantedAuthority::new)
 					.collect(Collectors.toList()));

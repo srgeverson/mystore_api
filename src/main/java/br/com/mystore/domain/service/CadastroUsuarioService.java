@@ -17,62 +17,91 @@ import br.com.mystore.domain.repository.UsuarioRepository;
 public class CadastroUsuarioService {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
 	private CadastroGrupoService cadastroGrupo;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Transactional
-	public Usuario salvar(Usuario usuario) {
-		usuarioRepository.detach(usuario);
-		
-		Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
-		
-		if (usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
-			throw new NegocioException(
-					String.format("Já existe um usuário cadastrado com o e-mail %s", usuario.getEmail()));
-		}
-		
-		if (usuario.isNovo()) {
-			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-		}
-		
-		return usuarioRepository.save(usuario);
-	}
-	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
 	@Transactional
 	public void alterarSenha(Long usuarioId, String senhaAtual, String novaSenha) {
 		Usuario usuario = buscarOuFalhar(usuarioId);
-		
+
 		if (!passwordEncoder.matches(senhaAtual, usuario.getSenha())) {
 			throw new NegocioException("Senha atual informada não coincide com a senha do usuário.");
 		}
-		
+
 		usuario.setSenha(passwordEncoder.encode(novaSenha));
+	}
+
+	@Transactional
+	public void associarGrupo(Long usuarioId, Long grupoId) {
+		Usuario usuario = buscarOuFalhar(usuarioId);
+		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+
+		usuario.adicionarGrupo(grupo);
+	}
+
+	public Usuario buscarOuFalhar(String usuarioEmail) {
+		return usuarioRepository.findByEmail(usuarioEmail).orElseThrow(() -> new UsuarioNaoEncontradoException(
+				String.format("Não existe um cadastro de usuário com email %s", usuarioEmail)));
+	}
+
+	public Usuario buscarOuFalhar(Long usuarioId) {
+		return usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
 	}
 
 	@Transactional
 	public void desassociarGrupo(Long usuarioId, Long grupoId) {
 		Usuario usuario = buscarOuFalhar(usuarioId);
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
-		
+
 		usuario.removerGrupo(grupo);
 	}
-	
+
 	@Transactional
-	public void associarGrupo(Long usuarioId, Long grupoId) {
-		Usuario usuario = buscarOuFalhar(usuarioId);
-		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+	public Usuario salvar(Usuario usuario) {
+		usuarioRepository.detach(usuario);
+
+		Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
+
+		if (usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
+			throw new NegocioException(
+					String.format("Já existe um usuário cadastrado com o e-mail %s", usuario.getEmail()));
+		}
+
+		if (usuario.isNovo()) {
+			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		}
+
+		return usuarioRepository.save(usuario);
+	}
+
+	public Usuario recuperarSenha(String usuarioEmail) {
+		Usuario usuario = buscarOuFalhar(usuarioEmail);
+
+		/*
+		 * if (usuario.getAtivo()) { throw new
+		 * NegocioException(String.format("Este usuário já encontra-se validado!")); }
+		 * 
+		 * usuario.setAtivo(true);
+		 */
+
+		return usuario;
+	}
+
+	public Usuario validarAcesso(String usuarioEmail) {
+		Usuario usuario = buscarOuFalhar(usuarioEmail);
+
+		if (usuario.getAtivo()) {
+			throw new NegocioException(String.format("Este usuário já encontra-se validado!"));
+		}
 		
-		usuario.adicionarGrupo(grupo);
+		usuario.setAtivo(true);
+
+		return usuario;
 	}
-	
-	public Usuario buscarOuFalhar(Long usuarioId) {
-		return usuarioRepository.findById(usuarioId)
-			.orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
-	}
-	
+
 }
