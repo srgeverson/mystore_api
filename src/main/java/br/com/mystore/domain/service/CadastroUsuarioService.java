@@ -21,7 +21,7 @@ public class CadastroUsuarioService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -74,6 +74,7 @@ public class CadastroUsuarioService {
 
 		if (usuario.isNovo()) {
 			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+			usuario.setAtivo(false);
 		}
 
 		return usuarioRepository.save(usuario);
@@ -82,14 +83,13 @@ public class CadastroUsuarioService {
 	public Usuario recuperarSenha(String usuarioEmail) {
 		Usuario usuario = buscarOuFalhar(usuarioEmail);
 
-		/*
-		 * if (usuario.getAtivo()) { throw new
-		 * NegocioException(String.format("Este usuário já encontra-se validado!")); }
-		 * 
-		 * usuario.setAtivo(true);
-		 */
+		if (usuario.getDataUltimoAcesso() == null) {
+			throw new NegocioException(String.format("Este usuário ainda nao acessou o sistema, acesse sua caixa de email e veja as informacoes de primeiro acesso!"));
+		}
 
-		return usuario;
+		//usuario.enviarNovaSenha();
+
+		return usuarioRepository.save(usuario);
 	}
 
 	public Usuario validarAcesso(String usuarioEmail) {
@@ -98,10 +98,10 @@ public class CadastroUsuarioService {
 		if (usuario.getAtivo()) {
 			throw new NegocioException(String.format("Este usuário já encontra-se validado!"));
 		}
-		
+
 		usuario.setAtivo(true);
 
-		return usuario;
+		return usuarioRepository.save(usuario);
 	}
 
 }

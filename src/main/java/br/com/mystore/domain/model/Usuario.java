@@ -37,7 +37,11 @@ public class Usuario {
 	@Column(nullable = false)
 	private String senha;
 
+	@Column(nullable = true)
 	private Boolean ativo;
+
+	@Column(nullable = true)
+	private OffsetDateTime dataUltimoAcesso;
 
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
