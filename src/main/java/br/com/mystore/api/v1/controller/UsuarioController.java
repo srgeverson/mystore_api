@@ -49,7 +49,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@Override
-	public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
+	public UsuarioModel adicionar(@RequestBody @Valid UsuarioInput usuarioInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
 		usuario = cadastroUsuario.salvar(usuario);
 
@@ -76,6 +76,19 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuario);
 	}
 
+	@PutMapping("/cadastrar-senha")
+	@Override
+	public UsuarioModel cadastrarSenha(@RequestBody @Valid UsuarioComSenhaInput usuarioComSenhaInput) {
+		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioComSenhaInput);
+		return usuarioModelAssembler.toModel(cadastroUsuario.cadastrarSenha(usuario));
+	}
+
+	@GetMapping("/{usuarioEmail}/codigo-acesso")
+	@Override
+	public UsuarioModel codigoAcesso(@PathVariable String usuarioEmail) {
+		return usuarioModelAssembler.toModel(cadastroUsuario.codigoAcesso(usuarioEmail));
+	}
+
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
 	@PutMapping("/{usuarioId}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -92,15 +105,4 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
 	}
-
-	@PutMapping("/{usuarioEmail}/recuperar")
-	public UsuarioModel recuperar(@PathVariable String usuarioEmail) {
-		return usuarioModelAssembler.toModel(cadastroUsuario.recuperarSenha(usuarioEmail));
-	}
-
-	@PutMapping("/{usuarioEmail}/validar")
-	public UsuarioModel validar(@PathVariable String usuarioEmail) {
-		return usuarioModelAssembler.toModel(cadastroUsuario.validarAcesso(usuarioEmail));
-	}
-
 }

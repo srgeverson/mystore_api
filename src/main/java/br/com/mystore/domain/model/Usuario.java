@@ -34,11 +34,14 @@ public class Usuario {
 	@Column(nullable = false)
 	private String email;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String senha;
 
 	@Column(nullable = true)
 	private Boolean ativo;
+	
+	@Column(nullable = true)
+	private String codigoAcesso;
 
 	@Column(nullable = true)
 	private OffsetDateTime dataUltimoAcesso;
@@ -51,16 +54,16 @@ public class Usuario {
 	@JoinTable(name = "usuarios_grupos", joinColumns = @JoinColumn(name = "usuarios_id"), inverseJoinColumns = @JoinColumn(name = "grupos_id"))
 	private Set<Grupo> grupos = new HashSet<>();
 
-	public boolean removerGrupo(Grupo grupo) {
-		return getGrupos().remove(grupo);
-	}
-
 	public boolean adicionarGrupo(Grupo grupo) {
 		return getGrupos().add(grupo);
 	}
-
+	
 	public boolean isNovo() {
 		return getId() == null;
+	}
+
+	public boolean removerGrupo(Grupo grupo) {
+		return getGrupos().remove(grupo);
 	}
 
 }

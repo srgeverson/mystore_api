@@ -53,6 +53,47 @@ public class CadastroUsuarioService {
 		return usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
 	}
 
+	public Usuario cadastrarSenha(Usuario usuario) {
+		Usuario usuarioExistente = buscarOuFalhar(usuario.getEmail());
+
+		Integer codigoAcessoExistente = null;
+		try {
+			codigoAcessoExistente = Integer.parseInt(usuarioExistente.getCodigoAcesso());
+		} catch (NumberFormatException e) {
+			codigoAcessoExistente = 0;
+		}
+
+		if (Integer.parseInt(usuario.getCodigoAcesso()) != codigoAcessoExistente) {
+			throw new NegocioException(String.format("O código de acesso inválido!"));
+		}
+
+		if (usuarioExistente.getAtivo()) {
+			throw new NegocioException(String.format("Este usuário já encontra-se validado!"));
+		}
+
+		usuarioExistente.setSenha(passwordEncoder.encode(usuario.getSenha()));
+		usuarioExistente.setAtivo(true);
+		usuarioExistente.setCodigoAcesso(null);
+
+		return usuarioRepository.save(usuarioExistente);
+	}
+
+	public Usuario codigoAcesso(String usuarioEmail) {
+		Usuario usuario = buscarOuFalhar(usuarioEmail);
+
+		int codigoAleatorio = (int) Math.floor(Math.random() * 1000000);
+
+		usuario.setCodigoAcesso(String.valueOf(codigoAleatorio));
+
+		// Enviar email aqui
+		// usuario.enviarNovaSenha();
+
+		usuario.setAtivo(false);
+		usuario.setSenha(null);
+
+		return usuarioRepository.save(usuario);
+	}
+
 	@Transactional
 	public void desassociarGrupo(Long usuarioId, Long grupoId) {
 		Usuario usuario = buscarOuFalhar(usuarioId);
@@ -73,35 +114,16 @@ public class CadastroUsuarioService {
 		}
 
 		if (usuario.isNovo()) {
-			usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 			usuario.setAtivo(false);
+
+			int codigoAleatorio = (int) Math.floor(Math.random() * 1000000);
+
+			usuario.setCodigoAcesso(String.valueOf(codigoAleatorio));
+
+			// Enviar email aqui
+			// usuario.enviarNovaSenha();
 		}
 
 		return usuarioRepository.save(usuario);
 	}
-
-	public Usuario recuperarSenha(String usuarioEmail) {
-		Usuario usuario = buscarOuFalhar(usuarioEmail);
-
-		if (usuario.getDataUltimoAcesso() == null) {
-			throw new NegocioException(String.format("Este usuário ainda nao acessou o sistema, acesse sua caixa de email e veja as informacoes de primeiro acesso!"));
-		}
-
-		//usuario.enviarNovaSenha();
-
-		return usuarioRepository.save(usuario);
-	}
-
-	public Usuario validarAcesso(String usuarioEmail) {
-		Usuario usuario = buscarOuFalhar(usuarioEmail);
-
-		if (usuario.getAtivo()) {
-			throw new NegocioException(String.format("Este usuário já encontra-se validado!"));
-		}
-
-		usuario.setAtivo(true);
-
-		return usuarioRepository.save(usuario);
-	}
-
 }
