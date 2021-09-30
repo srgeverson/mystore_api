@@ -86,7 +86,7 @@ public class CadastroUsuarioService {
 		usuario.setCodigoAcesso(String.valueOf(codigoAleatorio));
 
 		// Enviar email aqui
-		// usuario.enviarNovaSenha();
+		usuario.enviarCodigoSolicitado();
 
 		usuario.setAtivo(false);
 		usuario.setSenha(null);
@@ -121,7 +121,7 @@ public class CadastroUsuarioService {
 			usuario.setCodigoAcesso(String.valueOf(codigoAleatorio));
 
 			// Enviar email aqui
-			// usuario.enviarNovaSenha();
+			usuario.enviarCodigoSolicitado();
 		}
 
 		return usuarioRepository.save(usuario);

@@ -12,28 +12,24 @@ public @interface CheckSecurity {
 
 	public @interface UsuariosGruposPermissoes {
 
-		// ok
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeAlterarPropriaSenha {
 		}
 
-		// ok
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeAlterarUsuario {
 		}
 
-		// ok
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('GERENCIAR_USUARIOS_GRUPOS_PERMISSOES')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeCadastrar {
 		}
 
-		// ok
 		@PreAuthorize("hasAuthority('SCOPE_READ') and hasAuthority('GERENCIAR_USUARIOS_GRUPOS_PERMISSOES')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
@@ -46,14 +42,12 @@ public @interface CheckSecurity {
 		public @interface PodeEditar {
 		}
 		
-		//ok
 		@PreAuthorize("hasAuthority('SCOPE_READ') and hasAuthority('RECUPERAR_SENHA')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeRecuperarSenha {
 		}
 
-		// ok
 		@PreAuthorize("hasAuthority('SCOPE_READ') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)

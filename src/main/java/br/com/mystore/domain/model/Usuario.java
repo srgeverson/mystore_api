@@ -14,14 +14,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
+import br.com.mystore.domain.event.CodigoValidarAcessoEvent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity(name = "usuarios")
-public class Usuario {
+public class Usuario extends AbstractAggregateRoot<Usuario> {
 
 	@EqualsAndHashCode.Include
 	@Id
@@ -56,6 +58,10 @@ public class Usuario {
 
 	public boolean adicionarGrupo(Grupo grupo) {
 		return getGrupos().add(grupo);
+	}
+
+	public void enviarCodigoSolicitado() {
+		registerEvent(new CodigoValidarAcessoEvent(this));
 	}
 	
 	public boolean isNovo() {
