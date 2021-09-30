@@ -50,7 +50,6 @@ public interface UsuarioControllerOpenApi {
 				required = true)
 			UsuarioInput usuarioInput);
 
-
 	@ApiOperation("Busca um usuário por ID")
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "ID do usuário inválido", response = Problema.class),
@@ -60,20 +59,23 @@ public interface UsuarioControllerOpenApi {
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
 			Long usuarioId);
 
-	@ApiOperation("Cadastra um usuário")
+	@ApiOperation("Cadastra a senha do usuário")
 	@ApiResponses({
-		@ApiResponse(code = 201, message = "Senha cadastrada"),
+		@ApiResponse(code = 204, message = "Senha cadastrada com sucesso"),
+		@ApiResponse(code = 400, message = "E-mail do usuário inválido", response = Problema.class),
+		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problema.class)
 	})
-	UsuarioModel cadastrarSenha(
+	void cadastrarSenha(
 			@ApiParam(name = "corpo", value = "Representação de um usuário com código de acesso", required = true)
 			UsuarioComSenhaInput usuarioComSenhaInput);
 	
 	@ApiOperation("Solicitar o código de acesso do usuário por e-mail")
 	@ApiResponses({
+		@ApiResponse(code = 204, message = "Código de acesso solicitado com sucesso"),
 		@ApiResponse(code = 400, message = "E-mail do usuário inválido", response = Problema.class),
 		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problema.class)
 	})
-	UsuarioModel codigoAcesso(
+	void codigoAcesso(
 			@ApiParam(value = "E-mail do usuário", example = "joao@mystore.com.br", required = true)
 			String usuarioEmail);	
 	

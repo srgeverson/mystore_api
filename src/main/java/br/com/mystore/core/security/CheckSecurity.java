@@ -45,6 +45,13 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeEditar {
 		}
+		
+		//ok
+		@PreAuthorize("hasAuthority('SCOPE_READ') and hasAuthority('RECUPERAR_SENHA')")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeRecuperarSenha {
+		}
 
 		// ok
 		@PreAuthorize("hasAuthority('SCOPE_READ') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")

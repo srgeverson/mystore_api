@@ -76,22 +76,26 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuario);
 	}
 
+	@CheckSecurity.UsuariosGruposPermissoes.PodeRecuperarSenha
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/cadastrar-senha")
 	@Override
-	public UsuarioModel cadastrarSenha(@RequestBody @Valid UsuarioComSenhaInput usuarioComSenhaInput) {
+	public void cadastrarSenha(@RequestBody @Valid UsuarioComSenhaInput usuarioComSenhaInput) {
 		Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioComSenhaInput);
-		return usuarioModelAssembler.toModel(cadastroUsuario.cadastrarSenha(usuario));
+		cadastroUsuario.cadastrarSenha(usuario);
 	}
 
+	@CheckSecurity.UsuariosGruposPermissoes.PodeRecuperarSenha
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@GetMapping("/{usuarioEmail}/codigo-acesso")
 	@Override
-	public UsuarioModel codigoAcesso(@PathVariable String usuarioEmail) {
-		return usuarioModelAssembler.toModel(cadastroUsuario.codigoAcesso(usuarioEmail));
+	public void codigoAcesso(@PathVariable String usuarioEmail) {
+		cadastroUsuario.codigoAcesso(usuarioEmail);
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
-	@PutMapping("/{usuarioId}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/{usuarioId}/senha")
 	@Override
 	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
 		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
