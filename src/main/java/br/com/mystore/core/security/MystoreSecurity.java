@@ -35,12 +35,8 @@ public class MystoreSecurity {
 		return isAutenticado() && temEscopoLeitura();
 	}
 	
-	public boolean podeConsultarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
-	}
-	
-	public boolean podeEditarUsuariosGruposPermissoes() {
-		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
+	public boolean podeGerenciarUsuariosGruposPermissoes() {
+		return temEscopoLeitura() && hasAuthority("GERENCIAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 	
 	public boolean podeGerenciarCadastroEmpresas() {

@@ -33,67 +33,65 @@ import br.com.mystore.domain.service.CadastroGrupoService;
 public class GrupoController implements GrupoControllerOpenApi {
 
 	@Autowired
-	private GrupoRepository grupoRepository;
-	
+	private GrupoInputDisassembler grupoInputDisassembler;
+
 	@Autowired
 	private CadastroGrupoService cadastroGrupo;
-	
+
 	@Autowired
 	private GrupoModelAssembler grupoModelAssembler;
 	
 	@Autowired
-	private GrupoInputDisassembler grupoInputDisassembler;
+	private GrupoRepository grupoRepository;
 	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
-	@GetMapping
-	public CollectionModel<GrupoModel> listar() {
-		List<Grupo> todosGrupos = grupoRepository.findAll();
-		
-		return grupoModelAssembler.toCollectionModel(todosGrupos);
-	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
-	@GetMapping("/{grupoId}")
-	public GrupoModel buscar(@PathVariable Long grupoId) {
-		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
-		
-		return grupoModelAssembler.toModel(grupo);
-	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-
+	@CheckSecurity.UsuariosGruposPermissoes.PodeCadastrar
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
-		
+
 		grupo = cadastroGrupo.salvar(grupo);
-		
+
 		return grupoModelAssembler.toModel(grupo);
 	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
 	@PutMapping("/{grupoId}")
-	public GrupoModel atualizar(@PathVariable Long grupoId,
-			@RequestBody @Valid GrupoInput grupoInput) {
+	@Override
+	public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupoAtual = cadastroGrupo.buscarOuFalhar(grupoId);
-		
+
 		grupoInputDisassembler.copyToDomainObject(grupoInput, grupoAtual);
-		
+
 		grupoAtual = cadastroGrupo.salvar(grupoAtual);
-		
+
 		return grupoModelAssembler.toModel(grupoAtual);
 	}
-	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@GetMapping("/{grupoId}")
 	@Override
-	@DeleteMapping("/{grupoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long grupoId) {
-		cadastroGrupo.excluir(grupoId);	
+	public GrupoModel buscar(@PathVariable Long grupoId) {
+		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+
+		return grupoModelAssembler.toModel(grupo);
 	}
-	
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@GetMapping
+	@Override
+	public CollectionModel<GrupoModel> listar() {
+		List<Grupo> todosGrupos = grupoRepository.findAll();
+
+		return grupoModelAssembler.toCollectionModel(todosGrupos);
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeRemover
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{grupoId}")
+	@Override
+	public void remover(@PathVariable Long grupoId) {
+		cadastroGrupo.excluir(grupoId);
+	}
+
 }

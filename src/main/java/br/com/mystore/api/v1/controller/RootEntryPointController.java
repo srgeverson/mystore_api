@@ -26,7 +26,7 @@ public class RootEntryPointController {
 	public RootEntryPointModel root() {
 		var rootEntryPointModel = new RootEntryPointModel();
 
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			rootEntryPointModel.add(mystoreLinks.linkToGrupos("grupos"));
 			rootEntryPointModel.add(mystoreLinks.linkToUsuarios("usuarios"));
 			rootEntryPointModel.add(mystoreLinks.linkToPermissoes("permissoes"));

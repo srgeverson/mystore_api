@@ -34,7 +34,7 @@ public class UsuarioModelAssembler
 		UsuarioModel usuarioModel = createModelWithId(usuario.getId(), usuario);
 		modelMapper.map(usuario, usuarioModel);
 		
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			usuarioModel.add(mystoreLinks.linkToUsuarios("usuarios"));
 			
 			usuarioModel.add(mystoreLinks.linkToGruposUsuario(usuario.getId(), "grupos-usuario"));
@@ -47,7 +47,7 @@ public class UsuarioModelAssembler
 	public CollectionModel<UsuarioModel> toCollectionModel(Iterable<? extends Usuario> entities) {
 		CollectionModel<UsuarioModel> collectionModel = super.toCollectionModel(entities);
 		
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			collectionModel.add(mystoreLinks.linkToUsuarios());
 		}
 		

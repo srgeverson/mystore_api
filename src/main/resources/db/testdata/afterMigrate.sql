@@ -64,7 +64,7 @@ insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono'), (3, 'Vendedor'), (4
 insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (2, 5);
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
-(1, 'Administrador', 'mystore@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
+(1, 'Administrador', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
 (2, 'Anderson', 'anderson@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
 (3, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
 (4, 'Vera', 'vera@icloud.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);

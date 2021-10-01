@@ -38,16 +38,36 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@PutMapping("/{grupoId}")
 	@Override
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public ResponseEntity<Void> associar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
+		cadastroUsuario.associarGrupo(usuarioId, grupoId);
+		
+		return ResponseEntity.noContent().build();
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{grupoId}")
+	@Override
+	public ResponseEntity<Void> desassociar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
+		cadastroUsuario.desassociarGrupo(usuarioId, grupoId);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping
+	@Override
 	public CollectionModel<GrupoModel> listar(@PathVariable Long usuarioId) {
 		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 
 		CollectionModel<GrupoModel> gruposModel = grupoModelAssembler.toCollectionModel(usuario.getGrupos())
 				.removeLinks();
 
-		if (mystoreSecurity.podeEditarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			gruposModel.add(mystoreLinks.linkToUsuarioGrupoAssociacao(usuarioId, "associar"));
 
 			gruposModel.getContent().forEach(grupoModel -> {
@@ -57,26 +77,6 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 		}
 
 		return gruposModel;
-	}
-
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@Override
-	@DeleteMapping("/{grupoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> desassociar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
-		cadastroUsuario.desassociarGrupo(usuarioId, grupoId);
-
-		return ResponseEntity.noContent().build();
-	}
-
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@Override
-	@PutMapping("/{grupoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> associar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
-		cadastroUsuario.associarGrupo(usuarioId, grupoId);
-
-		return ResponseEntity.noContent().build();
 	}
 
 }

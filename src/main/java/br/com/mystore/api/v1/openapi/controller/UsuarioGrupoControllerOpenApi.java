@@ -14,13 +14,18 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Usuários")
 public interface UsuarioGrupoControllerOpenApi {
 
-	@ApiOperation("Lista os grupos associados a um usuário")
+	@ApiOperation("Associação de grupo com usuário")
 	@ApiResponses({
-		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problema.class)
+		@ApiResponse(code = 204, message = "Associação realizada com sucesso"),
+		@ApiResponse(code = 404, message = "Usuário ou grupo não encontrado", 
+			response = Problema.class)
 	})
-	CollectionModel<GrupoModel> listar(
+	ResponseEntity<Void> associar(
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
-			Long usuarioId);
+			Long usuarioId,
+			
+			@ApiParam(value = "ID do grupo", example = "1", required = true)
+			Long grupoId);
 
 	@ApiOperation("Desassociação de grupo com usuário")
 	@ApiResponses({
@@ -34,18 +39,15 @@ public interface UsuarioGrupoControllerOpenApi {
 			
 			@ApiParam(value = "ID do grupo", example = "1", required = true)
 			Long grupoId);
-
-	@ApiOperation("Associação de grupo com usuário")
+	
+	@ApiOperation("Lista os grupos associados a um usuário")
 	@ApiResponses({
-		@ApiResponse(code = 204, message = "Associação realizada com sucesso"),
-		@ApiResponse(code = 404, message = "Usuário ou grupo não encontrado", 
-			response = Problema.class)
+		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problema.class)
 	})
-	ResponseEntity<Void> associar(
+	CollectionModel<GrupoModel> listar(
 			@ApiParam(value = "ID do usuário", example = "1", required = true)
-			Long usuarioId,
-			
-			@ApiParam(value = "ID do grupo", example = "1", required = true)
-			Long grupoId);
+			Long usuarioId);
+
+
 
 }

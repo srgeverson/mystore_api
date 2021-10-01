@@ -35,7 +35,7 @@ public class PermissaoModelAssembler
 		CollectionModel<PermissaoModel> collectionModel 
 			= RepresentationModelAssembler.super.toCollectionModel(entities);
 
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			collectionModel.add(mystoreLinks.linkToPermissoes());
 		}
 		

@@ -33,7 +33,7 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 		GrupoModel grupoModel = createModelWithId(grupo.getId(), grupo);
 		modelMapper.map(grupo, grupoModel);
 
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			grupoModel.add(mystoreLinks.linkToGrupos("grupos"));
 
 			grupoModel.add(mystoreLinks.linkToGrupoPermissoes(grupo.getId(), "permissoes"));
@@ -46,7 +46,7 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 	public CollectionModel<GrupoModel> toCollectionModel(Iterable<? extends Grupo> entities) {
 		CollectionModel<GrupoModel> collectionModel = super.toCollectionModel(entities);
 
-		if (mystoreSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			collectionModel.add(mystoreLinks.linkToGrupos());
 		}
 

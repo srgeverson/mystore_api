@@ -30,17 +30,37 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 	private CadastroGrupoService cadastroGrupo;
 
 	@Autowired
-	private PermissaoModelAssembler permissaoModelAssembler;
-
-	@Autowired
 	private MystoreLinks mystoreLinks;
 
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
+	
+	@Autowired
+	private PermissaoModelAssembler permissaoModelAssembler;
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/{permissaoId}")
+	@Override
+	public ResponseEntity<Void> associar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
+		cadastroGrupo.associarPermissao(grupoId, permissaoId);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{permissaoId}")
+	@Override
+	public ResponseEntity<Void> desassociar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
+		cadastroGrupo.desassociarPermissao(grupoId, permissaoId);
+
+		return ResponseEntity.noContent().build();
+	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
 	@GetMapping
+	@Override
 	public CollectionModel<PermissaoModel> listar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
 
@@ -49,7 +69,7 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 
 		permissoesModel.add(mystoreLinks.linkToGrupoPermissoes(grupoId));
 
-		if (mystoreSecurity.podeEditarUsuariosGruposPermissoes()) {
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			permissoesModel.add(mystoreLinks.linkToGrupoPermissaoAssociacao(grupoId, "associar"));
 
 			permissoesModel.getContent().forEach(permissaoModel -> {
@@ -59,26 +79,6 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 		}
 
 		return permissoesModel;
-	}
-
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@Override
-	@DeleteMapping("/{permissaoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> desassociar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
-		cadastroGrupo.desassociarPermissao(grupoId, permissaoId);
-
-		return ResponseEntity.noContent().build();
-	}
-
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
-	@Override
-	@PutMapping("/{permissaoId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> associar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
-		cadastroGrupo.associarPermissao(grupoId, permissaoId);
-
-		return ResponseEntity.noContent().build();
 	}
 
 }
