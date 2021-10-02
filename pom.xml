@@ -14,19 +14,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mystore_api</name>
 	<description>API My Store</description>
-
 	<properties>
 		<java.version>11</java.version>
-		<modelmapper.version>2.4.2</modelmapper.version>
+		<modelmapper.version>2.3.0</modelmapper.version>
 		<squiggly.version>1.3.18</squiggly.version>
-		<jasperreports.version>6.10.0</jasperreports.version>
-		<aws-java-sdk-s3.version>1.11.671</aws-java-sdk-s3.version>
+		<jasperreports.version>6.16.0</jasperreports.version>
 		<springfox.version>2.9.2</springfox.version>
-		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
-		<spring-security-oauth2.version>2.3.7.RELEASE</spring-security-oauth2.version>
-		<spring-security-jwt.version>1.0.11.RELEASE</spring-security-jwt.version>
+		<ojdbc10.version>19.10.0.0</ojdbc10.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,6 +31,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -72,13 +73,11 @@
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.github.bohnman</groupId>
 			<artifactId>squiggly-filter-jackson</artifactId>
@@ -90,23 +89,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>${jasperreports.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-functions</artifactId>
 			<version>${jasperreports.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>${aws-java-sdk-s3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -148,39 +139,13 @@
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.logback-extensions</groupId>
-			<artifactId>logback-ext-loggly</artifactId>
-			<version>${logback-ext-loggly.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>
-			spring-boot-starter-oauth2-resource-server
-		</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-jwt</artifactId>
-			<version>${spring-security-jwt.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>${spring-security-oauth2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc10</artifactId>
+			<version>${ojdbc10.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -189,9 +154,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-failsafe-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
