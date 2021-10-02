@@ -44,7 +44,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 	@Autowired
 	private GrupoRepository grupoRepository;
 	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeCadastrar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
@@ -55,7 +55,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoModelAssembler.toModel(grupo);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PutMapping("/{grupoId}")
 	@Override
 	public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
@@ -68,7 +68,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoModelAssembler.toModel(grupoAtual);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping("/{grupoId}")
 	@Override
 	public GrupoModel buscar(@PathVariable Long grupoId) {
@@ -77,7 +77,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoModelAssembler.toModel(grupo);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping
 	@Override
 	public CollectionModel<GrupoModel> listar() {
@@ -86,7 +86,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoModelAssembler.toCollectionModel(todosGrupos);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeRemover
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{grupoId}")
 	@Override

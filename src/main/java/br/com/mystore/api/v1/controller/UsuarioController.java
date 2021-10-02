@@ -45,7 +45,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeCadastrar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@Override
@@ -56,7 +56,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuario);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PutMapping("/{usuarioId}")
 	@Override
 	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
@@ -67,7 +67,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toModel(usuarioAtual);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeVisualizar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping("/{usuarioId}")
 	@Override
 	public UsuarioModel buscar(@PathVariable Long usuarioId) {
@@ -101,7 +101,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping
 	@Override
 	public CollectionModel<UsuarioModel> listar() {

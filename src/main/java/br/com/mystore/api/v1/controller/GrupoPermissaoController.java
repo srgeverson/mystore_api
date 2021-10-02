@@ -1,5 +1,7 @@
 package br.com.mystore.api.v1.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import br.com.mystore.api.v1.openapi.controller.GrupoPermissaoControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.core.security.MystoreSecurity;
 import br.com.mystore.domain.model.Grupo;
+import br.com.mystore.domain.model.Permissao;
 import br.com.mystore.domain.service.CadastroGrupoService;
 
 @RestController
@@ -34,11 +37,11 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
-	
+
 	@Autowired
 	private PermissaoModelAssembler permissaoModelAssembler;
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/{permissaoId}")
 	@Override
@@ -48,7 +51,7 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarGrupo
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{permissaoId}")
 	@Override
@@ -58,14 +61,15 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping
 	@Override
 	public CollectionModel<PermissaoModel> listar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
 
-		CollectionModel<PermissaoModel> permissoesModel = permissaoModelAssembler
-				.toCollectionModel(grupo.getPermissoes()).removeLinks();
+		Set<Permissao> permissoes = grupo.getPermissoes();
+
+		CollectionModel<PermissaoModel> permissoesModel = permissaoModelAssembler.toCollectionModel(permissoes).removeLinks();
 
 		permissoesModel.add(mystoreLinks.linkToGrupoPermissoes(grupoId));
 

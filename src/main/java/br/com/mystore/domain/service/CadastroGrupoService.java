@@ -50,6 +50,8 @@ public class CadastroGrupoService {
 		Permissao permissao = cadastroPermissao.buscarOuFalhar(permissaoId);
 		
 		grupo.removerPermissao(permissao);
+
+		grupoRepository.save(grupo);
 	}
 	
 	@Transactional
@@ -58,6 +60,7 @@ public class CadastroGrupoService {
 		Permissao permissao = cadastroPermissao.buscarOuFalhar(permissaoId);
 		
 		grupo.adicionarPermissao(permissao);
+		grupoRepository.save(grupo);
 	}
 	
 	public Grupo buscarOuFalhar(Long grupoId) {

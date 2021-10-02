@@ -28,8 +28,8 @@ public class RootEntryPointController {
 
 		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
 			rootEntryPointModel.add(mystoreLinks.linkToGrupos("grupos"));
-			rootEntryPointModel.add(mystoreLinks.linkToUsuarios("usuarios"));
 			rootEntryPointModel.add(mystoreLinks.linkToPermissoes("permissoes"));
+			rootEntryPointModel.add(mystoreLinks.linkToUsuarios("usuarios"));
 		}
 
 		return rootEntryPointModel;

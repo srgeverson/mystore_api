@@ -21,32 +21,13 @@ public @interface CheckSecurity {
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeAlterarUsuario {
+		public @interface PodeAlterarProprioUsuario {
 		}
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeAlterarGrupo {
-		}
-		
-
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeCadastrar {
-		}
-
-		@PreAuthorize("hasAuthority('SCOPE_READ')  and @mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeConsultar {
-		}
-
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeEditar {
+		public @interface PodeGerenciarUsuariosGruposPermissoes {
 		}
 
 		@PreAuthorize("hasAuthority('SCOPE_READ') and hasAuthority('RECUPERAR_SENHA')")
@@ -54,17 +35,11 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeRecuperarSenha {
 		}
-		
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeRemover {
-		}
 
 		@PreAuthorize("hasAuthority('SCOPE_READ') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeVisualizar {
+		public @interface PodeVisualizarProprioUsuario {
 		}
 
 	}

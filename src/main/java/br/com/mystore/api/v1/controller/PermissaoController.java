@@ -26,9 +26,9 @@ public class PermissaoController implements PermissaoControllerOpenApi {
 	@Autowired
 	private PermissaoModelAssembler permissaoModelAssembler;
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
-	@Override
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping
+	@Override
 	public CollectionModel<PermissaoModel> listar() {
 		List<Permissao> todasPermissoes = permissaoRepository.findAll();
 

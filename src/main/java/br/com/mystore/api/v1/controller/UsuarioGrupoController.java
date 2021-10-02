@@ -38,7 +38,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PutMapping("/{grupoId}")
 	@Override
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -48,7 +48,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{grupoId}")
 	@Override
@@ -58,7 +58,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@GetMapping
 	@Override
 	public CollectionModel<GrupoModel> listar(@PathVariable Long usuarioId) {
