@@ -10,6 +10,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
 
+	public @interface Cidades {
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCidadess()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarCidades {
+		}
+
+	}
+
 	public @interface Empresas {
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
@@ -32,6 +42,22 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeGerenciarCidades {
+		}
+
+	}
+
+	public @interface FormasPagamento {
+
+		@PreAuthorize("@mystoreSecurity.podeConsultarFormasPagamento()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarFormasPagamento()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciar {
 		}
 
 	}
@@ -66,16 +92,6 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeVisualizarProprioUsuario {
-		}
-
-	}
-
-	public @interface Cidades {
-
-		@PreAuthorize("@mystoreSecurity.podeGerenciarCidadess()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeGerenciarCidades {
 		}
 
 	}

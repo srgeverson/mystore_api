@@ -32,7 +32,7 @@ public class MystoreSecurity {
 	}
 
 	public boolean podeGerenciarCidades() {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_CIDADESS");
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_CIDADES");
 	}
 
 	public boolean podeGerenciarEmpresas() {
@@ -41,6 +41,10 @@ public class MystoreSecurity {
 
 	public boolean podeGerenciarEstados() {
 		return temEscopoEscrita() && hasAuthority("GERENCIAR_ESTADOS");
+	}
+
+	public boolean podeGerenciarFormasPagamento() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_FORMAS_PAGAMENTOS");
 	}
 
 	public boolean podeGerenciarUsuariosGruposPermissoes() {
