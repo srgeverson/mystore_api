@@ -2,10 +2,10 @@ package br.com.mystore.api.v1.openapi.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
+import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.EmpresaApenasNomeModel;
 import br.com.mystore.api.v1.model.EmpresaBasicoModel;
 import br.com.mystore.api.v1.model.EmpresaModel;
@@ -33,7 +33,7 @@ public interface EmpresaControllerOpenApi {
 	@ApiOperation("Atualiza um empresa por ID")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Empresa atualizado"),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	EmpresaModel atualizar(
 			@ApiParam(value = "ID de um empresa", example = "1", required = true)
@@ -46,7 +46,7 @@ public interface EmpresaControllerOpenApi {
 	@ApiOperation("Ativa um empresa por ID")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Empresa ativado com sucesso"),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	ResponseEntity<Void> ativar(
 			@ApiParam(value = "ID de um empresa", example = "1", required = true)
@@ -62,8 +62,8 @@ public interface EmpresaControllerOpenApi {
 	
 	@ApiOperation("Busca um empresa por ID")
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problem.class),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problema.class),
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	EmpresaModel buscar(
 			@ApiParam(value = "ID de um empresa", example = "1", required = true)
@@ -72,7 +72,7 @@ public interface EmpresaControllerOpenApi {
 	@ApiOperation("Inativa um empresa por ID")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Empresa inativado com sucesso"),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	ResponseEntity<Void> inativar(
 			@ApiParam(value = "ID de um empresa", example = "1", required = true)

@@ -1,8 +1,8 @@
 package br.com.mystore.api.v1.openapi.controller;
 
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.hateoas.CollectionModel;
 
+import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.EstadoModel;
 import br.com.mystore.api.v1.model.imput.EstadoInput;
 import io.swagger.annotations.Api;
@@ -25,7 +25,7 @@ public interface EstadoControllerOpenApi {
 	@ApiOperation("Atualiza um estado por ID")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Estado atualizado"),
-		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problem.class)
+		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problema.class)
 	})
 	EstadoModel atualizar(
 			@ApiParam(value = "ID de um estado", example = "1", required = true)
@@ -35,8 +35,8 @@ public interface EstadoControllerOpenApi {
 			EstadoInput estadoInput);
 	@ApiOperation("Busca um estado por ID")
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "ID do estado inválido", response = Problem.class),
-		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problem.class)
+		@ApiResponse(code = 400, message = "ID do estado inválido", response = Problema.class),
+		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problema.class)
 	})
 	EstadoModel buscar(
 			@ApiParam(value = "ID de um estado", example = "1", required = true)
@@ -49,7 +49,7 @@ public interface EstadoControllerOpenApi {
 	@ApiOperation("Exclui um estado por ID")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Estado excluído"),
-		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problem.class)
+		@ApiResponse(code = 404, message = "Estado não encontrado", response = Problema.class)
 	})
 	void remover(
 			@ApiParam(value = "ID de um estado", example = "1", required = true)

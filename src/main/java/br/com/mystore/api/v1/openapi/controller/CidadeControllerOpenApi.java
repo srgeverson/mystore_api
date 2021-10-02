@@ -1,8 +1,8 @@
 package br.com.mystore.api.v1.openapi.controller;
 
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.hateoas.CollectionModel;
 
+import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.CidadeModel;
 import br.com.mystore.api.v1.model.imput.CidadeInput;
 import io.swagger.annotations.Api;
@@ -25,7 +25,7 @@ public interface CidadeControllerOpenApi {
 	@ApiOperation("Atualiza uma cidade por ID")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "Cidade atualizada"),
-		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
+		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problema.class)
 	})
 	CidadeModel atualizar(
 			@ApiParam(value = "ID de uma cidade", example = "1", required = true) 
@@ -36,8 +36,8 @@ public interface CidadeControllerOpenApi {
 	
 	@ApiOperation("Busca uma cidade por ID")
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "ID da cidade inválido", response = Problem.class),
-		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
+		@ApiResponse(code = 400, message = "ID da cidade inválido", response = Problema.class),
+		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problema.class)
 	})
 	CidadeModel buscar(
 			@ApiParam(value = "ID de uma cidade", example = "1", required = true)
@@ -50,7 +50,7 @@ public interface CidadeControllerOpenApi {
 	@ApiOperation("Exclui uma cidade por ID")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Cidade excluída"),
-		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
+		@ApiResponse(code = 404, message = "Cidade não encontrada", response = Problema.class)
 	})
 	void remover(
 			@ApiParam(value = "ID de uma cidade", example = "1", required = true)
