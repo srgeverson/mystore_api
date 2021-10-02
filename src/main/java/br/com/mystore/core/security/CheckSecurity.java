@@ -12,10 +12,10 @@ public @interface CheckSecurity {
 
 	public @interface Cidades {
 
-		@PreAuthorize("@mystoreSecurity.podeGerenciarCidadess()")
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCidades()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarCidades {
+		public @interface PodeGerenciar {
 		}
 
 	}
@@ -41,7 +41,7 @@ public @interface CheckSecurity {
 		@PreAuthorize("@mystoreSecurity.podeGerenciarEstados()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarCidades {
+		public @interface PodeGerenciar {
 		}
 
 	}
