@@ -61,7 +61,7 @@ insert into empresas_formas_pagamentos (empresas_id, formas_pagamentos_id) value
 
 insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono'), (3, 'Vendedor'), (4, 'Auxiliar');
 
-insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 5);
+insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5);
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
 (1, 'Administrador', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),

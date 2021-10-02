@@ -22,9 +22,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.classmate.TypeResolver;
 
 import br.com.mystore.api.exceptionhandler.Problema;
+import br.com.mystore.api.v1.model.CidadeModel;
+import br.com.mystore.api.v1.model.EmpresaBasicoModel;
+import br.com.mystore.api.v1.model.EstadoModel;
 import br.com.mystore.api.v1.model.GrupoModel;
 import br.com.mystore.api.v1.model.PermissaoModel;
 import br.com.mystore.api.v1.model.UsuarioModel;
+import br.com.mystore.api.v1.openapi.model.CidadesModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.EmpresasBasicoModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.EstadosModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.GruposModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.PermissoesModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.UsuariosModelOpenApi;
@@ -77,21 +83,12 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				//.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 				//.directModelSubstitute(Links.class, LinksModelOpenApi.class)
 				/*	
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(PagedModel.class, CozinhaModel.class),
-						CozinhasModelOpenApi.class))
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(PagedModel.class, PedidoResumoModel.class),
 						PedidosResumoModelOpenApi.class))
 				
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, CidadeModel.class),
-						CidadesModelOpenApi.class))
-				
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, EstadoModel.class),
-						EstadosModelOpenApi.class))
+
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class),
@@ -100,13 +97,19 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, ProdutoModel.class),
 						ProdutosModelOpenApi.class))
+					
+				*/
+				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, CidadeModel.class),
+						CidadesModelOpenApi.class))
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, EstadoModel.class),
+						EstadosModelOpenApi.class))
+				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, EmpresaBasicoModel.class),
-						RestaurantesBasicoModelOpenApi.class))
-				
-				*/
-				
+						EmpresasBasicoModelOpenApi.class))
+			
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, GrupoModel.class),
 						GruposModelOpenApi.class))
@@ -122,12 +125,12 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				
 				.apiInfo(apiInfoV1())
 				.tags(
-						//new Tag("Cidades", "Gerencia as cidades"),
+						new Tag("Cidades", "Gerencia as cidades"),
 						new Tag("Grupos", "Gerencia os grupos de usuários"),
-						//new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
+						new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
 						//new Tag("Pedidos", "Gerencia os pedidos"),
-						//new Tag("Empresas", "Gerencia as empresas"),
-						//new Tag("Estados", "Gerencia os estados"),
+						new Tag("Empresas", "Gerencia as empresas"),
+						new Tag("Estados", "Gerencia os estados"),
 						//new Tag("Produtos", "Gerencia os produtos de restaurantes"),
 						new Tag("Usuários", "Gerencia os usuários"),
 						//new Tag("Estatísticas", "Estatísticas da MyStore"),
