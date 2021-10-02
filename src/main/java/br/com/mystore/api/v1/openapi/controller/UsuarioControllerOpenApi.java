@@ -1,6 +1,8 @@
 package br.com.mystore.api.v1.openapi.controller;
 
+import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.UsuarioModel;
@@ -36,6 +38,15 @@ public interface UsuarioControllerOpenApi {
 			@ApiParam(name = "corpo", value = "Representação de uma nova senha", 
 				required = true)
 			SenhaInput senha);
+	
+	@ApiOperation("Ativa um usuário por ID")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Usuário ativado com sucesso"),
+		@ApiResponse(code = 404, message = "usuário não encontrado", response = Problem.class)
+	})
+	ResponseEntity<Void> ativar(
+			@ApiParam(value = "ID de um empresa", example = "1", required = true)
+			Long empresaId);
 	
 	@ApiOperation("Atualiza um usuário por ID")
 	@ApiResponses({
@@ -78,6 +89,15 @@ public interface UsuarioControllerOpenApi {
 	void codigoAcesso(
 			@ApiParam(value = "E-mail do usuário", example = "joao@mystore.com.br", required = true)
 			String usuarioEmail);	
+	
+	@ApiOperation("Inativa um usuário por ID")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Usuário inativado com sucesso"),
+		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problem.class)
+	})
+	ResponseEntity<Void> inativar(
+			@ApiParam(value = "ID de um empresa", example = "1", required = true)
+			Long empresaId);	
 	
 	@ApiOperation("Lista os usuários")
 	CollectionModel<UsuarioModel> listar();

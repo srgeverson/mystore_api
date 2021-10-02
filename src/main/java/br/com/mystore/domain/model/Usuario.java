@@ -41,7 +41,7 @@ public class Usuario extends AbstractAggregateRoot<Usuario> {
 
 	@Column(nullable = true)
 	private Boolean ativo;
-	
+
 	@Column(nullable = true)
 	private String codigoAcesso;
 
@@ -60,10 +60,18 @@ public class Usuario extends AbstractAggregateRoot<Usuario> {
 		return getGrupos().add(grupo);
 	}
 
+	public void ativar() {
+		setAtivo(true);
+	}
+
 	public void enviarCodigoSolicitado() {
 		registerEvent(new CodigoValidarAcessoEvent(this));
 	}
-	
+
+	public void inativar() {
+		setAtivo(false);
+	}
+
 	public boolean isNovo() {
 		return getId() == null;
 	}

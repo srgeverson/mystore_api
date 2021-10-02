@@ -26,11 +26,14 @@ public class RootEntryPointController {
 	public RootEntryPointModel root() {
 		var rootEntryPointModel = new RootEntryPointModel();
 
-		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes()) {
-			rootEntryPointModel.add(mystoreLinks.linkToGrupos("grupos"));
-			rootEntryPointModel.add(mystoreLinks.linkToPermissoes("permissoes"));
-			rootEntryPointModel.add(mystoreLinks.linkToUsuarios("usuarios"));
-		}
+		if (mystoreSecurity.podeGerenciarEmpresas())
+			rootEntryPointModel.add(mystoreLinks.linkToEmpresas("empresas"));
+
+		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes())
+			rootEntryPointModel //
+					.add(mystoreLinks.linkToGrupos("grupos")) // Grupos
+					.add(mystoreLinks.linkToPermissoes("permissoes")) // Permissões
+					.add(mystoreLinks.linkToUsuarios("usuarios")); // Usuários
 
 		return rootEntryPointModel;
 	}

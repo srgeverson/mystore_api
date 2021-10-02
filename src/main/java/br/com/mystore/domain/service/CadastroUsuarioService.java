@@ -44,6 +44,13 @@ public class CadastroUsuarioService {
 		usuario.adicionarGrupo(grupo);
 	}
 
+	@Transactional
+	public void ativar(Long usuarioId) {
+		Usuario usuarioAtual = buscarOuFalhar(usuarioId);
+
+		usuarioAtual.ativar();
+	}
+
 	public Usuario buscarOuFalhar(String usuarioEmail) {
 		return usuarioRepository.findByEmail(usuarioEmail).orElseThrow(() -> new UsuarioNaoEncontradoException(
 				String.format("Não existe um cadastro de usuário com email %s", usuarioEmail)));
@@ -100,6 +107,13 @@ public class CadastroUsuarioService {
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
 
 		usuario.removerGrupo(grupo);
+	}
+
+	@Transactional
+	public void inativar(Long usuarioId) {
+		Usuario usuarioAtual = buscarOuFalhar(usuarioId);
+
+		usuarioAtual.inativar();
 	}
 
 	@Transactional
