@@ -1,8 +1,10 @@
 package br.com.mystore.api.v1.openapi.controller;
 
 import org.springframework.beans.factory.parsing.Problem;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
+import br.com.mystore.api.v1.model.FormaPagamentoModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -12,13 +14,13 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Empresas")
 public interface EmpresaFormaPagamentoControllerOpenApi {
 	
-//	@ApiOperation("Lista as formas de pagamento associadas a empresa")
-//	@ApiResponses({
-//		@ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
-//	})
-//	CollectionModel<FormaPagamentoModel> listar(
-//			@ApiParam(value = "ID do empresa", example = "1", required = true)
-//			Long empresaId);
+	@ApiOperation("Lista as formas de pagamento associadas a empresa")
+	@ApiResponses({
+		@ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
+	})
+	CollectionModel<FormaPagamentoModel> listar(
+			@ApiParam(value = "ID do empresa", example = "1", required = true)
+			Long empresaId);
 
 	@ApiOperation("Desassociação de empresa com forma de pagamento")
 	@ApiResponses({

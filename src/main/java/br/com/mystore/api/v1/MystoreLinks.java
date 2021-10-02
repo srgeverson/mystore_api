@@ -11,6 +11,8 @@ import org.springframework.hateoas.TemplateVariables;
 import org.springframework.stereotype.Component;
 
 import br.com.mystore.api.v1.controller.EmpresaController;
+import br.com.mystore.api.v1.controller.EmpresaFormaPagamentoController;
+import br.com.mystore.api.v1.controller.FormaPagamentoController;
 import br.com.mystore.api.v1.controller.GrupoController;
 import br.com.mystore.api.v1.controller.GrupoPermissaoController;
 import br.com.mystore.api.v1.controller.PermissaoController;
@@ -32,6 +34,116 @@ public class MystoreLinks {
 		return linkTo(UsuarioController.class).withRel(rel);
 	}
 
+	// Início Links Cidades
+//	public Link linkToCidade(Long cidadeId, String rel) {
+//		return linkTo(methodOn(CidadeController.class)
+//				.buscar(cidadeId)).withRel(rel);
+//	}
+//	
+//	public Link linkToCidade(Long cidadeId) {
+//		return linkToCidade(cidadeId, IanaLinkRelations.SELF.value());
+//	}
+//	
+//	public Link linkToCidades(String rel) {
+//		return linkTo(CidadeController.class).withRel(rel);
+//	}
+//	
+//	public Link linkToCidades() {
+//		return linkToCidades(IanaLinkRelations.SELF.value());
+//	}
+	// Fim Links Cidades
+
+	// Início Links Estados
+//	public Link linkToEstado(Long estadoId, String rel) {
+//		return linkTo(methodOn(EstadoController.class)
+//				.buscar(estadoId)).withRel(rel);
+//	}
+//	
+//	public Link linkToEstado(Long estadoId) {
+//		return linkToEstado(estadoId, IanaLinkRelations.SELF.value());
+//	}
+//	
+//	public Link linkToEstados(String rel) {
+//		return linkTo(EstadoController.class).withRel(rel);
+//	}
+//
+//	public Link linkToEstados() {
+//		return linkToEstados(IanaLinkRelations.SELF.value());
+//	}
+	// Início Links Estados
+
+	// Início Links Empresa
+	public Link linkToEmpresa(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).buscar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresa(Long empresaId) {
+		return linkToEmpresa(empresaId, IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresaInativacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).inativar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresaAtivacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).ativar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresas() {
+		return linkToEmpresas(IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresas(String rel) {
+		return linkTo(EmpresaController.class).withRel(rel);
+	}
+
+	public Link linkToEmpresaFormasPagamento(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaFormaPagamentoController.class).listar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresaFormasPagamento(Long empresaId) {
+		return linkToEmpresaFormasPagamento(empresaId, IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresaFormaPagamentoDesassociacao(Long empresaId, Long formaPagamentoId, String rel) {
+
+		return linkTo(methodOn(EmpresaFormaPagamentoController.class).desassociar(empresaId, formaPagamentoId))
+				.withRel(rel);
+	}
+
+	public Link linkToEmpresaFormaPagamentoAssociacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaFormaPagamentoController.class).associar(empresaId, null)).withRel(rel);
+	}
+	// Fim Links Empresa
+
+
+	// Início Links Formas Pagamentos
+	public Link linkToFormaPagamento(Long formaPagamentoId, String rel) {
+		return linkTo(methodOn(FormaPagamentoController.class).buscar(formaPagamentoId, null)).withRel(rel);
+	}
+
+	public Link linkToFormaPagamento(Long formaPagamentoId) {
+		return linkToFormaPagamento(formaPagamentoId, IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToFormasPagamento(String rel) {
+		return linkTo(FormaPagamentoController.class).withRel(rel);
+	}
+
+	public Link linkToFormasPagamento() {
+		return linkToFormasPagamento(IanaLinkRelations.SELF.value());
+	}
+	// Fim Links Formas Pagamentos
+	
+	// Início Links Grupos e Permissoes
+	public Link linkToGrupoPermissoes(Long grupoId) {
+		return linkToGrupoPermissoes(grupoId, IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToGrupoPermissoes(Long grupoId, String rel) {
+		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
+	}
+	
 	public Link linkToGrupoPermissaoAssociacao(Long grupoId, String rel) {
 		return linkTo(methodOn(GrupoPermissaoController.class).associar(grupoId, null)).withRel(rel);
 	}
@@ -63,58 +175,7 @@ public class MystoreLinks {
 	public Link linkToPermissoes(String rel) {
 		return linkTo(PermissaoController.class).withRel(rel);
 	}
-
-	public Link linkToGrupoPermissoes(Long grupoId) {
-		return linkToGrupoPermissoes(grupoId, IanaLinkRelations.SELF.value());
-	}
-
-	public Link linkToGrupoPermissoes(Long grupoId, String rel) {
-		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
-	}
-
-	// Início Links Empresa
-	public Link linkToEmpresa(Long empresaId, String rel) {
-		return linkTo(methodOn(EmpresaController.class).buscar(empresaId)).withRel(rel);
-	}
-
-	public Link linkToEmpresa(Long empresaId) {
-		return linkToEmpresa(empresaId, IanaLinkRelations.SELF.value());
-	}
-
-	public Link linkToEmpresaInativacao(Long empresaId, String rel) {
-		return linkTo(methodOn(EmpresaController.class).inativar(empresaId)).withRel(rel);
-	}
-
-	public Link linkToEmpresaAtivacao(Long empresaId, String rel) {
-		return linkTo(methodOn(EmpresaController.class).ativar(empresaId)).withRel(rel);
-	}
-
-	public Link linkToEmpresas() {
-		return linkToEmpresas(IanaLinkRelations.SELF.value());
-	}
-
-	public Link linkToEmpresas(String rel) {
-		return linkTo(EmpresaController.class).withRel(rel);
-	}
-
-//	public Link linkToEmpresaFormasPagamento(Long empresaId, String rel) {
-//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).listar(empresaId)).withRel(rel);
-//	}
-
-//	public Link linkToEmpresaFormasPagamento(Long empresaId) {
-//		return linkToEmpresaFormasPagamento(empresaId, IanaLinkRelations.SELF.value());
-//	}
-
-//	public Link linkToEmpresaFormaPagamentoDesassociacao(Long empresaId, Long formaPagamentoId, String rel) {
-//
-//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).desassociar(empresaId, formaPagamentoId))
-//				.withRel(rel);
-//	}
-//
-//	public Link linkToEmpresaFormaPagamentoAssociacao(Long empresaId, String rel) {
-//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).associar(empresaId, null)).withRel(rel);
-//	}
-	// Fim Links Empresa
+	// Fim Links Grupos e Permissoes
 
 	// Início Links Usuário
 	public Link linkToUsuario(Long usuarioId) {
