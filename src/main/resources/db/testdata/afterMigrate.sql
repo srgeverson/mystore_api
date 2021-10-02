@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SET SQL_SAFE_UPDATES = 0;
 set foreign_key_checks = 0;
 
@@ -79,3 +80,5 @@ values ('mystore-app', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quoz
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-manager', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2', 'READ,WRITE', 'client_credentials', null, 'RECUPERAR_SENHA', null, null, null);
+=======
+>>>>>>> edccf1f8998c63d51a5dd60c58ad4c4cafdec7b0
