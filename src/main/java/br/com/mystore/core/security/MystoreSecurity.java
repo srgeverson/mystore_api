@@ -26,10 +26,6 @@ public class MystoreSecurity {
 
 		return jwt.getClaim("usuarios_id");
 	}
-
-	public boolean podeConsultarEmpresas() {
-		return temEscopoLeitura() && isAutenticado();
-	}
 	
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
@@ -39,8 +35,8 @@ public class MystoreSecurity {
 		return temEscopoLeitura() && hasAuthority("GERENCIAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 	
-	public boolean podeGerenciarCadastroEmpresas() {
-		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
+	public boolean podeGerenciarEmpresas() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_EMPRESAS");
 	}
 
 	public boolean podePesquisarPedidos() {

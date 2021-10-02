@@ -44,4 +44,20 @@ public @interface CheckSecurity {
 
 	}
 
+	public @interface Empresas {
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeAlterarPropriaEmpresa {
+		}
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarEmpresas()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarEmpresa {
+		}
+
+	}
+
 }
