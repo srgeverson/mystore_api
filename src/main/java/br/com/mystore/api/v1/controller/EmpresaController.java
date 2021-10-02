@@ -30,8 +30,8 @@ import br.com.mystore.api.v1.model.imput.EmpresaInput;
 import br.com.mystore.api.v1.openapi.controller.EmpresaControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.exception.CidadeNaoEncontradaException;
-import br.com.mystore.domain.exception.CozinhaNaoEncontradaException;
 import br.com.mystore.domain.exception.EmpresaNaoEncontradaException;
+import br.com.mystore.domain.exception.EnderecoNaoEncontradoException;
 import br.com.mystore.domain.exception.NegocioException;
 import br.com.mystore.domain.model.Empresa;
 import br.com.mystore.domain.repository.EmpresaRepository;
@@ -51,69 +51,31 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	private CadastroEmpresaService cadastroEmpresa;
 
 	@Autowired
-	private EmpresaRepository empresaRepository;
-
-	@Autowired
 	private EmpresaInputDisassembler empresaInputDisassembler;
 
 	@Autowired
 	private EmpresaModelAssembler empresaModelAssembler;
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
-	@GetMapping
-	public CollectionModel<EmpresaBasicoModel> listar() {
-		return empresaBasicoModelAssembler.toCollectionModel(empresaRepository.findAll());
-	}
+	@Autowired
+	private EmpresaRepository empresaRepository;
 
 	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
-	@GetMapping(params = "projecao=apenas-nome")
-	public CollectionModel<EmpresaApenasNomeModel> listarApenasNomes() {
-		return empresaApenasNomeModelAssembler.toCollectionModel(empresaRepository.findAll());
-	}
-
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
-	@GetMapping("/{empresaId}")
-	public EmpresaModel buscar(@PathVariable Long empresaId) {
-		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
-
-		return empresaModelAssembler.toModel(empresa);
-	}
-
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
 	@PostMapping
+	@Override
 	@ResponseStatus(HttpStatus.CREATED)
 	public EmpresaModel adicionar(@RequestBody @Valid EmpresaInput empresaInput) {
 		try {
 			Empresa empresa = empresaInputDisassembler.toDomainObject(empresaInput);
 
 			return empresaModelAssembler.toModel(cadastroEmpresa.salvar(empresa));
-		} catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
+		} catch (EnderecoNaoEncontradoException | CidadeNaoEncontradaException e) {
 			throw new NegocioException(e.getMessage());
 		}
 	}
 
 	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
-	@PutMapping("/{empresaId}")
-	public EmpresaModel atualizar(@PathVariable Long empresaId, @RequestBody @Valid EmpresaInput empresaInput) {
-		try {
-			Empresa empresaAtual = cadastroEmpresa.buscarOuFalhar(empresaId);
-
-			empresaInputDisassembler.copyToDomainObject(empresaInput, empresaAtual);
-
-			return empresaModelAssembler.toModel(cadastroEmpresa.salvar(empresaAtual));
-		} catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
-
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
 	@PutMapping("/{empresaId}/ativo")
+	@Override
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> ativar(@PathVariable Long empresaId) {
 		cadastroEmpresa.ativar(empresaId);
@@ -122,19 +84,9 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	}
 
 	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
-	@DeleteMapping("/{empresaId}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> inativar(@PathVariable Long empresaId) {
-		cadastroEmpresa.inativar(empresaId);
-
-		return ResponseEntity.noContent().build();
-	}
-
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
-	@Override
 	@PutMapping("/ativacoes")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@Override
 	public void ativarMultiplos(@RequestBody List<Long> empresaIds) {
 		try {
 			cadastroEmpresa.ativar(empresaIds);
@@ -144,9 +96,43 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	}
 
 	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@PutMapping("/{empresaId}")
 	@Override
-	@DeleteMapping("/ativacoes")
+	public EmpresaModel atualizar(@PathVariable Long empresaId, @RequestBody @Valid EmpresaInput empresaInput) {
+		try {
+			Empresa empresaAtual = cadastroEmpresa.buscarOuFalhar(empresaId);
+
+			empresaInputDisassembler.copyToDomainObject(empresaInput, empresaAtual);
+
+			return empresaModelAssembler.toModel(cadastroEmpresa.salvar(empresaAtual));
+		} catch (EnderecoNaoEncontradoException | CidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
+
+	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@GetMapping("/{empresaId}")
+	@Override
+	public EmpresaModel buscar(@PathVariable Long empresaId) {
+		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
+
+		return empresaModelAssembler.toModel(empresa);
+	}
+
+	@CheckSecurity.Empresas.PodeGerenciarEmpresa
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{empresaId}/ativo")
+	@Override
+	public ResponseEntity<Void> inativar(@PathVariable Long empresaId) {
+		cadastroEmpresa.inativar(empresaId);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/ativacoes")
+	@Override
 	public void inativarMultiplos(@RequestBody List<Long> empresaIds) {
 		try {
 			cadastroEmpresa.inativar(empresaIds);
@@ -155,4 +141,18 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		}
 	}
 
+	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@GetMapping
+	@Override
+	public CollectionModel<EmpresaBasicoModel> listar() {
+		return empresaBasicoModelAssembler.toCollectionModel(empresaRepository.findAll());
+	}
+
+	// Tem que rever esse método
+	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@GetMapping(params = "projecao=apenas-nome")
+	@Override
+	public CollectionModel<EmpresaApenasNomeModel> listarApenasNomes() {
+		return empresaApenasNomeModelAssembler.toCollectionModel(empresaRepository.findAll());
+	}
 }

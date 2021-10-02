@@ -26,17 +26,25 @@ public class MystoreSecurity {
 
 		return jwt.getClaim("usuarios_id");
 	}
-	
+
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
-	
-	public boolean podeGerenciarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("GERENCIAR_USUARIOS_GRUPOS_PERMISSOES");
+
+	public boolean podeGerenciarCidades() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_CIDADESS");
 	}
-	
+
 	public boolean podeGerenciarEmpresas() {
 		return temEscopoEscrita() && hasAuthority("GERENCIAR_EMPRESAS");
+	}
+
+	public boolean podeGerenciarEstados() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_ESTADOS");
+	}
+
+	public boolean podeGerenciarUsuariosGruposPermissoes() {
+		return temEscopoLeitura() && hasAuthority("GERENCIAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 
 	public boolean podePesquisarPedidos() {

@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 public class EnderecoInput {
 
-	@ApiModelProperty(example = "38400-000", required = true)
+	@ApiModelProperty(example = "60000-000", required = true)
 	@NotBlank
 	private String cep;
 	

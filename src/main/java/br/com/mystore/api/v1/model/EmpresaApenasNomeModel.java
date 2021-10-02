@@ -15,7 +15,7 @@ public class EmpresaApenasNomeModel extends RepresentationModel<EmpresaApenasNom
 	@ApiModelProperty(example = "1")
 	private Long id;
 
-	@ApiModelProperty(example = "MyStore")
+	@ApiModelProperty(example = "MyStore LTDA")
 	private String nome;
 
 }

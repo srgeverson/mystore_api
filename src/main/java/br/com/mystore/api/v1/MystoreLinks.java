@@ -8,7 +8,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.TemplateVariable;
 import org.springframework.hateoas.TemplateVariable.VariableType;
 import org.springframework.hateoas.TemplateVariables;
-import org.springframework.hateoas.UriTemplate;
 import org.springframework.stereotype.Component;
 
 import br.com.mystore.api.v1.controller.EmpresaController;
@@ -90,14 +89,12 @@ public class MystoreLinks {
 		return linkTo(methodOn(EmpresaController.class).ativar(empresaId)).withRel(rel);
 	}
 
-	public Link linkToEmpresas(String rel) {
-		String empresasUrl = linkTo(EmpresaController.class).toUri().toString();
-
-		return new Link(UriTemplate.of(empresasUrl, PROJECAO_VARIABLES), rel);
-	}
-
 	public Link linkToEmpresas() {
 		return linkToEmpresas(IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresas(String rel) {
+		return linkTo(EmpresaController.class).withRel(rel);
 	}
 
 //	public Link linkToEmpresaFormasPagamento(Long empresaId, String rel) {
@@ -117,9 +114,9 @@ public class MystoreLinks {
 //	public Link linkToEmpresaFormaPagamentoAssociacao(Long empresaId, String rel) {
 //		return linkTo(methodOn(EmpresaFormaPagamentoController.class).associar(empresaId, null)).withRel(rel);
 //	}
-
 	// Fim Links Empresa
 
+	// Início Links Usuário
 	public Link linkToUsuario(Long usuarioId) {
 		return linkToUsuario(usuarioId, IanaLinkRelations.SELF.value());
 	}
@@ -139,5 +136,5 @@ public class MystoreLinks {
 	public Link linkToUsuarios() {
 		return linkToUsuarios(IanaLinkRelations.SELF.value());
 	}
-
+	// Fim Links Usuário
 }

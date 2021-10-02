@@ -22,26 +22,6 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags = "Empresas")
 public interface EmpresaControllerOpenApi {
 
-	@ApiOperation(value = "Lista empresas")
-	@ApiImplicitParams({
-		@ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
-				name = "projecao", paramType = "query", type = "string")
-	})
-	CollectionModel<EmpresaBasicoModel> listar();
-	
-	@ApiIgnore
-	@ApiOperation(value = "Lista empresas", hidden = true)
-	CollectionModel<EmpresaApenasNomeModel> listarApenasNomes();
-	
-	@ApiOperation("Busca um empresa por ID")
-	@ApiResponses({
-		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problem.class),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
-	})
-	EmpresaModel buscar(
-			@ApiParam(value = "ID de um empresa", example = "1", required = true)
-			Long empresaId);
-	
 	@ApiOperation("Cadastra um empresa")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Empresa cadastrado"),
@@ -72,15 +52,6 @@ public interface EmpresaControllerOpenApi {
 			@ApiParam(value = "ID de um empresa", example = "1", required = true)
 			Long empresaId);
 	
-	@ApiOperation("Inativa um empresa por ID")
-	@ApiResponses({
-		@ApiResponse(code = 204, message = "Empresa inativado com sucesso"),
-		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
-	})
-	ResponseEntity<Void> inativar(
-			@ApiParam(value = "ID de um empresa", example = "1", required = true)
-			Long empresaId);
-	
 	@ApiOperation("Ativa múltiplos empresas")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Empresas ativados com sucesso")
@@ -89,6 +60,24 @@ public interface EmpresaControllerOpenApi {
 			@ApiParam(name = "corpo", value = "IDs de empresas", required = true)
 			List<Long> empresaIds);
 	
+	@ApiOperation("Busca um empresa por ID")
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problem.class),
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+	})
+	EmpresaModel buscar(
+			@ApiParam(value = "ID de um empresa", example = "1", required = true)
+			Long empresaId);
+	
+	@ApiOperation("Inativa um empresa por ID")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Empresa inativado com sucesso"),
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problem.class)
+	})
+	ResponseEntity<Void> inativar(
+			@ApiParam(value = "ID de um empresa", example = "1", required = true)
+			Long empresaId);
+
 	@ApiOperation("Inativa múltiplos empresas")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Empresas ativados com sucesso")
@@ -96,5 +85,16 @@ public interface EmpresaControllerOpenApi {
 	void inativarMultiplos(
 			@ApiParam(name = "corpo", value = "IDs de empresas", required = true)
 			List<Long> empresaIds);
+
+	@ApiOperation(value = "Lista empresas")
+	@ApiImplicitParams({
+		@ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
+				name = "projecao", paramType = "query", type = "string")
+	})
+	CollectionModel<EmpresaBasicoModel> listar();
+	
+	@ApiIgnore
+	@ApiOperation(value = "Lista empresas", hidden = true)
+	CollectionModel<EmpresaApenasNomeModel> listarApenasNomes();
 
 }

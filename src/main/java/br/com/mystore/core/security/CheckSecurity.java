@@ -10,6 +10,32 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
 
+	public @interface Empresas {
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeAlterarPropriaEmpresa {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarEmpresas()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarEmpresa {
+		}
+
+	}
+
+	public @interface Estados {
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarEstados()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarCidades {
+		}
+
+	}
+
 	public @interface UsuariosGruposPermissoes {
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
@@ -44,18 +70,12 @@ public @interface CheckSecurity {
 
 	}
 
-	public @interface Empresas {
+	public @interface Cidades {
 
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCidadess()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeAlterarPropriaEmpresa {
-		}
-
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarEmpresas()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeGerenciarEmpresa {
+		public @interface PodeGerenciarCidades {
 		}
 
 	}
