@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +59,24 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/{usuarioId}/ativo")
+	@Override
+	public ResponseEntity<Void> ativar(@PathVariable Long usuarioId) {
+		cadastroUsuario.ativar(usuarioId);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/{usuarioId}/senha")
+	@Override
+	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
+		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
+	}
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PutMapping("/{usuarioId}")
 	@Override
 	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
@@ -93,12 +113,14 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		cadastroUsuario.codigoAcesso(usuarioEmail);
 	}
 
-	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PutMapping("/{usuarioId}/senha")
+	@DeleteMapping("/{usuarioId}/ativo")
 	@Override
-	public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
-		cadastroUsuario.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
+	public ResponseEntity<Void> inativar(@PathVariable Long usuarioId) {
+		cadastroUsuario.inativar(usuarioId);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes

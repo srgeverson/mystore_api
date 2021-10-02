@@ -10,6 +10,7 @@ import org.springframework.hateoas.TemplateVariable.VariableType;
 import org.springframework.hateoas.TemplateVariables;
 import org.springframework.stereotype.Component;
 
+import br.com.mystore.api.v1.controller.EmpresaController;
 import br.com.mystore.api.v1.controller.GrupoController;
 import br.com.mystore.api.v1.controller.GrupoPermissaoController;
 import br.com.mystore.api.v1.controller.PermissaoController;
@@ -18,7 +19,7 @@ import br.com.mystore.api.v1.controller.UsuarioGrupoController;
 
 @Component
 public class MystoreLinks {
-	
+
 	public static final TemplateVariables PAGINACAO_VARIABLES = new TemplateVariables(
 			new TemplateVariable("page", VariableType.REQUEST_PARAM),
 			new TemplateVariable("size", VariableType.REQUEST_PARAM),
@@ -38,7 +39,7 @@ public class MystoreLinks {
 	public Link linkToGrupoPermissaoDesassociacao(Long grupoId, Long permissaoId, String rel) {
 		return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, permissaoId)).withRel(rel);
 	}
-	
+
 	public Link linkToGrupos() {
 		return linkToGrupos(IanaLinkRelations.SELF.value());
 	}
@@ -54,7 +55,7 @@ public class MystoreLinks {
 	public Link linkToGruposUsuario(Long usuarioId, String rel) {
 		return linkTo(methodOn(UsuarioGrupoController.class).listar(usuarioId)).withRel(rel);
 	}
-	
+
 	public Link linkToPermissoes() {
 		return linkToPermissoes(IanaLinkRelations.SELF.value());
 	}
@@ -66,11 +67,56 @@ public class MystoreLinks {
 	public Link linkToGrupoPermissoes(Long grupoId) {
 		return linkToGrupoPermissoes(grupoId, IanaLinkRelations.SELF.value());
 	}
-	
+
 	public Link linkToGrupoPermissoes(Long grupoId, String rel) {
 		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
 	}
 
+	// Início Links Empresa
+	public Link linkToEmpresa(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).buscar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresa(Long empresaId) {
+		return linkToEmpresa(empresaId, IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresaInativacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).inativar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresaAtivacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaController.class).ativar(empresaId)).withRel(rel);
+	}
+
+	public Link linkToEmpresas() {
+		return linkToEmpresas(IanaLinkRelations.SELF.value());
+	}
+
+	public Link linkToEmpresas(String rel) {
+		return linkTo(EmpresaController.class).withRel(rel);
+	}
+
+//	public Link linkToEmpresaFormasPagamento(Long empresaId, String rel) {
+//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).listar(empresaId)).withRel(rel);
+//	}
+
+//	public Link linkToEmpresaFormasPagamento(Long empresaId) {
+//		return linkToEmpresaFormasPagamento(empresaId, IanaLinkRelations.SELF.value());
+//	}
+
+//	public Link linkToEmpresaFormaPagamentoDesassociacao(Long empresaId, Long formaPagamentoId, String rel) {
+//
+//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).desassociar(empresaId, formaPagamentoId))
+//				.withRel(rel);
+//	}
+//
+//	public Link linkToEmpresaFormaPagamentoAssociacao(Long empresaId, String rel) {
+//		return linkTo(methodOn(EmpresaFormaPagamentoController.class).associar(empresaId, null)).withRel(rel);
+//	}
+	// Fim Links Empresa
+
+	// Início Links Usuário
 	public Link linkToUsuario(Long usuarioId) {
 		return linkToUsuario(usuarioId, IanaLinkRelations.SELF.value());
 	}
@@ -90,5 +136,5 @@ public class MystoreLinks {
 	public Link linkToUsuarios() {
 		return linkToUsuarios(IanaLinkRelations.SELF.value());
 	}
-	
+	// Fim Links Usuário
 }
