@@ -1,4 +1,4 @@
-package br.com.mystore.api.v1.openapi;
+package br.com.mystore.api.v1.openapi.controller;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
