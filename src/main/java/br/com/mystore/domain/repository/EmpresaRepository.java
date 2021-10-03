@@ -12,4 +12,6 @@ public interface EmpresaRepository extends CustomJpaRepository<Empresa, Long> {
 
 	@Query("from empresas where nome like %:nome%")
 	List<Empresa> findByNome(String nome);
+
+	boolean existsResponsavel(Long empresaId, Long usuarioId);
 }

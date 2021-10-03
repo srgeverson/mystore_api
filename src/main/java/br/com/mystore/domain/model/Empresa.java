@@ -1,9 +1,7 @@
 package br.com.mystore.domain.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -57,13 +54,13 @@ public class Empresa {
 	private Set<FormaPagamento> formasPagamento = new HashSet<>();
 	
 	@ManyToMany
-	@JoinTable(name = "restaurantes_usuarios_responsaveis",
+	@JoinTable(name = "empresas_usuarios_responsaveis",
 			joinColumns = @JoinColumn(name = "empresas_id"),
 			inverseJoinColumns = @JoinColumn(name = "usuarios_id"))
 	private Set<Usuario> responsaveis = new HashSet<>();
 	
-	@OneToMany(mappedBy = "empresas")
-	private List<Produto> produtos = new ArrayList<>();
+	//@OneToMany(mappedBy = "produto")
+	//private List<Produto> produtos = new ArrayList<>();
 	
 	public void ativar() {
 		setAtivo(true);

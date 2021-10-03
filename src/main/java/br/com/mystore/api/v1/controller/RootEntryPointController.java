@@ -26,7 +26,7 @@ public class RootEntryPointController {
 	public RootEntryPointModel root() {
 		var rootEntryPointModel = new RootEntryPointModel();
 
-		if (mystoreSecurity.podeGerenciarEmpresas())
+		if (mystoreSecurity.podeGerenciarEmpresas(null))
 			rootEntryPointModel.add(mystoreLinks.linkToEmpresas("empresas"));
 
 		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes())

@@ -34,7 +34,7 @@ public class EmpresaBasicoModelAssembler extends RepresentationModelAssemblerSup
 
 		modelMapper.map(empresa, empresaModel);
 
-		if (mystoreSecurity.podeGerenciarEmpresas()) {
+		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
 			empresaModel.add(mystoreLinks.linkToEmpresas("empresas"));
 		}
 
@@ -45,7 +45,7 @@ public class EmpresaBasicoModelAssembler extends RepresentationModelAssemblerSup
 	public CollectionModel<EmpresaBasicoModel> toCollectionModel(Iterable<? extends Empresa> entities) {
 		CollectionModel<EmpresaBasicoModel> collectionModel = super.toCollectionModel(entities);
 
-		if (mystoreSecurity.podeGerenciarEmpresas()) {
+		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
 			collectionModel.add(mystoreLinks.linkToEmpresas());
 		}
 

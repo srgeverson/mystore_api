@@ -28,10 +28,16 @@ public @interface CheckSecurity {
 		public @interface PodeAlterarPropriaEmpresa {
 		}
 
-		@PreAuthorize("@mystoreSecurity.podeGerenciarEmpresas()")
+		@PreAuthorize("@mystoreSecurity.podeGerenciarEmpresas(#empresaId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarEmpresa {
+		public @interface PodeGerenciar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeConsultarEmpresas()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar {
 		}
 
 	}

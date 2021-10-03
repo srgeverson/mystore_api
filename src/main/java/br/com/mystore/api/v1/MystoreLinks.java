@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import br.com.mystore.api.v1.controller.CidadeController;
 import br.com.mystore.api.v1.controller.EmpresaController;
 import br.com.mystore.api.v1.controller.EmpresaFormaPagamentoController;
+import br.com.mystore.api.v1.controller.EmpresaProdutoController;
 import br.com.mystore.api.v1.controller.EstadoController;
 import br.com.mystore.api.v1.controller.FormaPagamentoController;
 import br.com.mystore.api.v1.controller.GrupoController;
@@ -38,18 +39,17 @@ public class MystoreLinks {
 
 	// Início Links Cidades
 	public Link linkToCidade(Long cidadeId, String rel) {
-		return linkTo(methodOn(CidadeController.class)
-				.buscar(cidadeId)).withRel(rel);
+		return linkTo(methodOn(CidadeController.class).buscar(cidadeId)).withRel(rel);
 	}
-	
+
 	public Link linkToCidade(Long cidadeId) {
 		return linkToCidade(cidadeId, IanaLinkRelations.SELF.value());
 	}
-	
+
 	public Link linkToCidades(String rel) {
 		return linkTo(CidadeController.class).withRel(rel);
 	}
-	
+
 	public Link linkToCidades() {
 		return linkToCidades(IanaLinkRelations.SELF.value());
 	}
@@ -57,14 +57,13 @@ public class MystoreLinks {
 
 	// Início Links Estados
 	public Link linkToEstado(Long estadoId, String rel) {
-		return linkTo(methodOn(EstadoController.class)
-				.buscar(estadoId)).withRel(rel);
+		return linkTo(methodOn(EstadoController.class).buscar(estadoId)).withRel(rel);
 	}
-	
+
 	public Link linkToEstado(Long estadoId) {
 		return linkToEstado(estadoId, IanaLinkRelations.SELF.value());
 	}
-	
+
 	public Link linkToEstados(String rel) {
 		return linkTo(EstadoController.class).withRel(rel);
 	}
@@ -118,7 +117,6 @@ public class MystoreLinks {
 	}
 	// Fim Links Empresa
 
-
 	// Início Links Formas Pagamentos
 	public Link linkToFormaPagamento(Long formaPagamentoId, String rel) {
 		return linkTo(methodOn(FormaPagamentoController.class).buscar(formaPagamentoId, null)).withRel(rel);
@@ -136,7 +134,7 @@ public class MystoreLinks {
 		return linkToFormasPagamento(IanaLinkRelations.SELF.value());
 	}
 	// Fim Links Formas Pagamentos
-	
+
 	// Início Links Grupos e Permissoes
 	public Link linkToGrupoPermissoes(Long grupoId) {
 		return linkToGrupoPermissoes(grupoId, IanaLinkRelations.SELF.value());
@@ -145,7 +143,7 @@ public class MystoreLinks {
 	public Link linkToGrupoPermissoes(Long grupoId, String rel) {
 		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
 	}
-	
+
 	public Link linkToGrupoPermissaoAssociacao(Long grupoId, String rel) {
 		return linkTo(methodOn(GrupoPermissaoController.class).associar(grupoId, null)).withRel(rel);
 	}
@@ -178,6 +176,25 @@ public class MystoreLinks {
 		return linkTo(PermissaoController.class).withRel(rel);
 	}
 	// Fim Links Grupos e Permissoes
+
+	// Início Links Produtos
+	public Link linkToProduto(Long empresaId, Long produtoId, String rel) {
+		return linkTo(methodOn(EmpresaProdutoController.class).buscar(empresaId, produtoId)).withRel(rel);
+	}
+
+	public Link linkToProduto(Long empresaId, Long produtoId) {
+		return linkToProduto(empresaId, produtoId, IanaLinkRelations.SELF.value());
+	}
+	
+	public Link linkToProdutos(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaProdutoController.class)
+				.listar(empresaId, null)).withRel(rel);
+	}
+	
+	public Link linkToProdutos(Long empresaId) {
+		return linkToProdutos(empresaId, IanaLinkRelations.SELF.value());
+	}
+	// Fim Links Produtos
 
 	// Início Links Usuário
 	public Link linkToUsuario(Long usuarioId) {

@@ -1,12 +1,18 @@
 package br.com.mystore.core.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
+import br.com.mystore.domain.repository.EmpresaRepository;
+
 @Component
 public class MystoreSecurity {
+
+	@Autowired
+	private EmpresaRepository empresaRepository;
 
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
@@ -27,6 +33,10 @@ public class MystoreSecurity {
 		return jwt.getClaim("usuarios_id");
 	}
 
+	public boolean podeConsultarEmpresas() {
+		return temEscopoLeitura() && hasAuthority("CONSULTAR_EMPRESAS");
+	}
+
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
@@ -35,8 +45,13 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("GERENCIAR_CIDADES");
 	}
 
-	public boolean podeGerenciarEmpresas() {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_EMPRESAS");
+	public boolean podeGerenciarEmpresas(Long empresaId) {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_EMPRESAS")
+				&& empresaRepository.existsResponsavel(empresaId, getUsuarioId());
+	}
+
+	public boolean podeGerenciarEmpresa() {
+		return temEscopoEscrita() && hasAuthority("CONSULTAR_EMPRESAS");
 	}
 
 	public boolean podeGerenciarEstados() {

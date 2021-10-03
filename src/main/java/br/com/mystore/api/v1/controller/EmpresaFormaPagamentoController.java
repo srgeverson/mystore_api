@@ -38,7 +38,7 @@ public class EmpresaFormaPagamentoController implements EmpresaFormaPagamentoCon
 	@Autowired
 	private MystoreSecurity mystoreSecurity;
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/{formaPagamentoId}")
 	@Override
@@ -48,7 +48,7 @@ public class EmpresaFormaPagamentoController implements EmpresaFormaPagamentoCon
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{formaPagamentoId}")
 	@Override
@@ -58,7 +58,7 @@ public class EmpresaFormaPagamentoController implements EmpresaFormaPagamentoCon
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciar
 	@GetMapping
 	@Override
 	public CollectionModel<FormaPagamentoModel> listar(@PathVariable Long empresaId) {
@@ -69,7 +69,7 @@ public class EmpresaFormaPagamentoController implements EmpresaFormaPagamentoCon
 
 		formasPagamentoModel.add(mystoreLinks.linkToEmpresaFormasPagamento(empresaId));
 
-		if (mystoreSecurity.podeGerenciarEmpresas()) {
+		if (mystoreSecurity.podeGerenciarEmpresas(empresaId)) {
 			formasPagamentoModel.add(mystoreLinks.linkToEmpresaFormaPagamentoAssociacao(empresaId, "associar"));
 
 			formasPagamentoModel.getContent().forEach(formaPagamentoModel -> {

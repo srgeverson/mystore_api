@@ -27,3 +27,9 @@ FOREIGN KEY (grupos_id) REFERENCES grupos (id);
 
 ALTER TABLE usuarios_grupos ADD CONSTRAINT fk_usuarios_grupos_usuarios_id
 FOREIGN KEY (usuarios_id) REFERENCES usuarios (id);
+
+alter table empresas_usuarios_responsaveis add constraint fk_empresas_usuarios_responsaveis_empresas_id
+foreign key (empresas_id) references empresas (id);
+
+alter table empresas_usuarios_responsaveis add constraint fk_empresas_usuarios_responsaveis_usuarios_id
+foreign key (usuarios_id) references usuarios (id);
