@@ -26,8 +26,20 @@ public class RootEntryPointController {
 	public RootEntryPointModel root() {
 		var rootEntryPointModel = new RootEntryPointModel();
 
-		if (mystoreSecurity.podeGerenciarEmpresas(null))
+		if (mystoreSecurity.podeConsultarCidades()) {
+			rootEntryPointModel.add(mystoreLinks.linkToCidades("cidades"));
+		}
+
+		if (mystoreSecurity.podeConsultarEmpresas())
 			rootEntryPointModel.add(mystoreLinks.linkToEmpresas("empresas"));
+
+		if (mystoreSecurity.podeConsultarEstados()) {
+			rootEntryPointModel.add(mystoreLinks.linkToEstados("estados"));
+		}
+		
+		if (mystoreSecurity.podeConsultarFormasPagamento()) {
+			rootEntryPointModel.add(mystoreLinks.linkToFormasPagamento("formas-pagamento"));
+		}
 
 		if (mystoreSecurity.podeGerenciarUsuariosGruposPermissoes())
 			rootEntryPointModel //

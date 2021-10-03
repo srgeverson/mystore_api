@@ -33,11 +33,11 @@ public class EmpresaModelAssembler extends RepresentationModelAssemblerSupport<E
 		EmpresaModel empresaModel = createModelWithId(empresa.getId(), empresa);
 		modelMapper.map(empresa, empresaModel);
 
-		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			empresaModel.add(mystoreLinks.linkToEmpresas("empresas"));
 		}
 
-		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			if (empresa.ativacaoPermitida()) {
 				empresaModel.add(mystoreLinks.linkToEmpresaAtivacao(empresa.getId(), "ativar"));
 			}
@@ -47,7 +47,7 @@ public class EmpresaModelAssembler extends RepresentationModelAssemblerSupport<E
 			}
 		}
 
-		if (mystoreSecurity.podeGerenciarEmpresas(empresa.getId())) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			empresaModel.add(mystoreLinks.linkToProdutos(empresa.getId(), "produtos"));
 		}
 
@@ -58,13 +58,13 @@ public class EmpresaModelAssembler extends RepresentationModelAssemblerSupport<E
 			}
 		}
 
-		if (mystoreSecurity.podeGerenciarEmpresas(empresa.getId())) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			empresaModel.add(mystoreLinks.linkToEmpresaFormasPagamento(empresa.getId(), "formas-pagamento"));
 		}
 
-		if (mystoreSecurity.podeGerenciarEmpresas(empresa.getId())) {
-			// empresaModel.add(mystoreLinks.linkToEmpresaResponsaveis(empresa.getId(),
-			// "responsaveis"));
+		if (mystoreSecurity.podeConsultarEmpresas()) {
+//			 empresaModel.add(mystoreLinks.linkToEmpresaResponsaveis(empresa.getId(),
+//			 "responsaveis"));
 		}
 
 		return empresaModel;
@@ -74,7 +74,7 @@ public class EmpresaModelAssembler extends RepresentationModelAssemblerSupport<E
 	public CollectionModel<EmpresaModel> toCollectionModel(Iterable<? extends Empresa> entities) {
 		CollectionModel<EmpresaModel> collectionModel = super.toCollectionModel(entities);
 
-		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			collectionModel.add(mystoreLinks.linkToEmpresas());
 		}
 

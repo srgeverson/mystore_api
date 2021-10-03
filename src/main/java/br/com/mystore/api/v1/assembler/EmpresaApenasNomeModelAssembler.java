@@ -36,7 +36,7 @@ public class EmpresaApenasNomeModelAssembler
 		
 		modelMapper.map(empresa, empresaModel);
 		
-		if (mystoreSecurity.podeGerenciarEmpresas(empresa.getId())) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			empresaModel.add(mystoreLinks.linkToEmpresas("empresas"));
 		}
 		
@@ -47,7 +47,7 @@ public class EmpresaApenasNomeModelAssembler
 	public CollectionModel<EmpresaApenasNomeModel> toCollectionModel(Iterable<? extends Empresa> entities) {
 		CollectionModel<EmpresaApenasNomeModel> collectionModel = super.toCollectionModel(entities);
 		
-		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			collectionModel.add(mystoreLinks.linkToEmpresas());
 		}
 				

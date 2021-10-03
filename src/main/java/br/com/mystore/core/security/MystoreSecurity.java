@@ -34,36 +34,44 @@ public class MystoreSecurity {
 	}
 
 	public boolean podeConsultarEmpresas() {
-		return temEscopoLeitura() && hasAuthority("CONSULTAR_EMPRESAS");
+		return temEscopoLeitura() && isAutenticado();
 	}
-
+	
+	public boolean podeGerenciarCadastroEmpresas() {
+		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
+	}
+	
+	public boolean podeGerenciarFuncionamentoRestaurantes(Long empresaId) {
+		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
+				|| gerenciaEmpresa(empresaId));
+	}
+	
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
 
 	public boolean podeGerenciarCidades() {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_CIDADES");
+		return temEscopoEscrita() && hasAuthority("EDITAR_CIDADES");
 	}
 
-	public boolean podeGerenciarEmpresas(Long empresaId) {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_EMPRESAS")
-				&& empresaRepository.existsResponsavel(empresaId, getUsuarioId());
-	}
-
-	public boolean podeGerenciarEmpresa() {
-		return temEscopoEscrita() && hasAuthority("CONSULTAR_EMPRESAS");
+	public boolean gerenciaEmpresa(Long empresaId) {
+		if (empresaId == null) {
+			return false;
+		}
+		
+		return empresaRepository.existsResponsavel(empresaId, getUsuarioId());
 	}
 
 	public boolean podeGerenciarEstados() {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_ESTADOS");
+		return temEscopoEscrita() && hasAuthority("EDITAR_ESTADOS");
 	}
 
 	public boolean podeGerenciarFormasPagamento() {
-		return temEscopoEscrita() && hasAuthority("GERENCIAR_FORMAS_PAGAMENTOS");
+		return temEscopoEscrita() && hasAuthority("EDITAR_FORMAS_PAGAMENTOS");
 	}
 
 	public boolean podeGerenciarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("GERENCIAR_USUARIOS_GRUPOS_PERMISSOES");
+		return temEscopoLeitura() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 
 	public boolean podePesquisarPedidos() {

@@ -14,6 +14,7 @@ import br.com.mystore.api.v1.controller.CidadeController;
 import br.com.mystore.api.v1.controller.EmpresaController;
 import br.com.mystore.api.v1.controller.EmpresaFormaPagamentoController;
 import br.com.mystore.api.v1.controller.EmpresaProdutoController;
+import br.com.mystore.api.v1.controller.EmpresaUsuarioResponsavelController;
 import br.com.mystore.api.v1.controller.EstadoController;
 import br.com.mystore.api.v1.controller.FormaPagamentoController;
 import br.com.mystore.api.v1.controller.GrupoController;
@@ -115,6 +116,28 @@ public class MystoreLinks {
 	public Link linkToEmpresaFormaPagamentoAssociacao(Long empresaId, String rel) {
 		return linkTo(methodOn(EmpresaFormaPagamentoController.class).associar(empresaId, null)).withRel(rel);
 	}
+	
+	public Link linkToEmpresaResponsaveis(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaUsuarioResponsavelController.class)
+				.listar(empresaId)).withRel(rel);
+	}
+	
+	public Link linkToEmpresaResponsaveis(Long empresaId) {
+		return linkToEmpresaResponsaveis(empresaId, IanaLinkRelations.SELF.value());
+	}
+	
+	public Link linkToEmpresaResponsavelDesassociacao(
+			Long empresaId, Long usuarioId, String rel) {
+		
+		return linkTo(methodOn(EmpresaUsuarioResponsavelController.class)
+				.desassociar(empresaId, usuarioId)).withRel(rel);
+	}
+	
+	public Link linkToEmpresaResponsavelAssociacao(Long empresaId, String rel) {
+		return linkTo(methodOn(EmpresaUsuarioResponsavelController.class)
+				.associar(empresaId, null)).withRel(rel);
+	}
+	
 	// Fim Links Empresa
 
 	// Início Links Formas Pagamentos

@@ -34,7 +34,7 @@ public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<P
 		modelMapper.map(produto, produtoModel);
 
 		// Quem pode consultar empresas, também pode consultar os produtos e fotos
-		if (mystoreSecurity.podeGerenciarEmpresas(null)) {
+		if (mystoreSecurity.podeConsultarEmpresas()) {
 			produtoModel.add(mystoreLinks.linkToProdutos(produto.getEmpresa().getId(), "produtos"));
 
 			// produtoModel.add(mystoreLinks.linkToFotoProduto(produto.getEmpresa().getId(),
