@@ -26,17 +26,23 @@ public class Produto {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String descricao;
 
-	@Column(nullable = false)
-	private BigDecimal preco;
+	@Column(name = "preco_compra", nullable = true)
+	private BigDecimal compra;
+
+	@Column(name = "preco_venda", nullable = true)
+	private BigDecimal venda;
+
+	@Column(name = "preco_custo", nullable = true)
+	private BigDecimal custo;
 
 	@Column(nullable = false)
 	private Boolean ativo;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "empresas_id", nullable = false)
-	private Empresa empresas;
+	private Empresa empresa;
 
 }

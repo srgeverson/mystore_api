@@ -59,7 +59,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	@Autowired
 	private EmpresaRepository empresaRepository;
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@PostMapping
 	@Override
 	@ResponseStatus(HttpStatus.CREATED)
@@ -73,7 +73,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		}
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@PutMapping("/{empresaId}/ativo")
 	@Override
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -83,7 +83,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/ativacoes")
 	@Override
@@ -95,7 +95,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		}
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@PutMapping("/{empresaId}")
 	@Override
 	public EmpresaModel atualizar(@PathVariable Long empresaId, @RequestBody @Valid EmpresaInput empresaInput) {
@@ -110,7 +110,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		}
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeConsultar
 	@GetMapping("/{empresaId}")
 	@Override
 	public EmpresaModel buscar(@PathVariable Long empresaId) {
@@ -119,7 +119,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		return empresaModelAssembler.toModel(empresa);
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{empresaId}/ativo")
 	@Override
@@ -129,7 +129,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		return ResponseEntity.noContent().build();
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/ativacoes")
 	@Override
@@ -141,7 +141,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 		}
 	}
 
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeConsultar
 	@GetMapping
 	@Override
 	public CollectionModel<EmpresaBasicoModel> listar() {
@@ -149,7 +149,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	}
 
 	// Tem que rever esse método
-	@CheckSecurity.Empresas.PodeGerenciarEmpresa
+	@CheckSecurity.Empresas.PodeConsultar
 	@GetMapping(params = "projecao=apenas-nome")
 	@Override
 	public CollectionModel<EmpresaApenasNomeModel> listarApenasNomes() {

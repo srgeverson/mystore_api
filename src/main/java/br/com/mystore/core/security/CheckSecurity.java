@@ -21,18 +21,21 @@ public @interface CheckSecurity {
 	}
 
 	public @interface Empresas {
-
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
+		
+		@PreAuthorize("@mystoreSecurity.podeConsultarEmpresas()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeAlterarPropriaEmpresa {
-		}
-
-		@PreAuthorize("@mystoreSecurity.podeGerenciarEmpresas()")
+		public @interface PodeConsultar { }
+		
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCadastroEmpresas()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarEmpresa {
-		}
+		public @interface PodeGerenciarCadastro { }
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarFuncionamentoEmpresas(#empresasId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarFuncionamento { }
 
 	}
 
