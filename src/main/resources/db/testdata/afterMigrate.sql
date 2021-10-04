@@ -2,6 +2,7 @@ SET SQL_SAFE_UPDATES = 0;
 set foreign_key_checks = 0;
 
 delete from cidades;
+delete from clientes;
 delete from empresas;
 delete from empresas_formas_pagamentos;
 delete from empresas_usuarios_responsaveis;
@@ -52,12 +53,13 @@ insert into formas_pagamentos (id, descricao, data_atualizacao) values (2, 'Cart
 insert into formas_pagamentos (id, descricao, data_atualizacao) values (3, 'Dinheiro', utc_timestamp);
 insert into formas_pagamentos (id, descricao, data_atualizacao) values (4, 'Fiado', utc_timestamp);
 
-insert into permissoes (id, nome, descricao, ativo) values (1, 'EDITAR_FORMAS_PAGAMENTO', 'Permite criar ou editar formas de pagamento', true);
+insert into permissoes (id, nome, descricao, ativo) values (1, 'CONSULTAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões', true);
 insert into permissoes (id, nome, descricao, ativo) values (2, 'EDITAR_CIDADES', 'Permite criar ou editar cidades', true);
-insert into permissoes (id, nome, descricao, ativo) values (3, 'EDITAR_ESTADOS', 'Permite criar ou editar estados', true);
-insert into permissoes (id, nome, descricao, ativo) values (4, 'CONSULTAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões', true);
-insert into permissoes (id, nome, descricao, ativo) values (5, 'EDITAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite criar ou editar usuários, grupos e permissões', true);
-insert into permissoes (id, nome, descricao, ativo) values (6, 'EDITAR_EMPRESAS', 'Permite criar, editar ou gerenciar empresas', true);
+insert into permissoes (id, nome, descricao, ativo) values (3, 'EDITAR_CLIENTES', 'Permite criar ou editar clientes', true);
+insert into permissoes (id, nome, descricao, ativo) values (4, 'EDITAR_EMPRESAS', 'Permite criar, editar ou gerenciar empresas', true);
+insert into permissoes (id, nome, descricao, ativo) values (5, 'EDITAR_ESTADOS', 'Permite criar ou editar estados', true);
+insert into permissoes (id, nome, descricao, ativo) values (6, 'EDITAR_FORMAS_PAGAMENTO', 'Permite criar ou editar formas de pagamento', true);
+insert into permissoes (id, nome, descricao, ativo) values (7, 'EDITAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite criar ou editar usuários, grupos e permissões', true);
 #insert into permissoes (id, nome, descricao, ativo) values (7, 'CONSULTAR_PEDIDOS', 'Permite consultar pedidos', true);
 #insert into permissoes (id, nome, descricao, ativo) values (8, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos', true);
 #insert into permissoes (id, nome, descricao, ativo) values (9, 'GERAR_RELATORIOS', 'Permite gerar relatórios', true);

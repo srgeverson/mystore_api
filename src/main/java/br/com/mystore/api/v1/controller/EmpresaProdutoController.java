@@ -32,84 +32,80 @@ import br.com.mystore.domain.service.CadastroEmpresaService;
 import br.com.mystore.domain.service.CadastroProdutoService;
 
 @RestController
-@RequestMapping(path = "/v1/empresas/{empresaId}/produtos", 
-	produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/v1/empresas/{empresaId}/produtos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmpresaProdutoController implements EmpresaProdutoControllerOpenApi {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
+
 	@Autowired
 	private CadastroProdutoService cadastroProduto;
-	
+
 	@Autowired
 	private CadastroEmpresaService cadastroEmpresa;
-	
+
 	@Autowired
-	private ProdutoModelAssembler produtoModelAssembler;
+	private MystoreLinks mystoreLinks;
 	
 	@Autowired
 	private ProdutoInputDisassembler produtoInputDisassembler;
 	
 	@Autowired
-	private  MystoreLinks algaLinks;
-	
-	@CheckSecurity.Empresas.PodeConsultar
-	@GetMapping
-	@Override
-	public CollectionModel<ProdutoModel> listar(@PathVariable Long empresaId,
-			@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
-		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
-		
-		List<Produto> todosProdutos = null;
-		
-		if (incluirInativos) {
-			todosProdutos = produtoRepository.findTodosByEmpresa(empresa);
-		} else {
-			todosProdutos = produtoRepository.findAtivosByEmpresa(empresa);
-		}
-		
-		return produtoModelAssembler.toCollectionModel(todosProdutos)
-				.add(algaLinks.linkToProdutos(empresaId));
-	}
-	
-	@CheckSecurity.Empresas.PodeConsultar
-	@Override
-	@GetMapping("/{produtoId}")
-	public ProdutoModel buscar(@PathVariable Long empresaId, @PathVariable Long produtoId) {
-		Produto produto = cadastroProduto.buscarOuFalhar(empresaId, produtoId);
-		
-		return produtoModelAssembler.toModel(produto);
-	}
-	
+	private ProdutoModelAssembler produtoModelAssembler;
+
 	@CheckSecurity.Empresas.PodeConsultar
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ProdutoModel adicionar(@PathVariable Long empresaId,
-			@RequestBody @Valid ProdutoInput produtoInput) {
+	public ProdutoModel adicionar(@PathVariable Long empresaId, @RequestBody @Valid ProdutoInput produtoInput) {
 		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
-		
+
 		Produto produto = produtoInputDisassembler.toDomainObject(produtoInput);
 		produto.setEmpresa(empresa);
-		
+
 		produto = cadastroProduto.salvar(produto);
-		
+
 		return produtoModelAssembler.toModel(produto);
 	}
-	
+
 	@CheckSecurity.Empresas.PodeConsultar
 	@Override
 	@PutMapping("/{produtoId}")
 	public ProdutoModel atualizar(@PathVariable Long empresaId, @PathVariable Long produtoId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
 		Produto produtoAtual = cadastroProduto.buscarOuFalhar(empresaId, produtoId);
-		
+
 		produtoInputDisassembler.copyToDomainObject(produtoInput, produtoAtual);
-		
+
 		produtoAtual = cadastroProduto.salvar(produtoAtual);
-		
+
 		return produtoModelAssembler.toModel(produtoAtual);
 	}
-	
+
+	@CheckSecurity.Empresas.PodeConsultar
+	@Override
+	@GetMapping("/{produtoId}")
+	public ProdutoModel buscar(@PathVariable Long empresaId, @PathVariable Long produtoId) {
+		Produto produto = cadastroProduto.buscarOuFalhar(empresaId, produtoId);
+
+		return produtoModelAssembler.toModel(produto);
+	}
+
+	@CheckSecurity.Empresas.PodeConsultar
+	@GetMapping
+	@Override
+	public CollectionModel<ProdutoModel> listar(@PathVariable Long empresaId,
+			@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
+		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
+
+		List<Produto> todosProdutos = null;
+
+		if (incluirInativos) {
+			todosProdutos = produtoRepository.findTodosByEmpresa(empresa);
+		} else {
+			todosProdutos = produtoRepository.findAtivosByEmpresa(empresa);
+		}
+
+		return produtoModelAssembler.toCollectionModel(todosProdutos).add(mystoreLinks.linkToProdutos(empresaId));
+	}
 }

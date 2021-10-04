@@ -41,7 +41,7 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
 	
-	public boolean podeGerenciarFuncionamentoRestaurantes(Long empresaId) {
+	public boolean podeGerenciarFuncionamentoEmpresas(Long empresaId) {
 		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
 				|| gerenciaEmpresa(empresaId));
 	}
