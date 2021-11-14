@@ -61,17 +61,17 @@ $ penssl x509 -pubkey -noout -in NOME_DO_ARQUIVO_DO_CERTIFICADO.pem > NOME_DO_AR
 #### 🛠️ Docker
 
 ```bash
-# Criar o .jar da aplicaao
-$ ./mvnw package
+# Criar o .jar da aplicaao e imagem da aplicacao
+$ ./mvnw package -Pdocker
 
-# Banco de dados
+# Executando o banco de dados
 $ docker run --name mystore-db -e MYSQL_ROOT_PASSWORD=admin -d mysql:8.0
 
-# Criando a imagem da aplicacao
-$ docker image build -t mystore-api .
+# Executando a aplicacao e no final remove
+$ docker container run --rm -p 8080:8080 -e DB_HOST=mystore-db --network mystore-network mystore-api
 
 # Iniciando as imagens com suas respectivas dependencias
-$ docker-compose up
+$ docker-compose up --scale mystore-api=2
 
 ```
 #### 🛠️ Construindo a aplicação
