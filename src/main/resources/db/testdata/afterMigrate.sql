@@ -1,6 +1,10 @@
 SET SQL_SAFE_UPDATES = 0;
 set foreign_key_checks = 0;
 
+lock tables cidades write, clientes write, empresas write, estados write, empresas_formas_pagamentos write,
+empresas_usuarios_responsaveis write, enderecos write, formas_pagamentos write, grupos write, 
+grupos_permissoes write, oauth_client_details write, permissoes write, produtos write, usuarios write, usuarios_grupos write;
+
 delete from cidades;
 delete from clientes;
 delete from empresas;
@@ -86,3 +90,5 @@ values ('mystore-app', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quoz
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-manager', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2', 'READ,WRITE', 'client_credentials', null, 'RECUPERAR_SENHA', null, null, null);
+
+unlock tables;
