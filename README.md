@@ -57,6 +57,23 @@ $ keytool -export -rfc -alias mystore -keystore NOME_DO_ARQUIVO.jks -file NOME_D
 # Extraindo chave pública do certificado
 $ penssl x509 -pubkey -noout -in NOME_DO_ARQUIVO_DO_CERTIFICADO.pem > NOME_DO_ARQUIVO_A_SER_GERADO.pem
 ```
+
+#### 🛠️ Docker
+
+```bash
+# Criar o .jar da aplicaao
+$ ./mvnw package
+
+# Banco de dados
+$ docker run --name mystore-db -e MYSQL_ROOT_PASSWORD=admin -d mysql:8.0
+
+# Criando a imagem da aplicacao
+$ docker image build -t mystore-api .
+
+# Iniciando as imagens com suas respectivas dependencias
+$ docker-compose up
+
+```
 #### 🛠️ Construindo a aplicação
 
 ```bash
