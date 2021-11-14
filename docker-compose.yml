@@ -19,9 +19,17 @@ services:
     command: ["/app/wait-for-it.sh", "mystore-db:3306", "-t", "30", "--", "java", "-jar", "api.jar"]
     environment:
       DB_HOST: mystore-db
-    ports:
-      - "8080:8080"
     networks:
       - mystore-network
     depends_on:
       - mystore-db
+      
+  mystore-proxy:
+    build: ./nginx
+    image: mystore-proxy
+    ports:
+      - "80:80"
+    networks:
+      - mystore-network
+    depends_on:
+      - mystore-api
