@@ -14,6 +14,11 @@ services:
     networks:
       - mystore-network
 
+  mystore-db-session:
+    image: redis:6.2.1-alpine
+    networks:
+      - mystore-network
+
   mystore-api:
     image: mystore-api
     command: ["/app/wait-for-it.sh", "mystore-db:3306", "-t", "30", "--", "java", "-jar", "api.jar"]
