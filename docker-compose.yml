@@ -24,6 +24,8 @@ services:
     command: ["/app/wait-for-it.sh", "mystore-db:3306", "-t", "30", "--", "java", "-jar", "api.jar"]
     environment:
       DB_HOST: mystore-db
+      SPRING_SESSION_STORE_TYPE: redis
+      SPRING_REDIS_HOST: mystore-db-session
     networks:
       - mystore-network
     depends_on:
