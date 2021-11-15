@@ -3,7 +3,7 @@ set foreign_key_checks = 0;
 
 lock tables cidades write, clientes write, empresas write, estados write, empresas_formas_pagamentos write,
 empresas_usuarios_responsaveis write, enderecos write, formas_pagamentos write, grupos write, 
-grupos_permissoes write, oauth_client_details write, permissoes write, produtos write, usuarios write, usuarios_grupos write;
+grupos_permissoes write, oauth_client_details write, oauth_code write, permissoes write, produtos write, usuarios write, usuarios_grupos write;
 
 delete from cidades;
 delete from clientes;
@@ -17,6 +17,7 @@ delete from formas_pagamentos;
 delete from grupos;
 delete from grupos_permissoes;
 #delete from itens_pedidos;
+delete from oauth_code;
 delete from oauth_client_details;
 delete from permissoes;
 #delete from pedidos;
@@ -32,6 +33,7 @@ alter table enderecos auto_increment = 1;
 alter table estados auto_increment = 1;
 alter table formas_pagamentos auto_increment = 1;
 alter table grupos auto_increment = 1;
+alter table oauth_code auto_increment = 1;
 alter table oauth_client_details auto_increment = 1;
 alter table permissoes auto_increment = 1;
 #alter table pedidos auto_increment = 1;
