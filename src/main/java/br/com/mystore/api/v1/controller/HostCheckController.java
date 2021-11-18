@@ -18,7 +18,7 @@ public class HostCheckController {
 	public String checkHost() {
 		var host = "";
 		try {
-			host = String.format("IP: %s, Hostname: %s", InetAddress.getLocalHost().getAddress().toString(),
+			host = String.format("IP: %s, Hostname: %s", InetAddress.getLocalHost().getHostAddress(),
 					InetAddress.getLocalHost().getHostName());
 		} catch (UnknownHostException e) {
 			throw new NegocioException(e.getMessage(), e);
