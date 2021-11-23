@@ -7,12 +7,16 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import br.com.mystore.domain.repository.EmpresaRepository;
+import br.com.mystore.domain.repository.PedidoRepository;
 
 @Component
 public class MystoreSecurity {
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
@@ -77,10 +81,6 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 
-	public boolean podePesquisarPedidos() {
-		return isAutenticado() && temEscopoLeitura();
-	}
-
 	public boolean podeConsultarCidades() {
 		return isAutenticado() && temEscopoLeitura();
 	}
@@ -105,4 +105,22 @@ public class MystoreSecurity {
 		return getUsuarioId() != null && usuarioId != null && getUsuarioId().equals(usuarioId);
 	}
 
+	//Ordenar
+	public boolean gerenciaEmpresaDoPedido(String codigoPedido) {
+		return pedidoRepository.isPedidoGerenciadoPor(codigoPedido, getUsuarioId());
+	}
+
+	public boolean podePesquisarPedidos() {
+		return isAutenticado() && temEscopoLeitura();
+	}
+	
+	public boolean podeGerenciarPedidos(String codigoPedido) {
+		return temEscopoEscrita() && (hasAuthority("GERENCIAR_PEDIDOS")
+				|| gerenciaEmpresaDoPedido(codigoPedido));
+	}
+	
+	public boolean podeConsultarUsuariosGruposPermissoes() {
+		return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+	
 }

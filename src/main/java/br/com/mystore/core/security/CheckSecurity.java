@@ -6,6 +6,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
@@ -77,7 +78,38 @@ public @interface CheckSecurity {
 		}
 
 	}
-	
+
+	public @interface Pedidos {
+
+		@PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
+		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
+				+ "@mystoreSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
+				+ "@mystoreSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeBuscar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podePesquisarPedidos(#filtro.clienteId, #filtro.restauranteId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodePesquisar {
+		}
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and isAuthenticated()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeCriar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarPedidos(#codigoPedido)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarPedidos {
+		}
+
+	}
+
 	public @interface UsuariosGruposPermissoes {
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
@@ -111,6 +143,5 @@ public @interface CheckSecurity {
 		}
 
 	}
-
 
 }
