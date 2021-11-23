@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.mystore.api.v1.openapi.controller.HostControllerOpenApi;
+import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.exception.NegocioException;
 
 @RestController
 @RequestMapping(path = "/v1/hosts", produces = MediaType.APPLICATION_JSON_VALUE)
-public class HostCheckController {
+public class HostCheckController implements HostControllerOpenApi {
 
+	@CheckSecurity.Host.PodeGerenciarHosts
 	@GetMapping("/check")
 	public String checkHost() {
 		var host = "";

@@ -36,16 +36,15 @@ public class MystoreSecurity {
 	public boolean podeConsultarEmpresas() {
 		return temEscopoLeitura() && isAutenticado();
 	}
-	
+
 	public boolean podeGerenciarCadastroEmpresas() {
 		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
-	
+
 	public boolean podeGerenciarFuncionamentoEmpresas(Long empresaId) {
-		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
-				|| gerenciaEmpresa(empresaId));
+		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS") || gerenciaEmpresa(empresaId));
 	}
-	
+
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
@@ -58,7 +57,7 @@ public class MystoreSecurity {
 		if (empresaId == null) {
 			return false;
 		}
-		
+
 		return empresaRepository.existsResponsavel(empresaId, getUsuarioId());
 	}
 
@@ -70,8 +69,12 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("EDITAR_FORMAS_PAGAMENTOS");
 	}
 
+	public boolean podeGerenciarHost() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_HOSTS");
+	}
+
 	public boolean podeGerenciarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
+		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 
 	public boolean podePesquisarPedidos() {

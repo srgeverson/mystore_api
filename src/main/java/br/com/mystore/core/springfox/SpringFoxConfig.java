@@ -126,6 +126,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.apiInfo(apiInfoV1())
 				.tags(
 						new Tag("Cidades", "Gerencia as cidades"),
+						new Tag("Configuração", "Gerencia as configurações da aplicação"),
 						new Tag("Grupos", "Gerencia os grupos de usuários"),
 						new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
 						//new Tag("Pedidos", "Gerencia os pedidos"),
@@ -224,7 +225,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.title("MyStore API")
 				.description("API para PDV Mobile.")
 				.version("1.0.0")
-				.contact(new Contact("MyStore", "https://www.mystore.com.br", "contato@mystore.com.br"))
+				.contact(new Contact("MyStore", "http://mystore-app.ddns.net", "contato@mystore-app.ddns.net"))
 				.build();
 	}
 	

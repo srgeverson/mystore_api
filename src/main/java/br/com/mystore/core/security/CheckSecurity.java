@@ -21,21 +21,24 @@ public @interface CheckSecurity {
 	}
 
 	public @interface Empresas {
-		
+
 		@PreAuthorize("@mystoreSecurity.podeConsultarEmpresas()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeConsultar { }
-		
+		public @interface PodeConsultar {
+		}
+
 		@PreAuthorize("@mystoreSecurity.podeGerenciarCadastroEmpresas()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarCadastro { }
+		public @interface PodeGerenciarCadastro {
+		}
 
 		@PreAuthorize("@mystoreSecurity.podeGerenciarFuncionamentoEmpresas(#empresasId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarFuncionamento { }
+		public @interface PodeGerenciarFuncionamento {
+		}
 
 	}
 
@@ -65,6 +68,16 @@ public @interface CheckSecurity {
 
 	}
 
+	public @interface Host {
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarHost()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarHosts {
+		}
+
+	}
+	
 	public @interface UsuariosGruposPermissoes {
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
@@ -98,5 +111,6 @@ public @interface CheckSecurity {
 		}
 
 	}
+
 
 }
