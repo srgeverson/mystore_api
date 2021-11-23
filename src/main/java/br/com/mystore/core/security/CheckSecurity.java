@@ -6,22 +6,39 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
 
-	public @interface Empresas {
+	public @interface Cidades {
 
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.usuarioProprietario(#usuarioId)")
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCidades()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeAlterarPropriaEmpresa {
+		public @interface PodeGerenciar {
 		}
 
-		@PreAuthorize("@mystoreSecurity.podeGerenciarEmpresas()")
+	}
+
+	public @interface Empresas {
+
+		@PreAuthorize("@mystoreSecurity.podeConsultarEmpresas()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarEmpresa {
+		public @interface PodeConsultar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarCadastroEmpresas()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarCadastro {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarFuncionamentoEmpresas(#empresasId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarFuncionamento {
 		}
 
 	}
@@ -31,7 +48,64 @@ public @interface CheckSecurity {
 		@PreAuthorize("@mystoreSecurity.podeGerenciarEstados()")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarCidades {
+		public @interface PodeGerenciar {
+		}
+
+	}
+
+	public @interface FormasPagamento {
+
+		@PreAuthorize("@mystoreSecurity.podeConsultarFormasPagamento()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarFormasPagamento()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciar {
+		}
+
+	}
+
+	public @interface Host {
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @mystoreSecurity.podeGerenciarHost()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarHosts {
+		}
+
+	}
+
+	public @interface Pedidos {
+
+		@PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
+		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
+				+ "@mystoreSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
+				+ "@mystoreSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeBuscar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podePesquisarPedidos(#filtro.clienteId, #filtro.restauranteId)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodePesquisar {
+		}
+
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and isAuthenticated()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeCriar {
+		}
+
+		@PreAuthorize("@mystoreSecurity.podeGerenciarPedidos(#codigoPedido)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciarPedidos {
 		}
 
 	}
@@ -66,16 +140,6 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeVisualizarProprioUsuario {
-		}
-
-	}
-
-	public @interface Cidades {
-
-		@PreAuthorize("@mystoreSecurity.podeGerenciarCidadess()")
-		@Retention(RUNTIME)
-		@Target(METHOD)
-		public @interface PodeGerenciarCidades {
 		}
 
 	}

@@ -20,9 +20,10 @@ public class EmpresaInputDisassembler {
 	}
 
 	public void copyToDomainObject(EmpresaInput empresaInput, Empresa empresa) {
-		empresa.setEndereco(new Endereco());
-		empresa.getEndereco().setCidade(new Cidade());
-
+		if (empresa.getEndereco() != null && empresa.getEndereco().getCidade() != null) {
+			empresa.setEndereco(new Endereco());
+			empresa.getEndereco().setCidade(new Cidade());
+		}
 		modelMapper.map(empresaInput, empresa);
 	}
 
