@@ -25,12 +25,14 @@ import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.CidadeModel;
 import br.com.mystore.api.v1.model.EmpresaBasicoModel;
 import br.com.mystore.api.v1.model.EstadoModel;
+import br.com.mystore.api.v1.model.FormaPagamentoModel;
 import br.com.mystore.api.v1.model.GrupoModel;
 import br.com.mystore.api.v1.model.PermissaoModel;
 import br.com.mystore.api.v1.model.UsuarioModel;
 import br.com.mystore.api.v1.openapi.model.CidadesModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.EmpresasBasicoModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.EstadosModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.FormasPagamentoModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.GruposModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.PermissoesModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.UsuariosModelOpenApi;
@@ -90,9 +92,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				
 
 				
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class),
-						FormasPagamentoModelOpenApi.class))
+
 				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, ProdutoModel.class),
@@ -106,10 +106,15 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, EstadoModel.class),
 						EstadosModelOpenApi.class))
+				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, EmpresaBasicoModel.class),
 						EmpresasBasicoModelOpenApi.class))
 			
+				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class),
+						FormasPagamentoModelOpenApi.class))
+				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, GrupoModel.class),
 						GruposModelOpenApi.class))
