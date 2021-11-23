@@ -28,6 +28,7 @@ import br.com.mystore.api.v1.model.EstadoModel;
 import br.com.mystore.api.v1.model.FormaPagamentoModel;
 import br.com.mystore.api.v1.model.GrupoModel;
 import br.com.mystore.api.v1.model.PermissaoModel;
+import br.com.mystore.api.v1.model.ProdutoModel;
 import br.com.mystore.api.v1.model.UsuarioModel;
 import br.com.mystore.api.v1.openapi.model.CidadesModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.EmpresasBasicoModelOpenApi;
@@ -35,6 +36,7 @@ import br.com.mystore.api.v1.openapi.model.EstadosModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.FormasPagamentoModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.GruposModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.PermissoesModelOpenApi;
+import br.com.mystore.api.v1.openapi.model.ProdutosModelOpenApi;
 import br.com.mystore.api.v1.openapi.model.UsuariosModelOpenApi;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -89,14 +91,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(PagedModel.class, PedidoResumoModel.class),
 						PedidosResumoModelOpenApi.class))
-				
-
-				
-
-				
-				.alternateTypeRules(AlternateTypeRules.newRule(
-						typeResolver.resolve(CollectionModel.class, ProdutoModel.class),
-						ProdutosModelOpenApi.class))
 					
 				*/
 				.alternateTypeRules(AlternateTypeRules.newRule(
@@ -122,9 +116,15 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, PermissaoModel.class),
 						PermissoesModelOpenApi.class))
+				
+				.alternateTypeRules(AlternateTypeRules.newRule(
+						typeResolver.resolve(CollectionModel.class, ProdutoModel.class),
+						ProdutosModelOpenApi.class))
+				
 				.alternateTypeRules(AlternateTypeRules.newRule(
 						typeResolver.resolve(CollectionModel.class, UsuarioModel.class),
 						UsuariosModelOpenApi.class))
+				
 				.securitySchemes(Arrays.asList(securityScheme()))
 				.securityContexts(Arrays.asList(securityContext()))
 				
@@ -132,15 +132,16 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.tags(
 						new Tag("Cidades", "Gerencia as cidades"),
 						new Tag("Configuração", "Gerencia as configurações da aplicação"),
-						new Tag("Grupos", "Gerencia os grupos de usuários"),
-						new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
-						//new Tag("Pedidos", "Gerencia os pedidos"),
 						new Tag("Empresas", "Gerencia as empresas"),
 						new Tag("Estados", "Gerencia os estados"),
-						//new Tag("Produtos", "Gerencia os produtos de restaurantes"),
-						new Tag("Usuários", "Gerencia os usuários"),
-						//new Tag("Estatísticas", "Estatísticas da MyStore"),
-						new Tag("Permissões", "Gerencia as permissões"));
+						new Tag("Formas de pagamento", "Gerencia as formas de pagamento"),
+						new Tag("Grupos", "Gerencia os grupos de usuários"),
+						//new Tag("Pedidos", "Gerencia os pedidos"),
+						new Tag("Permissões", "Gerencia as permissões"),
+						new Tag("Produtos", "Gerencia os produtos das empresas"),
+						new Tag("Usuários", "Gerencia os usuários")
+						//new Tag("Estatísticas", "Estatísticas da MyStore")
+						);
 	}
 	
 	private SecurityScheme securityScheme() {
