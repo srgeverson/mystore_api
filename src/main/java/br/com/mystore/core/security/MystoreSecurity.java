@@ -107,7 +107,7 @@ public class MystoreSecurity {
 
 	//Ordenar
 	public boolean gerenciaEmpresaDoPedido(String codigoPedido) {
-		return pedidoRepository.isPedidoGerenciadoPor(codigoPedido, getUsuarioId());
+		return pedidoRepository.isPedidoGerenciadoPor(codigoPedido);
 	}
 
 	public boolean podePesquisarPedidos() {

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -42,9 +41,6 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
 	private BigDecimal subtotal;
 	private BigDecimal taxaFrete;
 	private BigDecimal valorTotal;
-
-	@Embedded
-	private Endereco enderecoEntrega;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status = StatusPedido.CRIADO;
@@ -61,12 +57,12 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
 	private FormaPagamento formaPagamento;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "empresas_id", nullable = false)
 	private Empresa empresa;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario_cliente_id", nullable = false)
-	private Usuario cliente;
+	@JoinColumn(name = "clientes_id", nullable = false)
+	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens = new ArrayList<>();

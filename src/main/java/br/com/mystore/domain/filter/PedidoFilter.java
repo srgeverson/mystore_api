@@ -16,8 +16,8 @@ public class PedidoFilter {
 	@ApiModelProperty(example = "1", value = "ID do cliente para filtro da pesquisa")
 	private Long clienteId;
 	
-	@ApiModelProperty(example = "1", value = "ID do restaurante para filtro da pesquisa")
-	private Long restauranteId;
+	@ApiModelProperty(example = "1", value = "ID do empresa para filtro da pesquisa")
+	private Long empresaId;
 	
 	@ApiModelProperty(example = "2019-10-30T00:00:00Z",
 			value = "Data/hora de criação inicial para filtro da pesquisa")

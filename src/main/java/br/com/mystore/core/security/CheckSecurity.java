@@ -84,13 +84,13 @@ public @interface CheckSecurity {
 		@PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
 		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
 				+ "@mystoreSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
-				+ "@mystoreSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
+				+ "@mystoreSecurity.gerenciaEmpresa(returnObject.empresa.id)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeBuscar {
 		}
 
-		@PreAuthorize("@mystoreSecurity.podePesquisarPedidos(#filtro.clienteId, #filtro.restauranteId)")
+		@PreAuthorize("@mystoreSecurity.podePesquisarPedidos(#filtro.clienteId, #filtro.empresaId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodePesquisar {

@@ -6,12 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mystore.domain.exception.NegocioException;
 import br.com.mystore.domain.exception.PedidoNaoEncontradoException;
-import br.com.mystore.domain.model.Cidade;
+import br.com.mystore.domain.model.Cliente;
 import br.com.mystore.domain.model.Empresa;
 import br.com.mystore.domain.model.FormaPagamento;
 import br.com.mystore.domain.model.Pedido;
 import br.com.mystore.domain.model.Produto;
-import br.com.mystore.domain.model.Usuario;
 import br.com.mystore.domain.repository.PedidoRepository;
 
 @Service
@@ -24,10 +23,7 @@ public class EmissaoPedidoService {
 	private CadastroEmpresaService cadastroEmpresa;
 
 	@Autowired
-	private CadastroCidadeService cadastroCidade;
-
-	@Autowired
-	private CadastroUsuarioService cadastroUsuario;
+	private CadastroClienteService cadastroCliente;
 
 	@Autowired
 	private CadastroProdutoService cadastroProduto;
@@ -47,14 +43,13 @@ public class EmissaoPedidoService {
 	}
 
 	private void validarPedido(Pedido pedido) {
-		Cidade cidade = cadastroCidade.buscarOuFalhar(pedido.getEnderecoEntrega().getCidade().getId());
-		Usuario cliente = cadastroUsuario.buscarOuFalhar(pedido.getCliente().getId());
-		Empresa empresa = cadastroEmpresa.buscarOuFalhar(pedido.getEmpresa().getId());
-		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(pedido.getFormaPagamento().getId());
-
-		pedido.getEnderecoEntrega().setCidade(cidade);
+		//Cidade cidade = cadastroCidade.buscarOuFalhar(pedido.getEnderecoEntrega().getCidade().getId());
+		//pedido.getEnderecoEntrega().setCidade(cidade);
+		Cliente cliente = cadastroCliente.buscarOuFalhar(pedido.getEmpresa().getId(), pedido.getCliente().getId());
 		pedido.setCliente(cliente);
+		Empresa empresa = cadastroEmpresa.buscarOuFalhar(pedido.getEmpresa().getId());
 		pedido.setEmpresa(empresa);
+		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(pedido.getFormaPagamento().getId());
 		pedido.setFormaPagamento(formaPagamento);
 		
 		if (empresa.naoAceitaFormaPagamento(formaPagamento)) {

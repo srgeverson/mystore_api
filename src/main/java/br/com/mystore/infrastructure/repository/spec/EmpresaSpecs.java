@@ -4,7 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import br.com.mystore.domain.model.Empresa;
 
-public class RestauranteSpecs {
+public class EmpresaSpecs {
 	
 	public static Specification<Empresa> comNomeSemelhante(String nome) {
 		return (root, query, builder) ->

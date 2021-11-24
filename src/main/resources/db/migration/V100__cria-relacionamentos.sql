@@ -39,3 +39,10 @@ FOREIGN KEY (grupos_id) REFERENCES grupos (id);
 
 ALTER TABLE usuarios_grupos ADD CONSTRAINT fk_usuarios_grupos_usuarios_id
 FOREIGN KEY (usuarios_id) REFERENCES usuarios (id);
+
+ALTER TABLE pedidos ADD CONSTRAINT fk_pedidos_empresas FOREIGN KEY (empresas_id) REFERENCES empresas (id);
+ALTER TABLE pedidos ADD CONSTRAINT fk_pedidos_clientes FOREIGN KEY (clientes_id) REFERENCES clientes (id);
+ALTER TABLE pedidos ADD CONSTRAINT fk_pedidos_formas_pagamentos FOREIGN KEY (formas_pagamentos_id) REFERENCES formas_pagamentos (id);
+
+ALTER TABLE itens_pedido  ADD CONSTRAINT fk_itens_pedido_pedidos FOREIGN KEY (pedidos_id) REFERENCES pedidos (id);
+ALTER TABLE itens_pedido  ADD CONSTRAINT fk_itens_pedido_produtos FOREIGN KEY (produtos_id) REFERENCES produtos (id);

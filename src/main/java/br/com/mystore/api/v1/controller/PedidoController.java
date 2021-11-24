@@ -34,8 +34,8 @@ import br.com.mystore.core.security.MystoreSecurity;
 import br.com.mystore.domain.exception.EntidadeNaoEncontradaException;
 import br.com.mystore.domain.exception.NegocioException;
 import br.com.mystore.domain.filter.PedidoFilter;
+import br.com.mystore.domain.model.Cliente;
 import br.com.mystore.domain.model.Pedido;
-import br.com.mystore.domain.model.Usuario;
 import br.com.mystore.domain.repository.PedidoRepository;
 import br.com.mystore.domain.service.EmissaoPedidoService;
 import br.com.mystore.infrastructure.repository.spec.PedidoSpecs;
@@ -88,7 +88,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 		try {
 			Pedido novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
 
-			novoPedido.setCliente(new Usuario());
+			novoPedido.setCliente(new Cliente());
 			novoPedido.getCliente().setId(mystoreSecurity.getUsuarioId());
 
 			novoPedido = emissaoPedido.emitir(novoPedido);

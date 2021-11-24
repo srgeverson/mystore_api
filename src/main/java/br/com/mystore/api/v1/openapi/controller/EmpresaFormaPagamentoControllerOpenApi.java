@@ -16,7 +16,7 @@ public interface EmpresaFormaPagamentoControllerOpenApi {
 	
 	@ApiOperation("Lista as formas de pagamento associadas a empresa")
 	@ApiResponses({
-		@ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problema.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	CollectionModel<FormaPagamentoModel> listar(
 			@ApiParam(value = "ID do empresa", example = "1", required = true)
@@ -25,7 +25,7 @@ public interface EmpresaFormaPagamentoControllerOpenApi {
 	@ApiOperation("Desassociação de empresa com forma de pagamento")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Desassociação realizada com sucesso"),
-		@ApiResponse(code = 404, message = "Restaurante ou forma de pagamento não encontrado", 
+		@ApiResponse(code = 404, message = "Empresa ou forma de pagamento não encontrado", 
 			response = Problema.class)
 	})
 	ResponseEntity<Void> desassociar(
@@ -38,7 +38,7 @@ public interface EmpresaFormaPagamentoControllerOpenApi {
 	@ApiOperation("Associação de empresa com forma de pagamento")
 	@ApiResponses({
 		@ApiResponse(code = 204, message = "Associação realizada com sucesso"),
-		@ApiResponse(code = 404, message = "Restaurante ou forma de pagamento não encontrado"), 
+		@ApiResponse(code = 404, message = "Empresa ou forma de pagamento não encontrado"), 
 	})
 	ResponseEntity<Void> associar(
 			@ApiParam(value = "ID do empresa", example = "1", required = true)

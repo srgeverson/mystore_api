@@ -17,7 +17,7 @@ public interface EmpresaProdutoControllerOpenApi {
 	@ApiOperation("Cadastra um produto de um empresa")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Produto cadastrado"),
-		@ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problema.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	ProdutoModel adicionar(
 			@ApiParam(value = "ID do empresa", example = "1", required = true)
@@ -57,7 +57,7 @@ public interface EmpresaProdutoControllerOpenApi {
 	@ApiOperation("Lista os produtos de um empresa")
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problema.class),
-		@ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problema.class)
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
 	})
 	CollectionModel<ProdutoModel> listar(
 			@ApiParam(value = "ID do empresa", example = "1", required = true)
