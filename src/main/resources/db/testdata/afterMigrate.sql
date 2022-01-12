@@ -3,7 +3,8 @@ set foreign_key_checks = 0;
 
 lock tables cidades write, clientes write, empresas write, estados write, empresas_formas_pagamentos write,
 empresas_usuarios_responsaveis write, enderecos write, formas_pagamentos write, grupos write, 
-grupos_permissoes write, oauth_client_details write, oauth_code write, permissoes write, produtos write, usuarios write, usuarios_grupos write;
+grupos_permissoes write, itens_pedido write, oauth_client_details write, oauth_code write, pedidos write,
+permissoes write, produtos write, usuarios write, usuarios_grupos write;
 
 delete from cidades;
 delete from clientes;
@@ -16,11 +17,11 @@ delete from formas_pagamentos;
 #delete from foto_produto;
 delete from grupos;
 delete from grupos_permissoes;
-#delete from itens_pedidos;
+delete from itens_pedido;
 delete from oauth_code;
 delete from oauth_client_details;
 delete from permissoes;
-#delete from pedidos;
+delete from pedidos;
 delete from produtos;
 delete from usuarios;
 delete from usuarios_grupos;
@@ -36,15 +37,42 @@ alter table grupos auto_increment = 1;
 alter table oauth_code auto_increment = 1;
 alter table oauth_client_details auto_increment = 1;
 alter table permissoes auto_increment = 1;
-#alter table pedidos auto_increment = 1;
+alter table pedidos auto_increment = 1;
 alter table produtos auto_increment = 1;
 alter table usuarios auto_increment = 1;
 
-insert into estados (id, nome) values (1, 'Ceará');
+INSERT INTO estados (id, nome) VALUES 
+(35,'São Paulo'),
+(41,'Paraná'),
+(42,'Santa Catarina'),
+(43,'Rio Grande do Sul'),
+(50,'Mato Grosso do Sul'),
+(11,'Rondônia'),
+(12,'Acre'),
+(13,'Amazonas'),
+(14,'Roraima'),
+(15,'Pará'),
+(16,'Amapá'),
+(17,'Tocantins'),
+(21,'Maranhão'),
+(24,'Rio Grande do Norte'),
+(25,'Paraíba'),
+(26,'Pernambuco'),
+(27,'Alagoas'),
+(28,'Sergipe'),
+(29,'Bahia'),
+(31,'Minas Gerais'),
+(33,'Rio de Janeiro'),
+(51,'Mato Grosso'),
+(52,'Goiás'),
+(53,'Distrito Federal'),
+(22,'Piauí'),
+(23,'Ceará'),
+(32,'Espírito Santo');
 
-insert into cidades (id, nome, estados_id) values (1, 'Fortaleza', 1);
-insert into cidades (id, nome, estados_id) values (2, 'Caucaia', 1);
-insert into cidades (id, nome, estados_id) values (3, 'Eusebio', 1);
+insert into cidades (id, nome, estados_id) values (1, 'Fortaleza', 23);
+insert into cidades (id, nome, estados_id) values (2, 'Caucaia', 23);
+insert into cidades (id, nome, estados_id) values (3, 'Eusebio', 23);
 
 insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (1, 'Rua', 'S/N', NULL, NULL , 1);
 
@@ -66,22 +94,20 @@ insert into permissoes (id, nome, descricao, ativo) values (4, 'EDITAR_EMPRESAS'
 insert into permissoes (id, nome, descricao, ativo) values (5, 'EDITAR_ESTADOS', 'Permite criar ou editar estados', true);
 insert into permissoes (id, nome, descricao, ativo) values (6, 'EDITAR_FORMAS_PAGAMENTO', 'Permite criar ou editar formas de pagamento', true);
 insert into permissoes (id, nome, descricao, ativo) values (7, 'EDITAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite criar ou editar usuários, grupos e permissões', true);
-#insert into permissoes (id, nome, descricao, ativo) values (7, 'CONSULTAR_PEDIDOS', 'Permite consultar pedidos', true);
-#insert into permissoes (id, nome, descricao, ativo) values (8, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos', true);
+insert into permissoes (id, nome, descricao, ativo) values (8, 'CONSULTAR_PEDIDOS', 'Permite consultar pedidos', true);
+insert into permissoes (id, nome, descricao, ativo) values (9, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos', true);
 #insert into permissoes (id, nome, descricao, ativo) values (9, 'GERAR_RELATORIOS', 'Permite gerar relatórios', true);
 insert into permissoes (id, nome, descricao, ativo) values (10, 'GERENCIAR_HOSTS', 'Permite gerenciar e configurar o servidor', true);
 
 insert into empresas_formas_pagamentos (empresas_id, formas_pagamentos_id) values (1, 1);
 
-insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono'), (3, 'Vendedor'), (4, 'Auxiliar');
+insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono');
 
-insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 10);
+insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10);
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
 (1, 'Administrador', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
-(2, 'Anderson', 'anderson@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
-(3, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
-(4, 'Vera', 'vera@icloud.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
+(2, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
 
 insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 2);
 
