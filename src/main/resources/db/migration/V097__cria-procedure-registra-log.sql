@@ -1,6 +1,6 @@
 DELIMITER $$
 USE `mystore`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_log`(
+CREATE DEFINER = CURRENT_USER PROCEDURE `mystore`.`sp_registra_log`(
 IN TABELA VARCHAR (50),
 IN COLUNA VARCHAR (100),
 IN ID BIGINT,
