@@ -19,7 +19,7 @@ public class EmpresaInput {
 
 	@ApiModelProperty(example = "000.000.000-00/00.000.000/0000-00", required = true)
 	@NotBlank
-	private String cpf_cnpj;
+	private String cpfCnpj;
 
 	@ApiModelProperty(example = "(00) 00000-0000", required = true)
 	@NotBlank

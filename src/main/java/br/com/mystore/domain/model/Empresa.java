@@ -33,6 +33,9 @@ public class Empresa {
 	@Column(nullable = false)
 	private String nome;
 	
+	@Column(nullable = false, name = "cpf_cnpj")
+	private String cpfCnpj;
+	
 	@ManyToOne
 	@JoinColumn(name = "enderecos_id", nullable = false)
 	private Endereco endereco;
