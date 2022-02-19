@@ -18,6 +18,9 @@ DECLARE operacao CHAR(6) DEFAULT 'UPADTE';
     IF NEW.senha <> OLD.senha THEN
 		CALL sp_registra_log(tabela, 'senha', NEW.id, operacao, OLD.senha, NEW.senha);
     END IF;
+	IF NEW.ativo <> OLD.ativo THEN
+		CALL sp_registra_log(tabela, 'ativo', NEW.id, operacao, OLD.ativo, NEW.ativo);
+    END IF;
     IF NEW.codigo_acesso <> OLD.codigo_acesso THEN
 		CALL sp_registra_log(tabela, 'codigo_acesso', NEW.id, operacao, OLD.codigo_acesso, NEW.codigo_acesso);
     END IF;

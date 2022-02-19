@@ -17,6 +17,9 @@ DECLARE operacao CHAR(6) DEFAULT 'INSERT';
     IF NEW.email IS NOT NULL THEN
 		CALL sp_registra_log(tabela, 'senha', NEW.id, operacao, NULL, NEW.senha);
     END IF;
+	IF NEW.ativo IS NOT NULL THEN
+		CALL sp_registra_log(tabela, 'ativo', NEW.id, operacao, NULL, NEW.ativo);
+    END IF;
     IF NEW.codigo_acesso IS NOT NULL THEN
 		CALL sp_registra_log(tabela, 'codigo_acesso', NEW.id, operacao, NULL, NEW.codigo_acesso);
     END IF;
