@@ -9,6 +9,7 @@ import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.EmpresaApenasNomeModel;
 import br.com.mystore.api.v1.model.EmpresaBasicoModel;
 import br.com.mystore.api.v1.model.EmpresaModel;
+import br.com.mystore.api.v1.model.imput.EmpresaEnderecoIdInput;
 import br.com.mystore.api.v1.model.imput.EmpresaInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -41,7 +42,7 @@ public interface EmpresaControllerOpenApi {
 			
 			@ApiParam(name = "corpo", value = "Representação de um empresa com os novos dados", 
 				required = true)
-			EmpresaInput empresaInput);
+			EmpresaEnderecoIdInput empresaEnderecoIdInput);
 	
 	@ApiOperation("Ativa um empresa por ID")
 	@ApiResponses({

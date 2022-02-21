@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.mystore.api.v1.model.imput.EmpresaEnderecoIdInput;
 import br.com.mystore.api.v1.model.imput.EmpresaInput;
 import br.com.mystore.domain.model.Cidade;
 import br.com.mystore.domain.model.Empresa;
@@ -27,4 +28,11 @@ public class EmpresaInputDisassembler {
 		modelMapper.map(empresaInput, empresa);
 	}
 
+	public void copyToDomainObject(EmpresaEnderecoIdInput empresaEnderecoIdInput, Empresa empresa) {
+		if (empresa.getEndereco() != null && empresa.getEndereco().getCidade() != null) {
+			empresa.setEndereco(new Endereco());
+			empresa.getEndereco().setCidade(new Cidade());
+		}
+		modelMapper.map(empresaEnderecoIdInput, empresa);
+	}
 }

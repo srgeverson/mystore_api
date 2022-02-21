@@ -23,10 +23,16 @@ public class EmpresaModel extends RepresentationModel<EmpresaModel> {
 	@ApiModelProperty(example = "00.000.000/0000-00")
 	private String cpfCnpj;
 	
+	@ApiModelProperty(example = "(85)12345-1234")
+	private String telefone;
+	
+	@ApiModelProperty(example = "2019-12-01T20:34:04Z")
 	private OffsetDateTime dataCadastro;
 	
+	@ApiModelProperty(example = "2019-12-01T20:34:04Z")
 	private OffsetDateTime dataAtualizacao;
 	
+	@ApiModelProperty(example = "true")
 	private Boolean ativo;
 	
 	private EnderecoModel endereco;
