@@ -76,7 +76,7 @@ insert into cidades (id, nome, estados_id) values (3, 'Eusebio', 23);
 
 insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (1, 'Rua', 'S/N', NULL, NULL , 1);
 
-insert into empresas (id, nome,  data_cadastro, ativo, enderecos_id) values (1, 'PrimeMultimarcas', utc_timestamp, true, 1);
+insert into empresas (id, nome,  data_cadastro, ativo, enderecos_id) values (1, 'Paulistense TI', utc_timestamp, true, 1);
 insert into empresas (id, nome, data_cadastro, ativo, enderecos_id) values (2, 'Nilson Limpeza', utc_timestamp, true, 1);
 insert into empresas (id, nome, data_cadastro,  ativo, enderecos_id) values (3, 'Granfinamodas', utc_timestamp, true, 1);
 
@@ -107,9 +107,9 @@ insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), 
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
 (1, 'Administrador', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
-(2, 'Nilson', 'nilson@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
+(2, 'Geverson', 'geversonjosedesouza@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
 
-insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 2);
+insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 1);
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
