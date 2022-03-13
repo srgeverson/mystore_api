@@ -14,4 +14,7 @@ public interface EmpresaRepository extends CustomJpaRepository<Empresa, Long> {
 	List<Empresa> findByNome(String nome);
 
 	boolean existsResponsavel(Long empresaId, Long usuarioId);
+	
+	@Query("select e.id from empresas e join e.responsaveis r where r.id = :usuarioId")
+	List<Long> empresasPorusuario(Long usuarioId);
 }

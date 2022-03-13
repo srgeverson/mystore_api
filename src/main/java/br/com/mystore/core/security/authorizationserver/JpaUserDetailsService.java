@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mystore.domain.exception.NegocioException;
 import br.com.mystore.domain.model.Usuario;
+import br.com.mystore.domain.repository.EmpresaRepository;
 import br.com.mystore.domain.repository.UsuarioRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class JpaUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private EmpresaRepository empresaRepository;
 
 	@Transactional(readOnly = false)
 	@Override
@@ -31,8 +35,8 @@ public class JpaUserDetailsService implements UserDetailsService {
 		try {
 			Usuario usuario = usuarioRepository.getUsuarioAtivoByEmail(username)
 					.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com e-mail informado ou este email está desabilitado!"));
-
-			authUser = new AuthUser(usuario, getAuthorities(usuario));
+			
+			authUser = new AuthUser(usuario, getAuthorities(usuario), empresaRepository.empresasPorusuario(usuario.getId()));
 
 			usuario.setDataUltimoAcesso(OffsetDateTime.now());
 			usuarioRepository.save(usuario);

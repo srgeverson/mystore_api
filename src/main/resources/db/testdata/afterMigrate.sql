@@ -111,6 +111,10 @@ insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_ca
 
 insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 1);
 
+insert into empresas_usuarios_responsaveis(empresas_id, usuarios_id) values(1, 2);
+insert into empresas_usuarios_responsaveis(empresas_id, usuarios_id) values(2, 2);
+insert into empresas_usuarios_responsaveis(empresas_id, usuarios_id) values(3, 2);
+
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
 
