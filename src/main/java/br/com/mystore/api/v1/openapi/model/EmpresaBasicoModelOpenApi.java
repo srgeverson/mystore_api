@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-@ApiModel("RestauranteBasicoModel")
+@ApiModel("EmpresaBasicoModel")
 @Setter
 @Getter
 public class EmpresaBasicoModelOpenApi {

@@ -102,4 +102,10 @@ public interface UsuarioControllerOpenApi {
 	@ApiOperation("Lista os usuários")
 	CollectionModel<UsuarioModel> listar();
 
+	@ApiOperation("Busca o perfil do usuário pelas informações do token")
+	@ApiResponses({
+		@ApiResponse(code = 404, message = "Usuário não encontrado", response = Problema.class)
+	})
+	UsuarioModel getPerfil();
+
 }

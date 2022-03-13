@@ -26,6 +26,7 @@ import br.com.mystore.api.v1.assembler.EmpresaModelAssembler;
 import br.com.mystore.api.v1.model.EmpresaApenasNomeModel;
 import br.com.mystore.api.v1.model.EmpresaBasicoModel;
 import br.com.mystore.api.v1.model.EmpresaModel;
+import br.com.mystore.api.v1.model.imput.EmpresaEnderecoIdInput;
 import br.com.mystore.api.v1.model.imput.EmpresaInput;
 import br.com.mystore.api.v1.openapi.controller.EmpresaControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
@@ -74,7 +75,7 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	}
 
 	@CheckSecurity.Empresas.PodeGerenciarCadastro
-	@PutMapping("/{empresaId}/ativo")
+	@PutMapping("/{empresaId}/ativar")
 	@Override
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> ativar(@PathVariable Long empresaId) {
@@ -98,11 +99,11 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@PutMapping("/{empresaId}")
 	@Override
-	public EmpresaModel atualizar(@PathVariable Long empresaId, @RequestBody @Valid EmpresaInput empresaInput) {
+	public EmpresaModel atualizar(@PathVariable Long empresaId, @RequestBody @Valid EmpresaEnderecoIdInput empresaEnderecoIdInput) {
 		try {
 			Empresa empresaAtual = cadastroEmpresa.buscarOuFalhar(empresaId);
 
-			empresaInputDisassembler.copyToDomainObject(empresaInput, empresaAtual);
+			empresaInputDisassembler.copyToDomainObject(empresaEnderecoIdInput, empresaAtual);
 
 			return empresaModelAssembler.toModel(cadastroEmpresa.salvar(empresaAtual));
 		} catch (EnderecoNaoEncontradoException | CidadeNaoEncontradaException e) {
@@ -115,13 +116,13 @@ public class EmpresaController implements EmpresaControllerOpenApi {
 	@Override
 	public EmpresaModel buscar(@PathVariable Long empresaId) {
 		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
-
+		
 		return empresaModelAssembler.toModel(empresa);
 	}
 
 	@CheckSecurity.Empresas.PodeGerenciarCadastro
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{empresaId}/ativo")
+	@PutMapping("/{empresaId}/desativar")
 	@Override
 	public ResponseEntity<Void> inativar(@PathVariable Long empresaId) {
 		cadastroEmpresa.inativar(empresaId);

@@ -17,4 +17,14 @@
 		</query>
 	</named-query>
 
+	<named-query name="Pedido.isPedidoGerenciadoPor">
+		<query>
+			select case when count(1) > 0 then true else false end
+			from 
+			pedidos p
+			join p.empresa e
+			where p.codigo = :codigoPedido
+		</query>
+	</named-query>
+
 </entity-mappings>

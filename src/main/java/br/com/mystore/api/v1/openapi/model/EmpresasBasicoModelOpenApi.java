@@ -12,14 +12,14 @@ import lombok.Data;
 @Data
 public class EmpresasBasicoModelOpenApi {
 
-	private RestaurantesEmbeddedModelOpenApi _embedded;
+	private EmpresasEmbeddedModelOpenApi _embedded;
 	private Links _links;
 	
-	@ApiModel("RestaurantesEmbeddedModel")
+	@ApiModel("EmpresasEmbeddedModel")
 	@Data
-	public class RestaurantesEmbeddedModelOpenApi {
+	public class EmpresasEmbeddedModelOpenApi {
 		
-		private List<EmpresaBasicoModel> restaurantes;
+		private List<EmpresaBasicoModel> empresas;
 		
 	}
 	

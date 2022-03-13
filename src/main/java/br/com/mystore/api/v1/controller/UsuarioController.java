@@ -27,6 +27,7 @@ import br.com.mystore.api.v1.model.imput.UsuarioComSenhaInput;
 import br.com.mystore.api.v1.model.imput.UsuarioInput;
 import br.com.mystore.api.v1.openapi.controller.UsuarioControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
+import br.com.mystore.core.security.MystoreSecurity;
 import br.com.mystore.domain.model.Usuario;
 import br.com.mystore.domain.repository.UsuarioRepository;
 import br.com.mystore.domain.service.CadastroUsuarioService;
@@ -46,6 +47,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private MystoreSecurity mystoreSecurity;
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@PostMapping
@@ -130,5 +134,14 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		List<Usuario> todasUsuarios = usuarioRepository.findAll();
 
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
+	}
+	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
+	@GetMapping("/perfil")
+	@Override
+	public UsuarioModel getPerfil() {
+		Usuario usuario = cadastroUsuario.buscarOuFalhar(mystoreSecurity.getUsuarioId());
+
+		return usuarioModelAssembler.toModel(usuario);
 	}
 }

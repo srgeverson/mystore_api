@@ -7,12 +7,16 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import br.com.mystore.domain.repository.EmpresaRepository;
+import br.com.mystore.domain.repository.PedidoRepository;
 
 @Component
 public class MystoreSecurity {
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	public Authentication getAuthentication() {
 		return SecurityContextHolder.getContext().getAuthentication();
@@ -36,16 +40,15 @@ public class MystoreSecurity {
 	public boolean podeConsultarEmpresas() {
 		return temEscopoLeitura() && isAutenticado();
 	}
-	
+
 	public boolean podeGerenciarCadastroEmpresas() {
 		return temEscopoEscrita() && hasAuthority("EDITAR_EMPRESAS");
 	}
-	
-	public boolean podeGerenciarFuncionamentoRestaurantes(Long empresaId) {
-		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS")
-				|| gerenciaEmpresa(empresaId));
+
+	public boolean podeGerenciarFuncionamentoEmpresas(Long empresaId) {
+		return temEscopoEscrita() && (hasAuthority("EDITAR_EMPRESAS") || gerenciaEmpresa(empresaId));
 	}
-	
+
 	public boolean podeConsultarFormasPagamento() {
 		return isAutenticado() && temEscopoLeitura();
 	}
@@ -58,7 +61,7 @@ public class MystoreSecurity {
 		if (empresaId == null) {
 			return false;
 		}
-		
+
 		return empresaRepository.existsResponsavel(empresaId, getUsuarioId());
 	}
 
@@ -70,12 +73,12 @@ public class MystoreSecurity {
 		return temEscopoEscrita() && hasAuthority("EDITAR_FORMAS_PAGAMENTOS");
 	}
 
-	public boolean podeGerenciarUsuariosGruposPermissoes() {
-		return temEscopoLeitura() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
+	public boolean podeGerenciarHost() {
+		return temEscopoEscrita() && hasAuthority("GERENCIAR_HOSTS");
 	}
 
-	public boolean podePesquisarPedidos() {
-		return isAutenticado() && temEscopoLeitura();
+	public boolean podeGerenciarUsuariosGruposPermissoes() {
+		return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
 	}
 
 	public boolean podeConsultarCidades() {
@@ -102,4 +105,22 @@ public class MystoreSecurity {
 		return getUsuarioId() != null && usuarioId != null && getUsuarioId().equals(usuarioId);
 	}
 
+	//Ordenar
+	public boolean gerenciaEmpresaDoPedido(String codigoPedido) {
+		return pedidoRepository.isPedidoGerenciadoPor(codigoPedido);
+	}
+
+	public boolean podePesquisarPedidos() {
+		return isAutenticado() && temEscopoLeitura();
+	}
+	
+	public boolean podeGerenciarPedidos(String codigoPedido) {
+		return temEscopoEscrita() && (hasAuthority("GERENCIAR_PEDIDOS")
+				|| gerenciaEmpresaDoPedido(codigoPedido));
+	}
+	
+	public boolean podeConsultarUsuariosGruposPermissoes() {
+		return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+	
 }

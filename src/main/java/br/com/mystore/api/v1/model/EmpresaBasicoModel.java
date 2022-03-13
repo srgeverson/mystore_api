@@ -18,4 +18,9 @@ public class EmpresaBasicoModel extends RepresentationModel<EmpresaBasicoModel> 
 	@ApiModelProperty(example = "MyStore")
 	private String nome;
 
+	@ApiModelProperty(example = "00.000.000/0000-00")
+	private String cpfCnpj;
+	
+	@ApiModelProperty(example = "true")
+	private Boolean ativo;
 }

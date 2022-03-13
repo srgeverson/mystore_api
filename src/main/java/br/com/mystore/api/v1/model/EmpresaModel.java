@@ -1,5 +1,7 @@
 package br.com.mystore.api.v1.model;
 
+import java.time.OffsetDateTime;
+
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
@@ -19,8 +21,18 @@ public class EmpresaModel extends RepresentationModel<EmpresaModel> {
 	private String nome;
 	
 	@ApiModelProperty(example = "00.000.000/0000-00")
-	private String cpf_cnpj;
+	private String cpfCnpj;
 	
+	@ApiModelProperty(example = "(85)12345-1234")
+	private String telefone;
+	
+	@ApiModelProperty(example = "2019-12-01T20:34:04Z")
+	private OffsetDateTime dataCadastro;
+	
+	@ApiModelProperty(example = "2019-12-01T20:34:04Z")
+	private OffsetDateTime dataAtualizacao;
+	
+	@ApiModelProperty(example = "true")
 	private Boolean ativo;
 	
 	private EnderecoModel endereco;

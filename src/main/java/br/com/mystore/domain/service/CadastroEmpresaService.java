@@ -90,10 +90,14 @@ public class CadastroEmpresaService {
 
 	@Transactional
 	public Empresa salvar(Empresa empresa) {
+		if(empresa.getEndereco().getId()== null) {
 		Endereco endereco = cadastroEndereco.salvar(empresa.getEndereco());
 
 		empresa.setEndereco(endereco);
-
+		}else {
+			Endereco endereco = cadastroEndereco.buscarOuFalhar(empresa.getEndereco().getId());
+			empresa.setEndereco(endereco);
+		} 
 		return empresaRepository.save(empresa);
 	}
 }

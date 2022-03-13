@@ -14,14 +14,13 @@ public class CadastroProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	public Produto buscarOuFalhar(Long empresaId, Long produtoId) {
+		return produtoRepository.findById(produtoId)
+				.orElseThrow(() -> new ProdutoNaoEncontradoException(empresaId, produtoId));
+	}
+
 	@Transactional
 	public Produto salvar(Produto produto) {
 		return produtoRepository.save(produto);
 	}
-
-	public Produto buscarOuFalhar(Long restauranteId, Long produtoId) {
-		return produtoRepository.findById(produtoId)
-				.orElseThrow(() -> new ProdutoNaoEncontradoException(restauranteId, produtoId));
-	}
-
 }
