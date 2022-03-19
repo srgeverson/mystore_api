@@ -113,13 +113,18 @@ insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 1);
 
 insert into empresas_usuarios_responsaveis(empresas_id, usuarios_id) values(1, 2);
 
-insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
-values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
+insert into oauth_client_details (
+client_id, 		resource_ids, 	client_secret, 													scope, 			authorized_grant_types, 	web_server_redirect_uri, 	authorities, 	access_token_validity, refresh_token_validity, autoapprove)
+values (
+'mystore-app', 	null, 			'$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 	'password,refresh_token', 	null, 						null, 			30, 					60, 					null);
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
-values ('mystore-app', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password,refresh_token', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
+values ('mystore-desktop', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, null, null);
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-manager', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2', 'READ,WRITE', 'client_credentials', null, 'RECUPERAR_SENHA', null, null, null);
+
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('mystore-web', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 24 * 60 * 60, null,  null);
 
 unlock tables;
