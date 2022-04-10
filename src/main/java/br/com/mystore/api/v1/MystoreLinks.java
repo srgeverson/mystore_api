@@ -18,6 +18,7 @@ import br.com.mystore.api.v1.controller.EmpresaFormaPagamentoController;
 import br.com.mystore.api.v1.controller.EmpresaProdutoController;
 import br.com.mystore.api.v1.controller.EmpresaUsuarioResponsavelController;
 import br.com.mystore.api.v1.controller.EstadoController;
+import br.com.mystore.api.v1.controller.EstatisticasController;
 import br.com.mystore.api.v1.controller.FluxoPedidoController;
 import br.com.mystore.api.v1.controller.FormaPagamentoController;
 import br.com.mystore.api.v1.controller.GrupoController;
@@ -62,7 +63,7 @@ public class MystoreLinks {
 
 	// Início Links Clientes
 	public Link linkToCliente(Long empresaId, Long clienteId, String rel) {
-		return linkTo(methodOn(EmpresaProdutoController.class).buscar(empresaId, clienteId)).withRel(rel);
+		return linkTo(methodOn(EmpresaClienteController.class).buscar(empresaId, clienteId)).withRel(rel);
 	}
 
 	public Link linkToCliente(Long empresaId, Long clienteId) {
@@ -74,7 +75,7 @@ public class MystoreLinks {
 	}
 
 	public Link linkToClientes(Long empresaId) {
-		return linkToProdutos(empresaId, IanaLinkRelations.SELF.value());
+		return linkToClientes(empresaId, IanaLinkRelations.SELF.value());
 	}
 	// Fim Links Produtos
 
@@ -156,8 +157,13 @@ public class MystoreLinks {
 	public Link linkToEmpresaResponsavelAssociacao(Long empresaId, String rel) {
 		return linkTo(methodOn(EmpresaUsuarioResponsavelController.class).associar(empresaId, null)).withRel(rel);
 	}
-
 	// Fim Links Empresa
+
+	// Início Links Estatísticas
+	public Link linkToEstatisticas(String rel) {
+		return linkTo(EstatisticasController.class).withRel(rel);
+	}
+	// Fim Links Estatísticas
 
 	// Início Links Formas Pagamentos
 	public Link linkToFormaPagamento(Long formaPagamentoId, String rel) {
@@ -226,35 +232,31 @@ public class MystoreLinks {
 				new TemplateVariable("empresaId", VariableType.REQUEST_PARAM),
 				new TemplateVariable("dataCriacaoInicio", VariableType.REQUEST_PARAM),
 				new TemplateVariable("dataCriacaoFim", VariableType.REQUEST_PARAM));
-		
+
 		String pedidosUrl = linkTo(PedidoController.class).toUri().toString();
-		
-		return new Link(UriTemplate.of(pedidosUrl, 
-				PAGINACAO_VARIABLES.concat(filtroVariables)), rel);
+
+		return new Link(UriTemplate.of(pedidosUrl, PAGINACAO_VARIABLES.concat(filtroVariables)), rel);
 	}
-	
+
 	public Link linkToConfirmacaoPedido(String codigoPedido, String rel) {
-		return linkTo(methodOn(FluxoPedidoController.class)
-				.confirmar(codigoPedido)).withRel(rel);
+		return linkTo(methodOn(FluxoPedidoController.class).confirmar(codigoPedido)).withRel(rel);
 	}
-	
+
 	public Link linkToEntregaPedido(String codigoPedido, String rel) {
-		return linkTo(methodOn(FluxoPedidoController.class)
-				.entregar(codigoPedido)).withRel(rel);
+		return linkTo(methodOn(FluxoPedidoController.class).entregar(codigoPedido)).withRel(rel);
 	}
-	
+
 	public Link linkToCancelamentoPedido(String codigoPedido, String rel) {
-		return linkTo(methodOn(FluxoPedidoController.class)
-				.cancelar(codigoPedido)).withRel(rel);
+		return linkTo(methodOn(FluxoPedidoController.class).cancelar(codigoPedido)).withRel(rel);
 	}
 	// Fim Links Pedidos
-	
+
 	// Início Links Produtos
 	public Link linkToProduto(Long empresaId, Long produtoId, String rel) {
 		return linkTo(methodOn(EmpresaProdutoController.class).buscar(empresaId, produtoId)).withRel(rel);
 	}
 
-	public Link linkToProduto(Long empresaId, Long produtoId) {
+	public Link linkToProdutos(Long empresaId, Long produtoId) {
 		return linkToProduto(empresaId, produtoId, IanaLinkRelations.SELF.value());
 	}
 

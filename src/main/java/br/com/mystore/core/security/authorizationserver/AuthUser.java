@@ -16,14 +16,14 @@ public class AuthUser extends User {
 	
 	private Long userId;
 	private String fullName;
-	private Object[] empresas;
+	private List<Long> empresas;
 	
 	public AuthUser(Usuario usuario, Collection<? extends GrantedAuthority> authorities, List<Long> empresas) {
 		super(usuario.getEmail(), usuario.getSenha(), authorities);
 		
 		this.userId = usuario.getId();
 		this.fullName = usuario.getNome();
-		this.empresas = empresas.toArray();
+		this.empresas = empresas;
 	}
 	
 }

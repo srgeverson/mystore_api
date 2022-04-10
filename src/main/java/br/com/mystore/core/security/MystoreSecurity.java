@@ -1,5 +1,7 @@
 package br.com.mystore.core.security;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +33,12 @@ public class MystoreSecurity {
 		return getAuthentication().isAuthenticated();
 	}
 
+	public List<Long> getEmpresas() {
+		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
+
+		return jwt.getClaim("empresas");
+	}
+	
 	public Long getUsuarioId() {
 		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 

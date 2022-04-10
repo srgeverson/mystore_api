@@ -5642,11 +5642,13 @@ INSERT INTO cidades (codigo_municipio, nome, estados_id, ativo) VALUES
 ('5222302','Vila Propício', 9, false),
 ('5300108','Brasília', 7, false);
 
-insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (1, 'Rua', 'S/N', NULL, NULL , 1);
+insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (1, 'Rua Paula Lopes', 'S/N', 'PQ Havai', NULL , (SELECT id FROM cidades WHERE codigo_municipio = 2304400));
+insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (2, 'Rua', 'S/N', 'Centro', NULL , (SELECT id FROM cidades WHERE codigo_municipio = 2304400));
+insert into enderecos (id, logradouro, numero, bairro, cep, cidades_id) values (3, 'Rua 122', 'S/N', NULL, NULL , (SELECT id FROM cidades WHERE codigo_municipio = 2303709));
 
 insert into empresas (id, nome,  data_cadastro, ativo, enderecos_id) values (1, 'Paulistense TI', utc_timestamp, true, 1);
-insert into empresas (id, nome, data_cadastro, ativo, enderecos_id) values (2, 'Nilson Limpeza', utc_timestamp, true, 1);
-insert into empresas (id, nome, data_cadastro,  ativo, enderecos_id) values (3, 'Granfinamodas', utc_timestamp, true, 1);
+insert into empresas (id, nome, data_cadastro, ativo, enderecos_id) values (2, 'Nilson Limpeza', utc_timestamp, true, 2);
+insert into empresas (id, nome, data_cadastro,  ativo, enderecos_id) values (3, 'Granfinamodas', utc_timestamp, true, 3);
 
 insert into produtos (id, nome, descricao, preco_compra, preco_venda, preco_custo, ativo, empresas_id) values (1, "Amaciante Azul", "Roupas macias e cheirosas", 0, 0, 0, true,1);
 
@@ -5674,17 +5676,17 @@ insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono');
 insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10);
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
-(1, 'Administrador', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
-(2, 'Geverson', 'geversonjosedesouza@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
+(1, 'Geverson Corporativo', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
+(2, 'Geverson Usuário', 'geversonjosedesouza@hotmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp);
 
-insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 1);
+insert into usuarios_grupos (usuarios_id, grupos_id) values (1, 1), (2, 2);
 
 insert into empresas_usuarios_responsaveis(empresas_id, usuarios_id) values(1, 2);
 
 insert into oauth_client_details (
 client_id, 		resource_ids, 	client_secret, 													scope, 			authorized_grant_types, 	web_server_redirect_uri, 	authorities, 	access_token_validity, refresh_token_validity, autoapprove)
 values (
-'mystore-app', 	null, 			'$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 	'password,refresh_token', 	null, 						null, 			30, 					60, 					null);
+'mystore-app', 	null, 			'$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 	'password,refresh_token', 	null, 						null, 			60 * 60 * 24, 					60, 					null);
 
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
 values ('mystore-desktop', null, '$2a$12$1RCnMPrhtq1coLaRbrG8zOwvViirmOYscHezhW9quozc1TGVO/EI2','READ,WRITE', 'password', null, null, 60 * 60 * 6, null, null);
