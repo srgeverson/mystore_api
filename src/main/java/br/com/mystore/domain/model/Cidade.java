@@ -32,6 +32,9 @@ public class Cidade {
 	@Column(nullable = false)
 	private String nome;
 
+	@Column(nullable = false)
+	private Boolean ativo;
+	
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
 	@NotNull
