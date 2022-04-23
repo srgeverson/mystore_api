@@ -5674,7 +5674,7 @@ insert into empresas_formas_pagamentos (empresas_id, formas_pagamentos_id) value
 insert into grupos (id, nome) values (1, 'TI'), (2, 'Dono');
 
 insert into grupos_permissoes (grupos_id, permissoes_id) values (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11);
-INSERT INTO grupos_permissoes (grupos_id, permissoes_id) VALUES (1, 2), (1, 3), (1, 5);
+INSERT INTO grupos_permissoes (grupos_id, permissoes_id) VALUES (2, 2), (2, 3), (2, 5);
 
 insert into usuarios (id, nome, email, senha, ativo, data_ultimo_acesso, data_cadastro) values
 (1, 'Geverson Corporativo', 'paulistensetecnologia@gmail.com', '$2a$12$tVlLLpPEEGKGK9UoMIXiFOQguudMDPGvautJgqp/jzBEdWxTzpi2u', true, utc_timestamp, utc_timestamp),
