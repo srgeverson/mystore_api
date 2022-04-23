@@ -28,4 +28,19 @@ public class Estado {
 	@Column(nullable = false)
 	private String nome;
 	
+	@NotBlank
+	@Column(nullable = false)
+	private String uf;
+
+	@NotBlank
+	@Column(name = "codigo_uf", nullable = false)
+	private Long codigoUf;
+
+	@NotBlank
+	@Column(name = "regioes_id", nullable = false)
+	private Long regiao;
+
+	@Column(nullable = false)
+	private Boolean ativo;
+	
 }

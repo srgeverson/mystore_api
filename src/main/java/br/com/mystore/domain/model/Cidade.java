@@ -32,9 +32,12 @@ public class Cidade {
 	@Column(nullable = false)
 	private String nome;
 
+	@NotBlank
+	@Column(name = "codigo_municipio", nullable = false)
+	private Long codigoMunicipio;
+
 	@Column(nullable = false)
 	private Boolean ativo;
-	
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
 	@NotNull
