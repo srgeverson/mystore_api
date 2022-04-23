@@ -136,7 +136,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
 	}
 	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
+	@CheckSecurity.UsuariosGruposPermissoes.PodeVisualizarProprioUsuario
 	@GetMapping("/perfil")
 	@Override
 	public UsuarioModel getPerfil() {
