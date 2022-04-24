@@ -5,6 +5,7 @@ import org.springframework.hateoas.CollectionModel;
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.ClienteModel;
 import br.com.mystore.api.v1.model.input.ClienteInput;
+import br.com.mystore.api.v1.model.input.ClienteInputEnderecoIdInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,7 +41,7 @@ public interface EmpresaClienteControllerOpenApi {
 			
 			@ApiParam(name = "corpo", value = "Representação de um cliente com os novos dados", 
 				required = true)
-			ClienteInput clienteInput);
+			ClienteInputEnderecoIdInput clienteInputEnderecoIdInput);
 
 	@ApiOperation("Busca um cliente de um empresa")
 	@ApiResponses({

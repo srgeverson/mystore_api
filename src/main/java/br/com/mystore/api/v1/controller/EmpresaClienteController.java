@@ -23,6 +23,7 @@ import br.com.mystore.api.v1.assembler.ClienteInputDisassembler;
 import br.com.mystore.api.v1.assembler.ClienteModelAssembler;
 import br.com.mystore.api.v1.model.ClienteModel;
 import br.com.mystore.api.v1.model.input.ClienteInput;
+import br.com.mystore.api.v1.model.input.ClienteInputEnderecoIdInput;
 import br.com.mystore.api.v1.openapi.controller.EmpresaClienteControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.Cliente;
@@ -72,10 +73,10 @@ public class EmpresaClienteController implements EmpresaClienteControllerOpenApi
 	@Override
 	@PutMapping("/{clienteId}")
 	public ClienteModel atualizar(@PathVariable Long empresaId, @PathVariable Long clienteId,
-			@RequestBody @Valid ClienteInput clienteInput) {
+			@RequestBody @Valid ClienteInputEnderecoIdInput clienteInputEnderecoIdInput) {
 		Cliente clienteAtual = cadastroCliente.buscarOuFalhar(empresaId, clienteId);
 
-		clienteInputDisassembler.copyToDomainObject(clienteInput, clienteAtual);
+		clienteInputDisassembler.copyToDomainObject(clienteInputEnderecoIdInput, clienteAtual);
 
 		clienteAtual = cadastroCliente.salvar(clienteAtual);
 
