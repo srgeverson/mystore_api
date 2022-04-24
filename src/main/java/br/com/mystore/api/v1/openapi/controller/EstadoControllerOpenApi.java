@@ -4,7 +4,7 @@ import org.springframework.hateoas.CollectionModel;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.EstadoModel;
-import br.com.mystore.api.v1.model.imput.EstadoInput;
+import br.com.mystore.api.v1.model.input.EstadoInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,9 +42,16 @@ public interface EstadoControllerOpenApi {
 			@ApiParam(value = "ID de um estado", example = "1", required = true)
 			Long estadoId);
 
-
 	@ApiOperation("Lista os estados")
 	CollectionModel<EstadoModel> listar();
+
+	@ApiOperation("Lista as cidades que foram atualizados")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Estados atualizados", response = EstadoModel[].class)
+	})
+	CollectionModel<EstadoModel> listarAtualizados(
+			@ApiParam(value = "Número da Ultima Versão", example = "1", required = true)
+			Long versao);
 	
 	@ApiOperation("Exclui um estado por ID")
 	@ApiResponses({

@@ -9,7 +9,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.mystore.api.v1.assembler.UsuarioInputDisassembler;
 import br.com.mystore.api.v1.assembler.UsuarioModelAssembler;
 import br.com.mystore.api.v1.model.UsuarioModel;
-import br.com.mystore.api.v1.model.imput.SenhaInput;
-import br.com.mystore.api.v1.model.imput.UsuarioComSenhaInput;
-import br.com.mystore.api.v1.model.imput.UsuarioInput;
+import br.com.mystore.api.v1.model.input.SenhaInput;
+import br.com.mystore.api.v1.model.input.UsuarioComSenhaInput;
+import br.com.mystore.api.v1.model.input.UsuarioInput;
 import br.com.mystore.api.v1.openapi.controller.UsuarioControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.core.security.MystoreSecurity;
@@ -64,7 +63,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 
 	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PutMapping("/{usuarioId}/ativo")
+	@PutMapping("/{usuarioId}/ativar")
 	@Override
 	public ResponseEntity<Void> ativar(@PathVariable Long usuarioId) {
 		cadastroUsuario.ativar(usuarioId);
@@ -117,9 +116,18 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		cadastroUsuario.codigoAcesso(usuarioEmail);
 	}
 
+	@CheckSecurity.UsuariosGruposPermissoes.PodeVisualizarProprioUsuario
+	@GetMapping("/perfil")
+	@Override
+	public UsuarioModel getPerfil() {
+		Usuario usuario = cadastroUsuario.buscarOuFalhar(mystoreSecurity.getUsuarioId());
+
+		return usuarioModelAssembler.toModel(usuario);
+	}
+	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeGerenciarUsuariosGruposPermissoes
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{usuarioId}/ativo")
+	@PutMapping("/{usuarioId}/desativar")
 	@Override
 	public ResponseEntity<Void> inativar(@PathVariable Long usuarioId) {
 		cadastroUsuario.inativar(usuarioId);
@@ -136,12 +144,4 @@ public class UsuarioController implements UsuarioControllerOpenApi {
 		return usuarioModelAssembler.toCollectionModel(todasUsuarios);
 	}
 	
-	@CheckSecurity.UsuariosGruposPermissoes.PodeVisualizarProprioUsuario
-	@GetMapping("/perfil")
-	@Override
-	public UsuarioModel getPerfil() {
-		Usuario usuario = cadastroUsuario.buscarOuFalhar(mystoreSecurity.getUsuarioId());
-
-		return usuarioModelAssembler.toModel(usuario);
-	}
 }

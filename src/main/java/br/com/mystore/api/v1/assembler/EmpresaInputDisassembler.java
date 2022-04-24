@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.mystore.api.v1.model.imput.EmpresaEnderecoIdInput;
-import br.com.mystore.api.v1.model.imput.EmpresaInput;
+import br.com.mystore.api.v1.model.input.EmpresaEnderecoIdInput;
+import br.com.mystore.api.v1.model.input.EmpresaInput;
 import br.com.mystore.domain.model.Cidade;
 import br.com.mystore.domain.model.Empresa;
 import br.com.mystore.domain.model.Endereco;

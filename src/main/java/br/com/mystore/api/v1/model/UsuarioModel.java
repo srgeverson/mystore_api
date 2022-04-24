@@ -21,4 +21,7 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	@ApiModelProperty(example = "joao.ger@mystore.com.br")
 	private String email;
 	
+	@ApiModelProperty(example = "true")
+	private Boolean ativo;
+	
 }

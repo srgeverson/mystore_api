@@ -6,7 +6,7 @@ import org.springframework.hateoas.PagedModel;
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.PedidoModel;
 import br.com.mystore.api.v1.model.PedidoResumoModel;
-import br.com.mystore.api.v1.model.imput.PedidoInput;
+import br.com.mystore.api.v1.model.input.PedidoInput;
 import br.com.mystore.domain.filter.PedidoFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

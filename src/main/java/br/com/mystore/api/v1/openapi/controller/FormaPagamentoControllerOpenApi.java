@@ -6,7 +6,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.FormaPagamentoModel;
-import br.com.mystore.api.v1.model.imput.FormaPagamentoInput;
+import br.com.mystore.api.v1.model.input.FormaPagamentoInput;
 import br.com.mystore.api.v1.openapi.model.FormasPagamentoModelOpenApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

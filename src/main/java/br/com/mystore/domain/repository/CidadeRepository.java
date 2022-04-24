@@ -14,4 +14,9 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 	@Query("from cidades cid where cid.ativo = :ativo")
 	List<Cidade> findByAtivo(Boolean ativo);
 	
+	@Query("from cidades cid where cid.versao > :versao")
+	List<Cidade> findByMaiorVersao(Long versao);
+	
+	@Query("SELECT MAX(c.versao) FROM cidades AS c")
+	Long findByUltimaVersao();
 }

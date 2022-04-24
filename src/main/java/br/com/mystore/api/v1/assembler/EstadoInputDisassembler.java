@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.mystore.api.v1.model.imput.EstadoInput;
+import br.com.mystore.api.v1.model.input.EstadoInput;
 import br.com.mystore.domain.model.Estado;
 
 @Component

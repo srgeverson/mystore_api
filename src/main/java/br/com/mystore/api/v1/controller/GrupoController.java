@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.mystore.api.v1.assembler.GrupoInputDisassembler;
 import br.com.mystore.api.v1.assembler.GrupoModelAssembler;
 import br.com.mystore.api.v1.model.GrupoModel;
-import br.com.mystore.api.v1.model.imput.GrupoInput;
+import br.com.mystore.api.v1.model.input.GrupoInput;
 import br.com.mystore.api.v1.openapi.controller.GrupoControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.Grupo;

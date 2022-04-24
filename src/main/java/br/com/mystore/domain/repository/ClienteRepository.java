@@ -19,7 +19,12 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 	List<Cliente> findTodosByEmpresa(Empresa empresa);
 
-	@Query("from clientes p where p.ativo = true and p.empresa = :empresa")
+	@Query("from clientes c where c.ativo = true and c.empresa = :empresa")
 	List<Cliente> findAtivosByEmpresa(Empresa empresa);
 
+	@Query("from clientes AS c WHERE c.empresa = :empresa AND c.versao > :versao")
+	List<Cliente> findByMaiorVersao(Empresa empresa, Long versao);
+	
+	@Query("SELECT MAX(c.versao) FROM clientes AS c where c.empresa = :empresa")
+	Long findByUltimaVersao(Empresa empresa);
 }

@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.mystore.api.v1.model.imput.GrupoInput;
+import br.com.mystore.api.v1.model.input.GrupoInput;
 import br.com.mystore.domain.model.Grupo;
 
 @Component

@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.UsuarioModel;
-import br.com.mystore.api.v1.model.imput.SenhaInput;
-import br.com.mystore.api.v1.model.imput.UsuarioComSenhaInput;
-import br.com.mystore.api.v1.model.imput.UsuarioInput;
+import br.com.mystore.api.v1.model.input.SenhaInput;
+import br.com.mystore.api.v1.model.input.UsuarioComSenhaInput;
+import br.com.mystore.api.v1.model.input.UsuarioInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

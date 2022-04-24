@@ -22,7 +22,7 @@ import br.com.mystore.api.v1.MystoreLinks;
 import br.com.mystore.api.v1.assembler.ProdutoInputDisassembler;
 import br.com.mystore.api.v1.assembler.ProdutoModelAssembler;
 import br.com.mystore.api.v1.model.ProdutoModel;
-import br.com.mystore.api.v1.model.imput.ProdutoInput;
+import br.com.mystore.api.v1.model.input.ProdutoInput;
 import br.com.mystore.api.v1.openapi.controller.EmpresaProdutoControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.Empresa;

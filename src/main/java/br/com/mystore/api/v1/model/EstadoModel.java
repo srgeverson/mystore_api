@@ -17,5 +17,13 @@ public class EstadoModel extends RepresentationModel<EstadoModel> {
 	
 	@ApiModelProperty(example = "Ceaará")
 	private String nome;
+
+	@ApiModelProperty(example = "CE")
+	private String uf;
 	
+	@ApiModelProperty(example = "true")
+	private Boolean ativo;
+	
+	@ApiModelProperty(example = "1")
+	private Long versao;
 }

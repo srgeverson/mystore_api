@@ -25,7 +25,7 @@ import br.com.mystore.api.v1.assembler.PedidoModelAssembler;
 import br.com.mystore.api.v1.assembler.PedidoResumoModelAssembler;
 import br.com.mystore.api.v1.model.PedidoModel;
 import br.com.mystore.api.v1.model.PedidoResumoModel;
-import br.com.mystore.api.v1.model.imput.PedidoInput;
+import br.com.mystore.api.v1.model.input.PedidoInput;
 import br.com.mystore.api.v1.openapi.controller.PedidoControllerOpenApi;
 import br.com.mystore.core.data.PageWrapper;
 import br.com.mystore.core.data.PageableTranslator;

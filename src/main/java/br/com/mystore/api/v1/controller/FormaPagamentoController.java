@@ -27,7 +27,7 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import br.com.mystore.api.v1.assembler.FormaPagamentoInputDisassembler;
 import br.com.mystore.api.v1.assembler.FormaPagamentoModelAssembler;
 import br.com.mystore.api.v1.model.FormaPagamentoModel;
-import br.com.mystore.api.v1.model.imput.FormaPagamentoInput;
+import br.com.mystore.api.v1.model.input.FormaPagamentoInput;
 import br.com.mystore.api.v1.openapi.controller.FormaPagamentoControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.FormaPagamento;

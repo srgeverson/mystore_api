@@ -4,7 +4,7 @@ import org.springframework.hateoas.CollectionModel;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.GrupoModel;
-import br.com.mystore.api.v1.model.imput.GrupoInput;
+import br.com.mystore.api.v1.model.input.GrupoInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -1,4 +1,4 @@
-package br.com.mystore.api.v1.model.imput;
+package br.com.mystore.api.v1.model.input;
 
 import java.util.List;
 

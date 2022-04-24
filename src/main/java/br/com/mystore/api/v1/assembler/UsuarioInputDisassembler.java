@@ -4,8 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.mystore.api.v1.model.imput.UsuarioComSenhaInput;
-import br.com.mystore.api.v1.model.imput.UsuarioInput;
+import br.com.mystore.api.v1.model.input.UsuarioComSenhaInput;
+import br.com.mystore.api.v1.model.input.UsuarioInput;
 import br.com.mystore.domain.model.Usuario;
 
 @Component
