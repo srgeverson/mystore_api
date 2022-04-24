@@ -5,5 +5,6 @@ CREATE TABLE estados (
     uf CHAR(2),
     ativo TINYINT(1),
     regioes_id INT,
+    versao BIGINT NOT NULL,
 	PRIMARY KEY (id)
 ) engine=InnoDB default charset=utf8;

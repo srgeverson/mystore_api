@@ -4,5 +4,6 @@ CREATE TABLE cidades (
     codigo_municipio INT,
     ativo TINYINT(1),
 	estados_id BIGINT,
+    versao BIGINT NOT NULL,
 	PRIMARY KEY (id)
 ) engine=InnoDB default charset=utf8;

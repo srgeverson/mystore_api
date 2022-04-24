@@ -10,5 +10,6 @@ CREATE TABLE clientes (
     ativo TINYINT(1) NOT NULL,
     enderecos_id BIGINT,
     empresas_id BIGINT NOT NULL,
+    versao BIGINT NOT NULL,
 	PRIMARY KEY (id)
 ) engine=InnoDB default charset=utf8;
