@@ -4,7 +4,7 @@ import org.springframework.hateoas.CollectionModel;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.CidadeModel;
-import br.com.mystore.api.v1.model.imput.CidadeInput;
+import br.com.mystore.api.v1.model.input.CidadeInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -43,9 +43,13 @@ public interface CidadeControllerOpenApi {
 			@ApiParam(value = "ID de uma cidade", example = "1", required = true)
 			Long cidadeId);
 
-
-	@ApiOperation("Lista as cidades")
+	@ApiOperation("Lista Todas Cidades")
 	CollectionModel<CidadeModel> listar();
+	
+	@ApiOperation("Lista as cidades que foram atualizadas")
+	CollectionModel<CidadeModel> listarAtualizadas(
+			@ApiParam(value = "Número da última versão", example = "1", required = true)
+			Long versao);
 	
 	@ApiOperation("Exclui uma cidade por ID")
 	@ApiResponses({
@@ -55,5 +59,5 @@ public interface CidadeControllerOpenApi {
 	void remover(
 			@ApiParam(value = "ID de uma cidade", example = "1", required = true)
 			Long cidadeId);
-	
+
 }

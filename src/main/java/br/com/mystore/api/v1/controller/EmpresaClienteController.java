@@ -22,7 +22,7 @@ import br.com.mystore.api.v1.MystoreLinks;
 import br.com.mystore.api.v1.assembler.ClienteInputDisassembler;
 import br.com.mystore.api.v1.assembler.ClienteModelAssembler;
 import br.com.mystore.api.v1.model.ClienteModel;
-import br.com.mystore.api.v1.model.imput.ClienteInput;
+import br.com.mystore.api.v1.model.input.ClienteInput;
 import br.com.mystore.api.v1.openapi.controller.EmpresaClienteControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.Cliente;
@@ -105,6 +105,18 @@ public class EmpresaClienteController implements EmpresaClienteControllerOpenApi
 		} else {
 			todosClientes = clienteRepository.findAtivosByEmpresa(empresa);
 		}
+
+		return clienteModelAssembler.toCollectionModel(todosClientes).add(mystoreLinks.linkToClientes(empresaId));
+	}
+	
+
+	@CheckSecurity.Empresas.PodeConsultar
+	@GetMapping("/versao")
+	@Override
+	public CollectionModel<ClienteModel> listarAtualizados(@PathVariable Long empresaId,@RequestParam Long ultimaVersao) {
+		Empresa empresa = cadastroEmpresa.buscarOuFalhar(empresaId);
+
+		List<Cliente> todosClientes = clienteRepository.findByMaiorVersao(empresa, ultimaVersao);
 
 		return clienteModelAssembler.toCollectionModel(todosClientes).add(mystoreLinks.linkToClientes(empresaId));
 	}

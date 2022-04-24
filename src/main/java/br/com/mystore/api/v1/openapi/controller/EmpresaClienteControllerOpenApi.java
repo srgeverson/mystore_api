@@ -4,7 +4,7 @@ import org.springframework.hateoas.CollectionModel;
 
 import br.com.mystore.api.exceptionhandler.Problema;
 import br.com.mystore.api.v1.model.ClienteModel;
-import br.com.mystore.api.v1.model.imput.ClienteInput;
+import br.com.mystore.api.v1.model.input.ClienteInput;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -66,4 +66,17 @@ public interface EmpresaClienteControllerOpenApi {
 			@ApiParam(value = "Indica se deve ou não incluir clientes inativos no resultado da listagem", 
 				example = "false", defaultValue = "false")
 			Boolean incluirInativos);
+	
+
+	@ApiOperation("Lista os clientes atualizados de um empresa")
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "ID do empresa inválido", response = Problema.class),
+		@ApiResponse(code = 404, message = "Empresa não encontrado", response = Problema.class)
+	})
+	CollectionModel<ClienteModel> listarAtualizados(
+			@ApiParam(value = "ID do empresa", example = "1", required = true)
+			Long empresaId,
+			@ApiParam(value = "Número da última versão", example = "1", required = true)
+			Long ultimaVersao);
+
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.mystore.api.v1.assembler.EstadoInputDisassembler;
 import br.com.mystore.api.v1.assembler.EstadoModelAssembler;
 import br.com.mystore.api.v1.model.EstadoModel;
-import br.com.mystore.api.v1.model.imput.EstadoInput;
+import br.com.mystore.api.v1.model.input.EstadoInput;
 import br.com.mystore.api.v1.openapi.controller.EstadoControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.model.Estado;
@@ -34,23 +34,39 @@ public class EstadoController implements EstadoControllerOpenApi {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
-	
+
 	@Autowired
 	private EstadoModelAssembler estadoModelAssembler;
-	
+
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;
-	
+
 	@CheckSecurity.Estados.PodeGerenciar
 	@Override
-	@GetMapping
-	public CollectionModel<EstadoModel> listar() {
-		List<Estado> todosEstados = estadoRepository.findAll();
-		
-		return estadoModelAssembler.toCollectionModel(todosEstados);
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+		Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
+
+		estado = cadastroEstado.salvar(estado);
+
+		return estadoModelAssembler.toModel(estado);
+	}
+
+	@CheckSecurity.Estados.PodeGerenciar
+	@Override
+	@PutMapping("/{estadoId}")
+	public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estadoInput) {
+		Estado estadoAtual = cadastroEstado.buscarOuFalhar(estadoId);
+
+		estadoInputDisassembler.copyToDomainObject(estadoInput, estadoAtual);
+
+		estadoAtual = cadastroEstado.salvar(estadoAtual);
+
+		return estadoModelAssembler.toModel(estadoAtual);
 	}
 	
 	@CheckSecurity.Estados.PodeGerenciar
@@ -58,34 +74,26 @@ public class EstadoController implements EstadoControllerOpenApi {
 	@GetMapping("/{estadoId}")
 	public EstadoModel buscar(@PathVariable Long estadoId) {
 		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
-		
+
 		return estadoModelAssembler.toModel(estado);
 	}
-	
+
 	@CheckSecurity.Estados.PodeGerenciar
 	@Override
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
-		Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
-		
-		estado = cadastroEstado.salvar(estado);
-		
-		return estadoModelAssembler.toModel(estado);
+	@GetMapping
+	public CollectionModel<EstadoModel> listar() {
+		List<Estado> todosEstados = estadoRepository.findAll();
+
+		return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 	
-	@CheckSecurity.Estados.PodeGerenciar
+	@CheckSecurity.Estados.PodeConsultar
 	@Override
-	@PutMapping("/{estadoId}")
-	public EstadoModel atualizar(@PathVariable Long estadoId,
-			@RequestBody @Valid EstadoInput estadoInput) {
-		Estado estadoAtual = cadastroEstado.buscarOuFalhar(estadoId);
-		
-		estadoInputDisassembler.copyToDomainObject(estadoInput, estadoAtual);
-		
-		estadoAtual = cadastroEstado.salvar(estadoAtual);
-		
-		return estadoModelAssembler.toModel(estadoAtual);
+	@GetMapping("/versao/{ultimaVersao}")
+	public CollectionModel<EstadoModel> listarAtualizados(@PathVariable Long ultimaVersao) {
+		List<Estado> todosEstados = estadoRepository.findByMaiorVersao(ultimaVersao);
+
+		return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 	
 	@CheckSecurity.Estados.PodeGerenciar
@@ -93,7 +101,7 @@ public class EstadoController implements EstadoControllerOpenApi {
 	@DeleteMapping("/{estadoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long estadoId) {
-		cadastroEstado.excluir(estadoId);	
+		cadastroEstado.excluir(estadoId);
 	}
-	
+
 }

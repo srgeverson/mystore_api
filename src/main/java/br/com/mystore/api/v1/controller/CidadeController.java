@@ -22,7 +22,7 @@ import br.com.mystore.api.ResourceUriHelper;
 import br.com.mystore.api.v1.assembler.CidadeInputDisassembler;
 import br.com.mystore.api.v1.assembler.CidadeModelAssembler;
 import br.com.mystore.api.v1.model.CidadeModel;
-import br.com.mystore.api.v1.model.imput.CidadeInput;
+import br.com.mystore.api.v1.model.input.CidadeInput;
 import br.com.mystore.api.v1.openapi.controller.CidadeControllerOpenApi;
 import br.com.mystore.core.security.CheckSecurity;
 import br.com.mystore.domain.exception.EstadoNaoEncontradoException;
@@ -102,6 +102,15 @@ public class CidadeController implements CidadeControllerOpenApi {
 		return cidadeModelAssembler.toCollectionModel(todasCidades);
 	}
 	
+	@CheckSecurity.Cidades.PodeConsultar
+	@GetMapping("/versao/{ultimaVersao}")
+	@Override
+	public CollectionModel<CidadeModel> listarAtualizadas(@PathVariable Long ultimaVersao) {
+		List<Cidade> todasCidades = cidadeRepository.findByMaiorVersao(ultimaVersao);
+		
+		return cidadeModelAssembler.toCollectionModel(todasCidades);
+	}
+	
 	@CheckSecurity.Cidades.PodeGerenciar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{cidadeId}")
@@ -109,5 +118,5 @@ public class CidadeController implements CidadeControllerOpenApi {
 	public void remover(@PathVariable Long cidadeId) {
 		cadastroCidade.excluir(cidadeId);
 	}
-
+	
 }

@@ -43,4 +43,8 @@ public class Estado {
 	@Column(nullable = false)
 	private Boolean ativo;
 	
+	@NotNull
+	@Column(nullable = false)
+	private Long versao;
+	
 }

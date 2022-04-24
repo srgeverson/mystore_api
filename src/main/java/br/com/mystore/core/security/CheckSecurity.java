@@ -18,6 +18,12 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeGerenciar {
 		}
+		
+		@PreAuthorize("@mystoreSecurity.podeConsultarCidades()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar {
+		}
 
 	}
 
@@ -49,6 +55,12 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeGerenciar {
+		}
+		
+		@PreAuthorize("@mystoreSecurity.podeConsultarEstados()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar {
 		}
 
 	}

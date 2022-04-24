@@ -30,7 +30,13 @@ public class CadastroClienteService {
 		cliente.setEndereco(endereco);
 
 		cliente.setAtivo(true);
-		
+
+		var ultimaVersao = clienteRepository.findByUltimaVersao(cliente.getEmpresa());
+		if (ultimaVersao == null)
+			cliente.setVersao(0L);
+		else
+			cliente.setVersao(ultimaVersao + 1);
+
 		return clienteRepository.save(cliente);
 	}
 

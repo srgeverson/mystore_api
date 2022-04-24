@@ -22,6 +22,7 @@ public class CadastroEstadoService {
 	
 	@Transactional
 	public Estado salvar(Estado estado) {
+		estado.setVersao(estadoRepository.findByUltimaVersao() + 1);
 		return estadoRepository.save(estado);
 	}
 	

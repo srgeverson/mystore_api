@@ -29,9 +29,11 @@ public class CadastroCidadeService {
 		Long estadoId = cidade.getEstado().getId();
 
 		Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
-		
+
 		cidade.setEstado(estado);
-		
+
+		cidade.setVersao(cidadeRepository.findByUltimaVersao() + 1);
+
 		return cidadeRepository.save(cidade);
 	}
 	

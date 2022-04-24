@@ -18,6 +18,12 @@ public class CidadeModel extends RepresentationModel<CidadeModel> {
 	@ApiModelProperty(example = "Fortaleza")
 	private String nome;
 	
+	@ApiModelProperty(example = "true")
+	private Boolean ativo;
+	
+	@ApiModelProperty(example = "1")
+	private Long versao;
+	
 	private EstadoModel estado;
 	
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -50,6 +51,10 @@ public class Cliente {
 	@Column(nullable = false)
 	private Boolean ativo;
 
+	@NotNull
+	@Column(nullable = false)
+	private Long versao;
+	
 	@ManyToOne()
 	@JoinColumn(name = "enderecos_id", nullable = false)
 	private Endereco endereco;
