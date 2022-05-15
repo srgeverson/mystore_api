@@ -5,7 +5,6 @@ import javax.validation.constraints.Email;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
-import br.com.mystore.api.v1.model.input.EnderecoInput;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,6 +42,6 @@ public class ClienteModel extends RepresentationModel<ClienteModel> {
 	@ApiModelProperty(example = "1")
 	private Long versao;
 
-	private EnderecoInput endereco;
+	private EnderecoModel endereco;
 	
 }
