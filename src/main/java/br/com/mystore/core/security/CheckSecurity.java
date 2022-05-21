@@ -148,7 +148,7 @@ public @interface CheckSecurity {
 		public @interface PodeRecuperarSenha {
 		}
 
-		@PreAuthorize("hasAuthority('SCOPE_READ') and @mystoreSecurity.usuarioAutenticadoIgual(#usuarioId)")
+		@PreAuthorize("hasAuthority('SCOPE_READ')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeVisualizarProprioUsuario {
