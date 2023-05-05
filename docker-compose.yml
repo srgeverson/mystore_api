@@ -1,0 +1,43 @@
+version: "3.9"
+
+networks:
+  mystore-network:
+    driver: bridge
+
+services:
+  mystore-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+    ports:
+      - "3306:3306"
+    networks:
+      - mystore-network
+
+  mystore-db-session:
+    image: redis:6.2.1-alpine
+    networks:
+      - mystore-network
+
+  mystore-api:
+    image: mystore-api
+    command: ["/app/wait-for-it.sh", "mystore-db:3306", "-t", "30", "--", "java", "-jar", "api.jar"]
+    environment:
+      DB_HOST: mystore-db
+      SPRING_SESSION_STORE_TYPE: redis
+      SPRING_REDIS_HOST: mystore-db-session
+      SPRING_PROFILES_ACTIVE: development
+    networks:
+      - mystore-network
+    depends_on:
+      - mystore-db
+      
+  mystore-proxy:
+    build: ./nginx
+    image: mystore-proxy
+    ports:
+      - "80:80"
+    networks:
+      - mystore-network
+    depends_on:
+      - mystore-api
